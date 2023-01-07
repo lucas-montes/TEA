@@ -5,6 +5,8 @@ import "./style.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <div className="h-screen">
     <App />
+    </div>
   </React.StrictMode>
 );
