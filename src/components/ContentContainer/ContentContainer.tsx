@@ -4,8 +4,8 @@ import { BsPlusCircleFill } from 'react-icons/bs';
 
 const ContentContainer = () => {
   return (
-    <div className="bg-blue-800">
-    {/* Information is displayed here */}
+    <div className="h-screen bg-gray">
+    <p>jejejejeje</p>
   </div>
   );
 };

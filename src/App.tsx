@@ -4,12 +4,12 @@ import SideBar from './components/SideBar/SideBar';
 
 const App = () => (
   <>
-    <div className="w-64">
+    <div className="flex-initial w-64">
       <SideBar />
     </div>
-    {/* <div className="w-auto">
+    <div className="flex-auto">
       <ContentContainer />
-    </div> */}
+    </div>
   </>
 );
 
