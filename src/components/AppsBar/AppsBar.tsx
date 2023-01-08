@@ -1,25 +1,27 @@
-import { BsPlus, BsFillLightningFill, BsGearFill } from 'react-icons/bs';
-import { FaFire, FaPoo } from 'react-icons/fa';
+import SideBarIcons from '../../constants/SideBarIcons';
 
-const SideBar = () => {
+
+const AppsBar = () => {
   return (
-      <div className="left-0 w-1/4 bg-white dark:bg-gray-900 shadow-lg">  
-        <SideBarIcon icon={<FaFire size="28" />} />
-        <Divider />
-        <SideBarIcon icon={<BsPlus size="32" />} />
-        <SideBarIcon icon={<BsFillLightningFill size="20" />} />
-        <SideBarIcon icon={<FaPoo size="20" />} />
-        <Divider />
-        <SideBarIcon icon={<BsGearFill size="22" />} />
+    <div className="left-0 w-1/4 bg-white dark:bg-gray-900 shadow-lg">
+      {SideBarIcons.map((value, index) => {
+        return SideBarIcon(value.icon, value.className, value.tooltipClassName, value.tooltipText, index.toString())
+      })}
     </div>
   );
 };
 
-const SideBarIcon = ({ icon, place="", text = 'tooltip 💡' }) => (
-  <div className="sidebar-icon group">
+const SideBarIcon = (
+  icon: JSX.Element,
+  className: string,
+  tooltipClassName: string,
+  tooltipText: string,
+  key: string
+) => (
+  <div key={key} className={className}>
     {icon}
-    <span className="sidebar-tooltip group-hover:scale-100">
-      {text}
+    <span className={tooltipClassName}>
+      {tooltipText}
     </span>
   </div>
 );
@@ -27,4 +29,4 @@ const SideBarIcon = ({ icon, place="", text = 'tooltip 💡' }) => (
 
 const Divider = () => <hr className="sidebar-hr" />;
 
-export default SideBar;
+export default AppsBar;

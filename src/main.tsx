@@ -4,9 +4,7 @@ import App from "./App";
 import "./style.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <div className="h-screen flex">
+  <div className="h-screen flex">
     <App />
-    </div>
-  </React.StrictMode>
+  </div>
 );

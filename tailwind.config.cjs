@@ -10,6 +10,9 @@ module.exports = {
   ],
   darkMode: 'class', // class, 'media' or boolean
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       colors: {
         gray: {

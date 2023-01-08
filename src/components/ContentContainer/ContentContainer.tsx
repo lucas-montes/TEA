@@ -1,12 +1,11 @@
-import TopNavigation from '../TopNavigation';
 import { BsPlusCircleFill } from 'react-icons/bs';
 
 
 const ContentContainer = () => {
   return (
-    <div className="h-screen bg-gray">
-    <p>jejejejeje</p>
-  </div>
+    <div className="h-screen bg-gray container mx-auto px-4">
+      <p>jejejejeje</p>
+    </div>
   );
 };
 
