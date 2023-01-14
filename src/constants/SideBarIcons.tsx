@@ -1,43 +1,37 @@
-import { BsPlus, BsFillLightningFill, BsGearFill } from 'react-icons/bs';
-import { FaFire, FaPoo } from 'react-icons/fa';
-import MenuApp from "../models/Apps"
+import { BsKanban, BsGearFill } from 'react-icons/bs';
+import { BiNote } from 'react-icons/bi';
+import { TbMathFunction } from 'react-icons/tb';
+import MenuApp from "../models/Apps";
 
 const SideBarIcons = [
   new MenuApp(
-    <FaFire size="28" />,
+    <BsKanban size="28" />,
     "",
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
-    "Fire",
+    "Kanban",
   ),
   new MenuApp(
-    <BsPlus size="32" />,
+    <BiNote size="32" />,
     "",
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
-    "Plus ultra",
+    "Notes",
   ),
   new MenuApp(
-    <BsFillLightningFill size="20" />,
+    <TbMathFunction size="32" />,
     "",
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
-    "Light",
-  ),
-  new MenuApp(
-    <FaPoo size="20" />,
-    "",
-    "sidebar-icon group",
-    "sidebar-tooltip group-hover:scale-100",
-    "Fire",
+    "Alias",
   ),
   new MenuApp(
     <BsGearFill size="22" />,
-    "",
+    "inset-x-0 bottom-0 absolute",
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     "Settings",
   ),
-]
+];
 
 export default SideBarIcons;

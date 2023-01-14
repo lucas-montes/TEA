@@ -1,24 +1,19 @@
-import { useState } from "react";
-import AppsBar from '../AppsBar/AppsBar';
-import AppContentBar from '../AppContentBar/AppContentBar';
+import React, { useState } from "react";
+import AppsBar from './AppsBar/AppsBar';
+import AppContentBar from './AppContentBar/AppContentBar';
 import { invoke } from "@tauri-apps/api/tauri";
 
 
-function SideBar() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
+export default class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
   }
-
-  return (
-    <div className="h-screen flex">
-    <AppsBar />
-    <AppContentBar />
-  </div>
-  );
-}
-
-export default SideBar;
+  render() {
+    return (
+      <div className="h-screen flex">
+        <AppsBar />
+        <AppContentBar />
+      </div>
+    );
+  }
+};

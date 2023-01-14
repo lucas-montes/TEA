@@ -1,5 +1,4 @@
-import React from 'react';
-import ContentContainer from './components/ContentContainer/ContentContainer';
+import Content from './components/Content/Content';
 import SideBar from './components/SideBar/SideBar';
 
 const App = () => (
@@ -8,7 +7,7 @@ const App = () => (
       <SideBar />
     </div>
     <div className="flex-auto">
-      <ContentContainer />
+      <Content />
     </div>
   </>
 );

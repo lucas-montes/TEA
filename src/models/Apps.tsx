@@ -1,4 +1,7 @@
-export default class MenuApp {
+import BaseModel from "./BaseModel";
+
+
+export default class MenuApp extends BaseModel {
     icon: JSX.Element
     position: string
     className: string
@@ -15,6 +18,7 @@ export default class MenuApp {
         items: Array<AppItem> = [],
 
     ) {
+        super();
         this.icon = icon;
         this.position = position;
         this.className = className;
@@ -25,10 +29,14 @@ export default class MenuApp {
     }
 
     setPositioninClassName(): void {
-        this.className = this.className + this.position
+        this.className = this.className + " " + this.position
     }
 }
 
 
 
-export class AppItem { }
+export class AppItem extends BaseModel {
+    constructor() {
+        super();
+    }
+};
