@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SideBarIcons from '../../../constants/SideBarIcons';
+import useCurrentApp from "../../../hooks/useCurrentApp";
 
 
 export default class AppsBar extends React.Component {
@@ -17,17 +18,23 @@ export default class AppsBar extends React.Component {
   }
 };
 
-const SideBarIcon = (
+function SideBarIcon(
   icon: JSX.Element,
   className: string,
   tooltipClassName: string,
   tooltipText: string,
   key: string
-) => (
-  <div key={key} className={className}>
-    {icon}
-    <span className={tooltipClassName}>
-      {tooltipText}
-    </span>
-  </div>
-);
+) {
+  function loadAppData(title: string): void {
+    console.log(`Hi there, ${title}`);
+    useCurrentApp(title)
+  };
+  return (
+    <button key={key} className={className} onClick={() => loadAppData(tooltipText)}>
+      {icon}
+      <span className={tooltipClassName}>
+        {tooltipText}
+      </span>
+    </button>
+  )
+};
