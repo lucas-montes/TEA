@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import posts from "../../../constants/testConstants";
 import { BsPlus } from 'react-icons/bs';
 import AppItem from "../../../models/Apps";
+import AppContext from '../../../context/AppContext/AppContext';
+
 
 class AppItemComponent extends React.Component {
   title: string;
@@ -23,7 +25,10 @@ class AppItemComponent extends React.Component {
     return (
       <a
         href={this.url}
-        className="flex items-center px-4 py-2 cursor-pointer text-white hover:bg-gray-100 hover:text-gray-700 rounded-lg"
+        className="
+        flex items-center px-4 py-2 cursor-pointer rounded-lg
+        text-black hover:bg-gray-900 hover:text-gray-100
+        dark:text-white dark:hover:bg-gray-100 dark:hover:text-gray-900"
       >
         {this.icon}
         <span className="ml-3 text-sm font-medium"> {this.title} </span>
@@ -35,14 +40,24 @@ class AppItemComponent extends React.Component {
 
 export default class AppContentBar extends React.Component {
   appTitle: any;
+  static contextType = AppContext;
 
   constructor(props: any) {
     super(props);
   }
 
-  getTitle() {
-    const [title, setTitle] = useState("default title");
-    this.appTitle = title;
+  componentDidMount() {
+    const title = this.context
+    this.appTitle = title.app;
+    console.log("componentDidMount", this.context.app)
+  }
+  componentDidUpdate() {
+    this.appTitle = this.context.app;
+    console.log("componentDidUpdate", this.context.app)
+  }
+  componentWillUnmount() {
+    this.appTitle = this.context.app;
+    console.log("componentWillUnmount", this.context.app)
   }
 
   getItems(): Array<AppItem> {
@@ -51,7 +66,7 @@ export default class AppContentBar extends React.Component {
 
   render() {
     return (
-      <div className="w-3/4 flex flex-col justify-between h-screen bg-black border-r w-48">
+      <div className="w-3/4 flex flex-col justify-between h-screen bg-gray-100 dark:bg-gray-800 border-r w-48">
         <div className="px-4 py-6 ">
           <h1 className=" font-bold ">
 

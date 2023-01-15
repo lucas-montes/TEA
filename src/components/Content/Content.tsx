@@ -40,7 +40,7 @@ const Note = (title: string, content: string, key: string) => {
 
 const Content = () => {
   return (
-    <div className="h-screen bg-gray container mx-auto pt-4 px-7 overflow-auto">
+    <div className="h-screen bg-gray-100 dark:bg-gray-800 container mx-auto pt-4 px-7 overflow-auto">
       {posts.map((value, index) => {
         return Note(value.title, value.content, index.toString())
       })}

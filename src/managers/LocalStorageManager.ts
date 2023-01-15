@@ -1,5 +1,5 @@
 
-export default class LocalStorage {
+export default class LocalStorageManager {
     constructor() { }
 
     setValue(key: string, value: any): void {

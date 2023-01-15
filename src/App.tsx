@@ -1,26 +1,17 @@
-import { createContext, useState } from 'react'
+import { useState } from "react";
 
 import Content from './components/Content/Content';
 import SideBar from './components/SideBar/SideBar';
-import ThemeContext from "./context/ThemeContext/ThemeContext";
-import ThemeManager from "./managers/manageTheme";
-import AppManager from "./managers/manageApp";
-
-
-export const AppContext = createContext("dark");
+import ThemeContext, { handleInitialTheme } from "./context/ThemeContext/ThemeContext";
+import AppContext, { handleInitialApp } from "./context/AppContext/AppContext";
 
 const App = () => {
-  const themeManager = new ThemeManager()
-  const latestTheme: string = themeManager.setAndGetLatestTheme()
-  const [theme, _] = useState(latestTheme);
-  const setTheme = themeManager.switchAndGetNewTheme;
-  const value = { theme, setTheme };
+  const [theme, setTheme] = handleInitialTheme();
+  const [app, setApp] = handleInitialApp();
 
-  const appManager = new AppManager()
-  const latestApp: string = appManager.getLatestApp()
   return (
-    <ThemeContext.Provider value={value}>
-      <AppContext.Provider value={latestApp}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <AppContext.Provider value={{ app, setApp }}>
         <div className="flex-initial w-64">
           <SideBar />
         </div>

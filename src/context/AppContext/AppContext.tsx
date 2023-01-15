@@ -1,10 +1,21 @@
-import { createContext } from 'react'
+import React from "react";
 
-const defaultValue = {
-    currentTheme: 'dark',
-    changeCurrentTheme: (newTheme: 'light' | 'dark') => { },
+import AppManager, { switchApp } from "../../managers/AppManager"
+
+const appManager = new AppManager()
+
+export function handleInitialApp(): [string, (app: string) => void] {
+    let latestApp: string = appManager.setAndGetLatestApp();
+    let rightLatestApp: string = appManager.fixCorrectApp(latestApp);
+    const [app, setApp] = React.useState(rightLatestApp);
+    appManager.setCurrentApp(app);
+    return [app, switchApp];
 }
 
-const AppContext = createContext(defaultValue)
 
-export default AppContext
+const AppContext = React.createContext({
+    app: appManager.setAndGetLatestApp(),
+    setApp: switchApp,
+});
+
+export default AppContext;

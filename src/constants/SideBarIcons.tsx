@@ -3,15 +3,11 @@ import { BiNote } from 'react-icons/bi';
 import { TbMathFunction } from 'react-icons/tb';
 
 import { kanban, notes, alias, settings, schedule } from "./Apps";
-import ThemeManager from "../managers/manageTheme"
+import { switchTheme } from "../managers/ThemeManager"
+import { switchApp } from "../managers/AppManager"
 import MenuApp from "../models/Apps";
 
 
-
-function switchTheme(props: any): void {
-  const themeManager = new ThemeManager();
-  themeManager.switchAndGetNewTheme();
-}
 
 const SideBarIcons = [
   new MenuApp(
@@ -20,6 +16,7 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     kanban,
+    switchApp,
   ),
   new MenuApp(
     <BiNote size="32" />,
@@ -27,6 +24,7 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     notes,
+    switchApp,
   ),
   new MenuApp(
     <TbMathFunction size="32" />,
@@ -34,6 +32,7 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     alias,
+    switchApp,
   ),
   new MenuApp(
     <BsClock size="32" />,
@@ -41,6 +40,7 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     schedule,
+    switchApp,
   ),
   new MenuApp(
     <BsGearFill size="22" />,

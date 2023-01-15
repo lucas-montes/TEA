@@ -1,4 +1,5 @@
 import BaseModel from "./BaseModel";
+import { settings } from "../constants/Apps";
 
 
 export default class MenuApp extends BaseModel {
@@ -7,6 +8,7 @@ export default class MenuApp extends BaseModel {
     tooltipClassName: string
     tooltipText: string
     onClickMethod: Function
+    isSettings: boolean
     items: Array<AppItem>
 
     constructor(
@@ -25,7 +27,12 @@ export default class MenuApp extends BaseModel {
         this.tooltipClassName = tooltipClassName;
         this.tooltipText = tooltipText;
         this.onClickMethod = this.setOrCreateOnClickMethod(onClickMethod);
+        this.isSettings = this.checkIfSettings();
         this.items = items;
+    }
+
+    checkIfSettings(): boolean {
+        return this.tooltipText === settings
     }
 
     createClassName(className: string, position: string): string {

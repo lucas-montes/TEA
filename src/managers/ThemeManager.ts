@@ -1,15 +1,15 @@
-import LocalStorage from "./manageLocalStorage";
+import LocalStorageManager from "./LocalStorageManager";
 
 
 export default class ThemeManager {
-    localStorage: LocalStorage;
+    localStorage: LocalStorageManager;
     darkTheme: string = "dark";
     lightTheme: string = "light";
     defaultTheme: string = "dark";
     localStorageKey: string = "theme";
 
     constructor() {
-        this.localStorage = new LocalStorage();
+        this.localStorage = new LocalStorageManager();
     }
 
     getLatestTheme(): string {
@@ -26,6 +26,10 @@ export default class ThemeManager {
         this.localStorage.replaceValue(this.localStorageKey, newTheme);
     };
 
+    setLocalStorageTheme(newTheme: string): void {
+        this.localStorage.setValue(this.localStorageKey, newTheme);
+    };
+
     replaceStyle(newTheme: string): void {
         const bodyClass = window.document.body.classList;
         if (newTheme === this.lightTheme) bodyClass.remove(this.darkTheme);
@@ -34,13 +38,13 @@ export default class ThemeManager {
 
     getNewTheme(): string {
         const latestTheme = this.getLatestTheme();
-        console.log(latestTheme);
         if (latestTheme === this.lightTheme) return this.darkTheme;
         else return this.lightTheme;
     };
 
     setAndGetLatestTheme(): string {
         const latestTheme = this.getLatestTheme();
+        this.fixCorrectTheme(latestTheme);
         this.replaceStyle(latestTheme);
         return latestTheme;
     }
@@ -51,4 +55,19 @@ export default class ThemeManager {
         this.replaceStyle(newTheme);
         return newTheme;
     };
+
+    fixCorrectTheme(latestApp: string | null): string {
+        if (latestApp === null) {
+            this.setLocalStorageTheme(this.defaultTheme);
+            return this.defaultTheme;
+        }
+        else {
+            return latestApp;
+        };
+    };
+};
+
+export function switchTheme(props: any): void {
+    const themeManager = new ThemeManager();
+    themeManager.switchAndGetNewTheme();
 };
