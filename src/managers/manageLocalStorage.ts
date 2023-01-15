@@ -3,7 +3,7 @@ export default class LocalStorage {
     constructor() { }
 
     setValue(key: string, value: any): void {
-        window.localStorage.setItem(key, JSON.stringify(value));
+        window.localStorage.setItem(key, value);
     };
 
     getValue(key: string): any { return window.localStorage.getItem(key); };

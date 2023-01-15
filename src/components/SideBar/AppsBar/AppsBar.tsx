@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SideBarIcons from '../../../constants/SideBarIcons';
-import useCurrentApp from "../../../hooks/useCurrentApp";
+import AppManager from "../../../managers/manageApp";
 
 
 export default class AppsBar extends React.Component {
@@ -27,7 +27,9 @@ function SideBarIcon(
 ) {
   function loadAppData(title: string): void {
     console.log(`Hi there, ${title}`);
-    useCurrentApp(title)
+    const appManager = new AppManager()
+    appManager.setCurrentApp(title)
+    // const [app, appManager.setCurrentApp] = useState(title);
   };
   return (
     <button key={key} className={className} onClick={() => loadAppData(tooltipText)}>

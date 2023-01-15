@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, ReactNode } from 'react'
-import ThemeManager from "../../utils/manageTheme";
+import ThemeManager from "../../managers/manageTheme";
 import ThemeContext from './ThemeContext'
 
 

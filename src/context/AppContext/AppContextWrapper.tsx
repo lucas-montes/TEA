@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, ReactNode } from 'react'
-import AppManager from "../../utils/manageApp";
+import AppManager from "../../managers/manageApp";
 import AppContext from './AppContext'
 
 

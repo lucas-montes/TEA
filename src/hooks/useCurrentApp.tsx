@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import AppManager from "../utils/manageApp";
+import AppManager from "../managers/manageApp";
 
 
 export default function useCurrentApp(requestedApp: string) {
-    const localStorage = new LocalStorage();
+    const appManager = new AppManager();
     const [currentApp, setcurrentApp] = useLocalStorage('currentApp', "kanban");
 
     useEffect(() => {
