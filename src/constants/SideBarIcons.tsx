@@ -1,8 +1,17 @@
 import { BsKanban, BsGearFill, BsClock } from 'react-icons/bs';
 import { BiNote } from 'react-icons/bi';
 import { TbMathFunction } from 'react-icons/tb';
-import MenuApp from "../models/Apps";
+
 import { kanban, notes, alias, settings, schedule } from "./Apps";
+import ThemeManager from "../managers/manageTheme"
+import MenuApp from "../models/Apps";
+
+
+
+function switchTheme(props: any): void {
+  const themeManager = new ThemeManager();
+  themeManager.switchAndGetNewTheme();
+}
 
 const SideBarIcons = [
   new MenuApp(
@@ -39,6 +48,7 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     settings,
+    switchTheme,
   ),
 ];
 

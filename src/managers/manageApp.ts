@@ -11,7 +11,7 @@ export default class AppManager {
         this.localStorage = new LocalStorage();
     };
 
-    getLatestAppUsed(): string {
+    getLatestApp(): string {
         try {
             return this.localStorage.getValue(this.localStorageKey);
         }

@@ -3,10 +3,10 @@ import BaseModel from "./BaseModel";
 
 export default class MenuApp extends BaseModel {
     icon: JSX.Element
-    position: string
     className: string
     tooltipClassName: string
     tooltipText: string
+    onClickMethod: Function
     items: Array<AppItem>
 
     constructor(
@@ -15,21 +15,33 @@ export default class MenuApp extends BaseModel {
         className: string = "sidebar-icon group",
         tooltipClassName: string = "sidebar-tooltip group-hover:scale-100",
         tooltipText: string = "",
+        onClickMethod: Function | null = null,
         items: Array<AppItem> = [],
 
     ) {
         super();
         this.icon = icon;
-        this.position = position;
-        this.className = className;
+        this.className = this.createClassName(className, position);
         this.tooltipClassName = tooltipClassName;
         this.tooltipText = tooltipText;
+        this.onClickMethod = this.setOrCreateOnClickMethod(onClickMethod);
         this.items = items;
-        this.setPositioninClassName()
     }
 
-    setPositioninClassName(): void {
-        this.className = this.className + " " + this.position
+    createClassName(className: string, position: string): string {
+        return className + " " + position
+    }
+
+    doNothing(props: any): void { }
+
+    setOrCreateOnClickMethod(onClickMethod: Function | null): Function {
+        if (onClickMethod === null) {
+            return this.doNothing
+        }
+        else {
+            return onClickMethod
+        }
+
     }
 }
 

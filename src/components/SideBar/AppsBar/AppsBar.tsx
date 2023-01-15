@@ -1,41 +1,32 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
+
+import ThemeContext from "../../../context/ThemeContext/ThemeContext";
 import SideBarIcons from '../../../constants/SideBarIcons';
-import AppManager from "../../../managers/manageApp";
+import MenuApp from '../../../models/Apps';
 
 
-export default class AppsBar extends React.Component {
-  constructor(props: any) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="left-0 w-1/4 bg-white dark:bg-gray-900 shadow-lg relative">
-        {SideBarIcons.map((value, index) => {
-          return SideBarIcon(value.icon, value.className, value.tooltipClassName, value.tooltipText, index.toString())
-        })}
-      </div>
-    );
-  }
+export default function AppsBar() {
+  return (
+    <div className="left-0 w-1/4 bg-white dark:bg-gray-900 shadow-lg relative">
+      {SideBarIcons.map((value, index) => {
+        return SideBarIcon(value, index.toString())
+      })}
+    </div>
+  );
 };
 
 function SideBarIcon(
-  icon: JSX.Element,
-  className: string,
-  tooltipClassName: string,
-  tooltipText: string,
+  MenuApp: MenuApp,
   key: string
 ) {
-  function loadAppData(title: string): void {
-    console.log(`Hi there, ${title}`);
-    const appManager = new AppManager()
-    appManager.setCurrentApp(title)
-    // const [app, appManager.setCurrentApp] = useState(title);
-  };
+
+  // const { theme, _ } = useContext(ThemeContext);
+
   return (
-    <button key={key} className={className} onClick={() => loadAppData(tooltipText)}>
-      {icon}
-      <span className={tooltipClassName}>
-        {tooltipText}
+    <button key={key} className={MenuApp.className} onClick={() => MenuApp.onClickMethod()}>
+      {MenuApp.icon}
+      <span className={MenuApp.tooltipClassName}>
+        {MenuApp.tooltipText}
       </span>
     </button>
   )

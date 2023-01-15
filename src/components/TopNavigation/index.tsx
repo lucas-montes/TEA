@@ -6,7 +6,7 @@ import {
   FaMoon,
   FaSun,
 } from 'react-icons/fa';
-import useDarkMode from '../../hooks/useDarkMode';
+import useSwitchTheme from '../../hooks/useSwitchTheme';
 
 const TopNavigation = () => {
   return (
@@ -22,7 +22,7 @@ const TopNavigation = () => {
 };
 
 const ThemeIcon = () => {
-  const [darkTheme, setDarkTheme] = useDarkMode();
+  const [darkTheme, setDarkTheme] = useSwitchTheme();
   const handleMode = () => setDarkTheme(!darkTheme);
   return (
     <span onClick={handleMode}>
