@@ -1,4 +1,4 @@
-import { kanban } from "../constants/Apps";
+import allApps, { kanban } from "../constants/Apps";
 import LocalStorageManager from "./LocalStorageManager";
 
 
@@ -26,7 +26,7 @@ export default class AppManager {
     };
 
     fixCorrectApp(latestApp: string): string {
-        if (latestApp === "null") {
+        if (!(latestApp in allApps)) {
             this.setCurrentApp(this.defaultApp);
             return this.defaultApp;
         }

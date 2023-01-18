@@ -38,7 +38,7 @@ const Note = (title: string, content: string, key: string) => {
 
 
 
-const Content = () => {
+const Content = ({ app }) => {
   return (
     <div className="h-screen bg-gray-100 dark:bg-gray-800 container mx-auto pt-4 px-7 overflow-auto">
       {posts.map((value, index) => {

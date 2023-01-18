@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import posts from "../../../constants/testConstants";
+import React, { useContext, useState } from 'react';
 import { BsPlus } from 'react-icons/bs';
-import AppItem from "../../../models/Apps";
-import AppContext from '../../../context/AppContext/AppContext';
-
+import Modal from "../../Content/Modals/Modal";
 
 class AppItemComponent extends React.Component {
   title: string;
@@ -38,51 +35,25 @@ class AppItemComponent extends React.Component {
 
 }
 
-export default class AppContentBar extends React.Component {
-  appTitle: any;
-  static contextType = AppContext;
+export default function AppContentBar({ app }) {
+  return (
+    <div className="w-3/4 flex flex-col justify-between h-screen bg-gray-100 dark:bg-gray-800 border-r w-48">
+      <div className="px-4 py-6 ">
+        <h1 className=" font-bold ">
 
-  constructor(props: any) {
-    super(props);
-  }
+          <span className="text-2xl text-white flex items-center">
+            {app}
+          </span>
+        </h1>
 
-  componentDidMount() {
-    const title = this.context
-    this.appTitle = title.app;
-    console.log("componentDidMount", this.context.app)
-  }
-  componentDidUpdate() {
-    this.appTitle = this.context.app;
-    console.log("componentDidUpdate", this.context.app)
-  }
-  componentWillUnmount() {
-    this.appTitle = this.context.app;
-    console.log("componentWillUnmount", this.context.app)
-  }
-
-  getItems(): Array<AppItem> {
-    return []
-  }
-
-  render() {
-    return (
-      <div className="w-3/4 flex flex-col justify-between h-screen bg-gray-100 dark:bg-gray-800 border-r w-48">
-        <div className="px-4 py-6 ">
-          <h1 className=" font-bold ">
-
-            <span className="text-2xl text-white flex items-center">
-              {this.appTitle}
-            </span>
-          </h1>
-
-          <nav aria-label="Main Nav" className="flex flex-col mt-6 space-y-1 overflow-auto">
-            <AppItemComponent title="Añadir nuevo" url="add/new" icon={<BsPlus size="15" />} />
-            {this.getItems().map((value, index) => {
-              <AppItemComponent title={value.icon} url={value.url} icon={<BsPlus size="15" />} />
-            })}
-          </nav>
-        </div>
+        <nav aria-label="Main Nav" className="flex flex-col mt-6 space-y-1 overflow-auto">
+          <AppItemComponent title="Añadir nuevo" url="add/new" icon={<BsPlus size="15" />} />
+          <Modal></Modal>
+          {/* {this.getItems().map((value, index) => {
+            <AppItemComponent title={value.icon} url={value.url} icon={<BsPlus size="15" />} />
+          })} */}
+        </nav>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

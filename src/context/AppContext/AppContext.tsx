@@ -4,18 +4,15 @@ import AppManager, { switchApp } from "../../managers/AppManager"
 
 const appManager = new AppManager()
 
-export function handleInitialApp(): [string, (app: string) => void] {
+export default function handleInitialApp(): [string, (app: string) => void] {
     let latestApp: string = appManager.setAndGetLatestApp();
     let rightLatestApp: string = appManager.fixCorrectApp(latestApp);
-    const [app, setApp] = React.useState(rightLatestApp);
-    appManager.setCurrentApp(app);
-    return [app, switchApp];
+    appManager.setCurrentApp(rightLatestApp);
+    return React.useState(rightLatestApp);
 }
 
+let latestApp: string = appManager.setAndGetLatestApp();
+let rightLatestApp: string = appManager.fixCorrectApp(latestApp);
+export const AppContext = React.createContext({ app: rightLatestApp, setApp: (app: string) => { } });
 
-const AppContext = React.createContext({
-    app: appManager.setAndGetLatestApp(),
-    setApp: switchApp,
-});
-
-export default AppContext;
+// export default AppContext;
