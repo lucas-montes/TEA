@@ -40,4 +40,4 @@ const notas = [
 ];
 
 
-export default posts; notas;
+export { posts, notas };

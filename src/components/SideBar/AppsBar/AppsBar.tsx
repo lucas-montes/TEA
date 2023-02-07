@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import SideBarIcons from '../../../constants/SideBarIcons';
 import MenuApp from '../../../models/Apps';
 
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function AppsBar({ app, setApp }) {
   return (

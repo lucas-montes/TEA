@@ -1,4 +1,5 @@
-import posts from "../../constants/testConstants";
+import { posts, notas } from "../../constants/testConstants";
+import React, { useState } from 'react';
 
 
 const Note = (title: string, content: string, key: string) => {
@@ -39,9 +40,29 @@ const Note = (title: string, content: string, key: string) => {
 
 
 const Content = ({ app }) => {
+  // const [data, setData] = useState([]);
+
+  // if (app === "kanban") {
+  //   setData(posts)
+  // } else {
+  //   setData(notas)
+  // }
+  // switch (app) {
+  //   case 'Kanban':
+  //     console.log(app);
+  //     setData(posts)
+  //     break;
+  //   case 'Notes':
+  //     console.log(app);
+  //     setData(notas)
+  //     break;
+  //   case 'Alias':
+  //     console.log(app);
+  // }
+  const data = posts
   return (
     <div className="h-screen bg-gray-100 dark:bg-gray-800 container mx-auto pt-4 px-7 overflow-auto">
-      {posts.map((value, index) => {
+      {data.map((value, index) => {
         return Note(value.title, value.content, index.toString())
       })}
     </div>

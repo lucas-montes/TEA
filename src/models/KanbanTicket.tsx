@@ -1,8 +1,6 @@
-import BaseModel from "./BaseModel";
+import { BaseText } from "./BaseModel";
 
-export default class KanbanTicket extends BaseModel {
-    title: string;
-    content: string;
+export default class KanbanTicket extends BaseText {
     ticketStatus: string;
 
     constructor(
@@ -11,9 +9,9 @@ export default class KanbanTicket extends BaseModel {
         ticketStatus: string,
         createdAt: Date
     ) {
-        super(createdAt);
-        this.title = title;
-        this.content = content;
+        super(
+            title, content, createdAt
+        );
         this.ticketStatus = ticketStatus;
     }
 };

@@ -1,10 +1,13 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./style.css";
-
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <div className="h-screen flex">
-    <App />
-  </div>
+  <Provider store={store}>
+    <div className="h-screen flex">
+      <App />
+    </div>
+  </Provider>
 );
