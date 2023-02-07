@@ -21,7 +21,7 @@ export default class MenuApp extends BaseModel {
         items: Array<AppItem> = [],
 
     ) {
-        super(new Date());
+        super();
         this.icon = icon;
         this.className = this.createClassName(className, position);
         this.tooltipClassName = tooltipClassName;

@@ -19,7 +19,7 @@ export default function ModalBody(props: any) {
                         border-b border-solid 
                         border-slate-200 rounded-t"
                         >
-                            <h3 className="text-3xl font-semibold">
+                            <h3 className="text-3xl dark:text-white text-black">
                                 {props.title}
                             </h3>
                             <button

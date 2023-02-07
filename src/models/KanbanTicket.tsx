@@ -7,10 +7,9 @@ export default class KanbanTicket extends BaseText {
         title: string,
         content: string,
         ticketStatus: string,
-        createdAt: Date
     ) {
         super(
-            title, content, createdAt
+            title, content
         );
         this.ticketStatus = ticketStatus;
     }

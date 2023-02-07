@@ -13,13 +13,13 @@ export default function Modal(props: any) {
     function displayForm(app: string) {
         switch (app) {
             case kanban:
-                return <KanbanForm />;
+                return <KanbanForm setShowModal={setShowModal} />;
             case notes:
-                return <NotesForm />;
+                return <NotesForm setShowModal={setShowModal} />;
             case alias:
-                return <NotesForm />;
+                return <NotesForm setShowModal={setShowModal} />;
             default:
-                return <NotesForm />;
+                return <NotesForm setShowModal={setShowModal} />;
         }
     }
 

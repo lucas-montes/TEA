@@ -1,24 +1,17 @@
 import React from "react";
-import KanbanTicket from "../../../models/KanbanTicket";
-import LocalStorageManager from "../../../managers/LocalStorageManager";
+import Note from "../../../models/Note";
 
 export default function NotesForm(props: any) {
     const [inputs, setInputs] = React.useState(
         {
             title: "",
             content: "",
-            taskStatus: "todo",
         }
     );
-
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(inputs);
         props.setShowModal(false)
-        let ticket = new KanbanTicket(inputs.title, inputs.content, inputs.taskStatus, new Date());
-        // ticket.save();
-        const localSto = new LocalStorageManager();
-        localSto.setValue("model", JSON.stringify(ticket))
+        new Note(inputs.title, inputs.content).create();
     };
     function handleChange(event: any) {
         const name = event.target.name;
@@ -29,7 +22,7 @@ export default function NotesForm(props: any) {
     return (
         <form onSubmit={handleSubmit}>
             <div className="relative p-6 flex-auto">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                 <input
                     type="text"
                     id="title"
@@ -47,7 +40,8 @@ export default function NotesForm(props: any) {
                                         dark:focus:ring-blue-500 
                                         dark:focus:border-blue-500" />
 
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
+
+                <label className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-white">Content</label>
                 <textarea
                     id="content"
                     name="content"
@@ -63,46 +57,23 @@ export default function NotesForm(props: any) {
                                         dark:focus:ring-blue-500 
                                         dark:focus:border-blue-500"
                 ></textarea>
-
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label>
-                <select
-                    id="taskStatus"
-                    name="taskStatus"
-                    value={inputs.taskStatus}
-                    onChange={handleChange}
-                    required
-
-                    className="
-                                        bg-gray-50 border border-gray-300 
-                                        text-gray-900 text-sm rounded-lg 
-                                        focus:ring-blue-500 focus:border-blue-500 
-                                        block w-full p-2.5 
-                                        dark:bg-gray-700 
-                                        dark:border-gray-600 
-                                        dark:placeholder-gray-400 
-                                        dark:text-white 
-                                        dark:focus:ring-blue-500 
-                                        dark:focus:border-blue-500">
-                    <option value="todo">To Do</option>
-                    <option value="doing">Doing</option>
-                    <option value="done">Done</option>
-                </select>
-
             </div>
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button
                     className="
-                                            text-red-500 background-transparent 
-                                            font-bold uppercase px-6 py-2 text-sm 
-                                            outline-none focus:outline-none mr-1 mb-1 
-                                            ease-linear transition-all duration-150"
+                    bg-red-500 
+                    text-white active:bg-red-600 
+                    font-bold uppercase text-sm px-6 py-3 
+                    rounded shadow hover:shadow-lg outline-none 
+                    focus:outline-none mr-1 mb-1 ease-linear 
+                    transition-all duration-150"
                     type="button"
                     onClick={() => props.setShowModal(false)}
                 >
                     Close
                 </button>
-                <input
+                <button
                     className="
                                             bg-emerald-500 
                                             text-white active:bg-emerald-600 
@@ -111,8 +82,10 @@ export default function NotesForm(props: any) {
                                             focus:outline-none mr-1 mb-1 ease-linear 
                                             transition-all duration-150"
                     type="submit"
-                    value="Save Changes"
-                />
+
+                >
+                    Save Changes
+                </button>
             </div>
         </form>
     );

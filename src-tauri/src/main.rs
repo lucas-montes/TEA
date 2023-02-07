@@ -3,28 +3,22 @@
     windows_subsystem = "windows"
 )]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn my_custom_command(invoke_message: String) -> String {
-    println!(
-        "I was invoked from JS, with this message: {}",
-        invoke_message
-    );
-    "Hello from Rust!".into()
-}
+use menus::get_menu;
+
+mod menus;
 
 #[tauri::command]
-fn save_model(invoke_message: String) -> String {
+fn save_model(invoke_message: String) {
     println!(
         "I was invoked from JS, with this message: {}",
         invoke_message
     );
-    "Hello from Rust!".into()
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![my_custom_command])
+        .menu(get_menu())
+        .invoke_handler(tauri::generate_handler![save_model])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
