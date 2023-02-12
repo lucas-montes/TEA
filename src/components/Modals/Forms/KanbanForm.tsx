@@ -13,7 +13,6 @@ export default function KanbanForm(props: any) {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(inputs);
         props.setShowModal(false)
         let ticket = new KanbanTicket(inputs.title, inputs.content, inputs.taskStatus, new Date());
         // ticket.save();

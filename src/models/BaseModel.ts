@@ -1,4 +1,5 @@
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/tauri';
+import { FileResult } from "../types/Files";
 
 export default class BaseModel {
     id?: Number | null = null;
@@ -23,7 +24,9 @@ export default class BaseModel {
 
     static update(props: any) { }
 
-    static getAll() { }
+    static getAll(): Promise<Array<FileResult>> {
+        return invoke('show_files', { directory: "/home/lucas/Dev/rusty/main-tools/test_files" })
+    }
 
     static filter(props: any) { }
 };

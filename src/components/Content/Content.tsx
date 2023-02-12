@@ -49,11 +49,9 @@ const Content = ({ app }) => {
   // }
   // switch (app) {
   //   case 'Kanban':
-  //     console.log(app);
   //     setData(posts)
   //     break;
   //   case 'Notes':
-  //     console.log(app);
   //     setData(notas)
   //     break;
   //   case 'Alias':
