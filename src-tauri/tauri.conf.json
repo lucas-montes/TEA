@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "main-tools",
+    "productName": "Producter",
     "version": "0.0.0"
   },
   "tauri": {
@@ -50,14 +50,15 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "pubkey": ""
     },
     "windows": [
       {
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "main-tools",
+        "title": "Productive",
         "width": 800
       }
     ]

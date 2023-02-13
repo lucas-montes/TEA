@@ -1,8 +1,8 @@
 import { BsKanban, BsGearFill, BsClock } from 'react-icons/bs';
 import { BiNote } from 'react-icons/bi';
 import { TbMathFunction } from 'react-icons/tb';
-
-import { kanban, notes, alias, settings, schedule } from "./Apps";
+import { FaBalanceScale } from "react-icons/fa";
+import { kanban, notes, alias, settings, schedule, prosCons } from "./Apps";
 import { switchTheme } from "../managers/ThemeManager"
 import { switchApp } from "../managers/AppManager"
 import MenuApp from "../models/Apps";
@@ -40,6 +40,14 @@ const SideBarIcons = [
     "sidebar-icon group",
     "sidebar-tooltip group-hover:scale-100",
     schedule,
+    switchApp,
+  ),
+  new MenuApp(
+    <FaBalanceScale size="32" />,
+    "",
+    "sidebar-icon group",
+    "sidebar-tooltip group-hover:scale-100",
+    prosCons,
     switchApp,
   ),
   new MenuApp(

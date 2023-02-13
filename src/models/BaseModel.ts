@@ -12,23 +12,35 @@ export default class BaseModel {
         return this.constructor.name.toLowerCase()
     }
 
-    create(): void {
-        this.createdAt = new Date().toLocaleString();
-        delete this.id;
-        invoke('save_model', { invokeMessage: JSON.stringify(this) })
+    // Maybe use "this" and don't make methods static
+    static handleModel(method: "create" | "update" | "read" | "delete", modelData: any): Promise<unknown> {
+        return invoke('handle_models', { method: method, modelData: JSON.stringify(modelData) })
     }
 
-    static get(id: Number) { }
+    create(): Promise<unknown> {
+        this.createdAt = new Date().toLocaleString();
+        return BaseModel.handleModel("create", this)
+    }
 
-    static delete(id: Number): void { }
+    static get(id: Number): Promise<unknown> {
+        return this.handleModel("read", { id: id })
+    }
 
-    static update(props: any) { }
+    static delete(id: Number): void {
+        this.handleModel("delete", { id: id })
+    }
+
+    static update(props: any): Promise<unknown> {
+        return this.handleModel("update", props)
+    }
 
     static getAll(): Promise<Array<FileResult>> {
         return invoke('show_files', { directory: "/home/lucas/Dev/rusty/main-tools/test_files" })
     }
 
-    static filter(props: any) { }
+    static filter(props: any): Promise<unknown> {
+        return this.handleModel("read", props)
+    }
 };
 
 export class BaseText extends BaseModel {
