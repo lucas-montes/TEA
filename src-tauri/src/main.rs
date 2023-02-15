@@ -6,7 +6,7 @@
 use db::crud::handle_methods;
 use files::crud::read_dir;
 use menus::get_menu;
-use serde_json::{from_str, Value};
+use serde_json::{from_str, json, Map, Value};
 
 mod db;
 mod files;
@@ -16,7 +16,7 @@ mod menus;
 fn handle_models(method: &str, model_data: String) {
     let model: Value = from_str(model_data.as_str()).unwrap();
     println!("I was invoked from JS, with this message: {}", model);
-    // handle_methods(method, model);
+    handle_methods(method, model);
 }
 
 #[tauri::command]

@@ -2,7 +2,7 @@ import Modal from "../../Modals/Modal";
 import AppContentBarAlias from "./Components/AppContentBarAlias";
 import AppContentBarKanban from "./Components/AppContentBarKanban";
 import AppContentBarNotes from "./Components/AppContentBarNotes";
-import { kanban, notes, alias, settings, schedule } from "../../../constants/Apps"
+import { kanban, notes, alias, settings, schedule, prosCons } from "../../../constants/Apps"
 
 export default function AppContentBar({ app }) {
   function displayBarContent(app: string) {
@@ -20,7 +20,13 @@ export default function AppContentBar({ app }) {
 
 
   return (
-    <div className="w-3/4 flex flex-col justify-between h-screen bg-gray-100 dark:bg-gray-800 border-r w-48">
+    <div className="
+    w-3/4 flex flex-col 
+    justify-between 
+    h-screen bg-gray-100 
+    dark:bg-gray-800 
+    border-r w-48
+    overflow-auto">
       <div className="px-4 py-6 ">
         <h1 className=" font-bold ">
 

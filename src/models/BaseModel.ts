@@ -2,8 +2,8 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { FileResult } from "../types/Files";
 
 export default class BaseModel {
-    id?: Number | null = null;
-    createdAt: string | null = null;
+    id?: Number;
+    createdAt?: string;
     tableName: string;
 
     constructor() { this.tableName = this.getTableName() }

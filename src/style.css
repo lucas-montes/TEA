@@ -28,8 +28,11 @@
 
 ::-webkit-scrollbar {
     background-color: transparent;
+    width: 5px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-gray-500 dark:bg-green-400;
+    @apply bg-gray-500 dark:bg-gray-500;
+    border-radius: 100vh;
 }
