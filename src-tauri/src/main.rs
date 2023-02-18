@@ -31,10 +31,10 @@ async fn handle_notes_delete(model_data: String) {
 }
 
 #[tauri::command]
-async fn handle_notes_read() {
+async fn handle_notes_read() -> Vec<Note> {
     let notes = Note::get_all();
     println!("{:#?}", notes);
-    notes.into();
+    return notes.into();
 }
 
 #[tauri::command]

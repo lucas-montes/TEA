@@ -13,7 +13,7 @@ export default class AppContentBarNotes extends React.Component {
 
     getNotesFirstTime(): void {
         new Note().getAll()
-            .then((files) => { this.setState({ notes: files }); })
+            .then((files) => { console.log(files), this.setState({ notes: files }); })
             .catch((error) => {
                 console.error(error);
             })
@@ -27,7 +27,7 @@ export default class AppContentBarNotes extends React.Component {
         return (
             <div>
                 {this.state.notes.map((value, index) => {
-                    return <AppItemComponent title={value.fileName} url={value.fullPath} icon={<BsAlarm size="15" />} key={index} />
+                    return <AppItemComponent title={value.title} url={value.title} icon={<BsAlarm size="15" />} key={index} />
                 })}
             </div>
         );
