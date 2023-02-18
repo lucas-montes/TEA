@@ -10,7 +10,7 @@ pub struct ProsCons {
     created_at: String,
     #[serde(rename = "title")]
     pub title: String,
-    #[serde(rename = "content")]
+    #[serde(rename = "description")]
     pub content: String,
     #[serde(rename = "pros")]
     pub pros: String,

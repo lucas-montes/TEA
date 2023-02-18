@@ -2,7 +2,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { FileResult } from "../types/Files";
 
 export default class BaseModel {
-    id: Number = 0;
+    id?: Number;
     createdAt?: string;
     modelName: string;
 
@@ -13,7 +13,7 @@ export default class BaseModel {
     }
 
     handleModel(method: "create" | "update" | "read" | "delete", modelData?: any): Promise<unknown> {
-        return invoke(`handle_${this.modelName}s_${method}`, modelData)
+        return invoke(`handle_${method}`, this.modelName, modelData)
     }
 
     create(): Promise<unknown> {
@@ -33,8 +33,8 @@ export default class BaseModel {
         return this.handleModel("update", props)
     }
 
-    static getAll(): Promise<Array<FileResult>> {
-        return invoke('show_files', { directory: "/home/lucas/Dev/rusty/main-tools/test_files" })
+    getAll(): Promise<unknown> {
+        return this.handleModel("read")
     }
 
 };

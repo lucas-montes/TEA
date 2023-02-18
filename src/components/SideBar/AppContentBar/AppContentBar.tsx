@@ -13,6 +13,10 @@ export default function AppContentBar({ app }) {
         return <AppContentBarNotes />;
       case alias:
         return <AppContentBarAlias />;
+      case schedule:
+        return <div />;
+      case prosCons:
+        return <div />;
       default:
         return [];
     }

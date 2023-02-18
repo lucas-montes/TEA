@@ -1,5 +1,24 @@
 import { posts, notas } from "../../constants/testConstants";
 import React, { useState } from 'react';
+import { kanban, notes, alias, settings, schedule, prosCons } from "../../constants/Apps";
+
+
+function displayAppContent(app: string) {
+  switch (app) {
+    case kanban:
+      return <div />;
+    case notes:
+      return <div />;
+    case alias:
+      return <div />;
+    case schedule:
+      return <div />;
+    case prosCons:
+      return <div />;
+    default:
+      return [];
+  }
+}
 
 
 const Note = (title: string, content: string, key: string) => {

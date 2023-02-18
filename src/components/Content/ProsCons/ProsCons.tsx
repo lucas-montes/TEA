@@ -10,7 +10,7 @@ export default class ProsCons extends React.Component {
     }
 
     getNotesFirstTime(): void {
-        Note.getAll()
+        ProsConsModel.getAll()
             .then((files) => { this.setState({ notes: files }); })
             .catch((error) => {
                 console.error(error);
