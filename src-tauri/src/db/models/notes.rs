@@ -26,6 +26,8 @@ impl Note {
         Ok(result)
     }
 
+    pub fn read(&self) {}
+
     pub fn get_all() -> Vec<Note> {
         let conn = connect();
 

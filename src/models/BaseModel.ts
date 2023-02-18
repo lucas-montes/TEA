@@ -4,16 +4,15 @@ import { FileResult } from "../types/Files";
 export default class BaseModel {
     id?: Number;
     createdAt?: string;
-    modelName: string;
 
-    constructor() { this.modelName = this.getModelName() }
+    constructor() { }
 
     getModelName(): string {
         return this.constructor.name.toLowerCase()
     }
 
     handleModel(method: "create" | "update" | "read" | "delete", modelData?: any): Promise<unknown> {
-        return invoke(`handle_${method}`, this.modelName, modelData)
+        return invoke(`handle_${method}`, { modelName: this.getModelName(), modelData: modelData })
     }
 
     create(): Promise<unknown> {
