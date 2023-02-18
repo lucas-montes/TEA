@@ -12,7 +12,7 @@ export default class AppContentBarNotes extends React.Component {
     }
 
     getNotesFirstTime(): void {
-        Note.getAll()
+        new Note().getAll()
             .then((files) => { this.setState({ notes: files }); })
             .catch((error) => {
                 console.error(error);

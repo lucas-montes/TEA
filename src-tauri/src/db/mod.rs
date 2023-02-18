@@ -1,5 +1,5 @@
-pub mod crud;
-pub mod models;
+pub mod notes;
+pub mod operations;
 
-pub use crud::*;
-pub use models::*;
+pub use notes::*;
+pub use operations::*;
