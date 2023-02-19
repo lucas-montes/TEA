@@ -1,4 +1,5 @@
 use rusqlite::Connection;
+use serde_json::{json, to_string, Value};
 
 pub fn connect() -> Connection {
     create_table();
@@ -19,6 +20,10 @@ pub fn create_table() -> i8 {
     )
     .unwrap();
     return 0;
+}
+
+pub fn get_model_details(model_data: Value) {
+    let table = get_table(model_data);
 }
 
 fn get_table(model_data: Value) -> String {
@@ -83,15 +88,5 @@ mod tests {
             result = generate_fields(result, String::from(word));
         }
         assert_eq!("one, two, three", result);
-    }
-
-    #[test]
-    fn test_create_query() {
-        let result = create_query(
-            String::from("notes"),
-            String::from("name, age"),
-            String::from("1?, 2?"),
-        );
-        assert_eq!("INSERT INTO notes (name, age) VALUES (1?, 2?);", result);
     }
 }

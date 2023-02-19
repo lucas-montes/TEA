@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 
-use rusqlite::{params, Connection, ToSql};
-use serde_json::{json, to_string, Value};
-use std::any::Any;
+use crate::db::{connect, get_model_fields_information};
+use rusqlite::ToSql;
+use serde_json::{to_string, Value};
 
 // Commands
 const CREATE_TABLE: &str = "CREATE TABLE";
@@ -59,8 +59,23 @@ fn read(model_data: Value) {
     })?;
 }
 
-fn read_query(table: String, fields_names: String) -> String {
-    return format!("SELECT {fields_names} FROM {table}");
+fn read_query(table: String) -> String {
+    return format!("SELECT * FROM {table}");
 }
 
 fn delete(model_data: Value) {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_query() {
+        let result = create_query(
+            String::from("notes"),
+            String::from("name, age"),
+            String::from("1?, 2?"),
+        );
+        assert_eq!("INSERT INTO notes (name, age) VALUES (1?, 2?);", result);
+    }
+}
