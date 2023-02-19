@@ -1,10 +1,11 @@
 use crate::db::operations::connect;
-use rusqlite::{MappedRows, Statement};
+use rusqlite::Statement;
 
 pub trait BaseModel {
+    type QuerySet;
     fn create(&self) -> i8;
     fn update(&self) -> i8;
-    fn get_all(&self, table: String) -> Vec<dyn '_>;
+    fn get_all(&self, table: String) -> Vec<Self::QuerySet>;
     fn create_read_query(&self, table: String) -> Statement<'_> {
         let query: String = format!("SELECT * FROM {table}");
         return connect().prepare(&query).unwrap();
@@ -24,7 +25,7 @@ where
     return model.create();
 }
 
-pub fn read<T>(model: T, table: String) -> Vec<T>
+pub fn read<T>(model: T, table: String) -> Vec<T::QuerySet>
 where
     T: BaseModel,
 {

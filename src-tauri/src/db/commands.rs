@@ -1,10 +1,14 @@
-use crate::db::notes::Note;
+use crate::db::{create, Note, ProsCons};
 use serde_json::from_str;
 
 #[tauri::command]
-pub fn handle_notes_create(model_data: String) {
-    let note: Note = from_str(model_data.as_str()).unwrap();
-    note.create();
+pub fn handle_notes_create(table: &str, model_data: String) {
+    if table == "note" {
+        let model: Note = from_str(model_data.as_str()).unwrap();
+    } else if table == "proscons" {
+        let model: ProsCons = from_str(model_data.as_str()).unwrap();
+    }
+    create(model);
 }
 
 #[tauri::command]

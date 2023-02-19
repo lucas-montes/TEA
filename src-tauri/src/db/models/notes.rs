@@ -16,6 +16,7 @@ pub struct Note {
 }
 
 impl BaseModel for Note {
+    type QuerySet = Note;
     fn create(&self) -> i8 {
         let sql = "INSERT INTO notes (created_at, title, content) VALUES (?, ?, ?)";
         let params = [&self.created_at, &self.title, &self.content];
@@ -23,12 +24,12 @@ impl BaseModel for Note {
         return 1;
     }
 
-    fn get_all(&self, table: String) -> Vec<Note> {
+    fn get_all(&self, table: String) -> Vec<Self::QuerySet> {
         let mut stmt = &self.create_read_query(table);
 
         let rows = stmt
             .query_map([], |row| {
-                Ok(Note {
+                Ok(Self::QuerySet {
                     id: row.get(0)?,
                     created_at: row.get(1)?,
                     title: row.get(2)?,
