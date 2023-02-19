@@ -1,3 +1,4 @@
+use crate::db::models::BaseModel;
 use crate::db::operations::connect;
 use rusqlite::Result;
 use serde::{Deserialize, Serialize};
@@ -14,22 +15,16 @@ pub struct Note {
     pub content: String,
 }
 
-impl Note {
-    pub fn create(&self) -> Result<usize> {
-        let conn = connect();
-
+impl BaseModel for Note {
+    fn create(&self) -> i8 {
         let sql = "INSERT INTO notes (created_at, title, content) VALUES (?, ?, ?)";
         let params = [&self.created_at, &self.title, &self.content];
-
-        let result = conn.execute(sql, &params)?;
-
-        Ok(result)
+        let result = connect().execute(sql, &params);
+        return 1;
     }
 
-    pub fn get_all() -> Vec<Note> {
-        let conn = connect();
-
-        let mut stmt = conn.prepare("SELECT * FROM notes").unwrap();
+    fn get_all(&self, table: String) -> Vec<Note> {
+        let mut stmt = &self.create_read_query(table);
 
         let rows = stmt
             .query_map([], |row| {
@@ -42,37 +37,24 @@ impl Note {
             })
             .unwrap();
 
-        let mut notes = Vec::new();
+        let mut results = Vec::new();
 
         for row in rows {
             if let Ok(row) = row {
-                notes.push(row);
+                results.push(row);
             }
         }
-        return notes;
+        return results;
     }
 
-    pub fn update(&self) -> Result<usize> {
-        let conn = connect();
-
+    fn update(&self) -> i8 {
         let sql = format!(
             "UPDATE notes SET created_at = {}, title = {}, content = {} WHERE id = {:#?}",
             &self.created_at, &self.title, &self.content, &self.id
         );
 
-        let result = conn.execute(&sql, ())?;
+        let result = connect().execute(&sql, ());
 
-        Ok(result)
-    }
-
-    pub fn delete(&self) -> Result<usize> {
-        let conn = connect();
-
-        let sql = "DELETE FROM notes WHERE id = ?";
-        let params = [&self.id];
-
-        let result = conn.execute(sql, &params)?;
-
-        Ok(result)
+        return 1;
     }
 }

@@ -77,15 +77,4 @@ impl ProsCons {
 
         Ok(result)
     }
-
-    pub fn delete(&self) -> Result<usize> {
-        let conn = connect();
-
-        let sql = "DELETE FROM pros_cons WHERE id = ?";
-        let params = [&self.id];
-
-        let result = conn.execute(sql, &params)?;
-
-        Ok(result)
-    }
 }
