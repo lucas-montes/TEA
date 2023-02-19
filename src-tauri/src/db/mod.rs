@@ -1,9 +1,9 @@
 pub mod commands;
-pub mod notes;
+
+pub mod models;
 pub mod operations;
-pub mod pros_cons;
 
 pub use commands::*;
-pub use notes::*;
+
+pub use models::*;
 pub use operations::*;
-pub use pros_cons::*;
