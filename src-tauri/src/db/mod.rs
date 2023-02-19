@@ -1,7 +1,7 @@
 pub mod commands;
-pub mod models;
+pub mod crud;
 pub mod operations;
 
 pub use commands::*;
-pub use models::*;
+pub use crud::*;
 pub use operations::*;
