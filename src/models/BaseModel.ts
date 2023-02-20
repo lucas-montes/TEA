@@ -8,32 +8,34 @@ export default class BaseModel {
     constructor() { }
 
     getModelName(): string {
-        return this.constructor.name.toLowerCase()
+        let name = this.constructor.name.toLowerCase();
+        if (!name.endsWith('s')) { name = `${name}s`; };
+        return name;
     }
 
     handleModel(method: "create" | "update" | "read" | "delete", modelData?: any): Promise<unknown> {
-        return invoke(`handle_${method}`, { modelName: this.getModelName(), modelData: modelData })
+        return invoke(`handle_${method}`, { modelName: this.getModelName(), modelData: JSON.stringify(modelData) })
     }
 
     create(): Promise<unknown> {
         this.createdAt = new Date().toLocaleString();
-        return this.handleModel("create", this)
+        return this.handleModel("create", this);
     }
 
     get(id: Number): Promise<unknown> {
-        return this.handleModel("read", { id: id })
+        return this.handleModel("read", { id: id });
     }
 
     delete(id: Number): void {
-        this.handleModel("delete", { id: id })
+        this.handleModel("delete", { id: id });
     }
 
     update(props: any): Promise<unknown> {
-        return this.handleModel("update", props)
+        return this.handleModel("update", props);
     }
 
     getAll(): Promise<unknown> {
-        return this.handleModel("read")
+        return this.handleModel("read");
     }
 
 };

@@ -22,34 +22,16 @@ pub fn create_table() -> i8 {
     return 0;
 }
 
-pub fn get_model_details(model_data: Value) {
-    let table = get_table(model_data);
-}
-
-fn get_table(model_data: Value) -> String {
-    return model_data
-        .as_object_mut()
-        .unwrap()
-        .remove("table")
-        .unwrap()
-        .to_string();
-}
-
-fn get_model_fields_information(model_data: Value) -> (String, String, Vec<String>) {
+pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<String>) {
     let mut fields: String = String::from("");
     let mut fields_numbers: String = String::from("");
     let mut fields_values: Vec<String> = Vec::new();
-    let mut number_field: i8 = 0;
 
     // When iterating it seems that the object from serde it's sorted
     for (key, value) in model_data.as_object().unwrap() {
-        fields = generate_fields(fields.to_string(), key.to_string());
+        fields = generate_fields(fields.to_string(), camel_to_snake_case(key));
 
-        number_field += 1;
-        fields_numbers = generate_fields(
-            fields_numbers.to_string(),
-            format!("{number_field}?").to_string(),
-        );
+        fields_numbers = generate_fields(fields_numbers.to_string(), "?".to_string());
 
         fields_values.push(value.as_str().unwrap().to_string());
     }
@@ -68,17 +50,28 @@ fn generate_fields(fields: String, new_field: String) -> String {
     return fields_str;
 }
 
+fn camel_to_snake_case(s: &str) -> String {
+    let mut snake_case = String::new();
+    for c in s.chars() {
+        if c.is_ascii_uppercase() {
+            snake_case.push('_');
+        }
+        snake_case.extend(c.to_lowercase());
+    }
+    return snake_case;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_get_model_fields_information() {
-        let model_data = json!({ "title": "name", "id": "5"});
+        let model_data = json!({ "title": "name", "id": "5", "someThing": "d"});
         let (fields, fields_numbers, fields_values) = get_model_fields_information(model_data);
-        assert_eq!("id, title", fields);
-        assert_eq!("1?, 2?", fields_numbers);
-        assert_eq!(vec!("5", "title"), fields_values);
+        assert_eq!("id, some_thing, title", fields);
+        assert_eq!("?, ?, ?", fields_numbers);
+        assert_eq!(vec!("5", "d", "name"), fields_values);
     }
 
     #[test]
@@ -88,5 +81,11 @@ mod tests {
             result = generate_fields(result, String::from(word));
         }
         assert_eq!("one, two, three", result);
+    }
+
+    #[test]
+    fn test_camel_to_snake_case() {
+        let result = camel_to_snake_case("heyThatsCool");
+        assert_eq!("hey_thats_cool", result);
     }
 }

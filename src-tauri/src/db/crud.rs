@@ -23,7 +23,7 @@ const TEXT: &str = "TEXT";
 const INTEGER: &str = "INTEGER";
 const NOT_NULL: &str = "NOT NULL";
 
-fn create(mut model_data: Value) {
+pub fn create(table: String, model_data: Value) {
     let (fields, fields_numbers, fields_values) = get_model_fields_information(model_data);
     let query = create_query(table, fields, fields_numbers);
     execute_query(query, fields_values);
@@ -50,20 +50,20 @@ fn update_query(table: String, fields_names: String) -> String {
 }
 
 fn read(model_data: Value) {
-    let person_iter = stmt.query_map([], |row| {
-        Ok(Person {
-            id: row.get(0)?,
-            name: row.get(1)?,
-            data: row.get(2)?,
-        })
-    })?;
+    // let person_iter = stmt.query_map([], |row| {
+    //     Ok(Person {
+    //         id: row.get(0)?,
+    //         name: row.get(1)?,
+    //         data: row.get(2)?,
+    //     })
+    // })?;
 }
 
 fn read_query(table: String) -> String {
     return format!("SELECT * FROM {table}");
 }
 
-fn delete(model_data: Value) {}
+fn delete(table: String, id: i16) {}
 
 #[cfg(test)]
 mod tests {
