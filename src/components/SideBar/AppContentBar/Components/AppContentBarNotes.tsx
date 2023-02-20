@@ -20,7 +20,7 @@ export default class AppContentBarNotes extends React.Component {
     }
 
     componentDidMount() {
-        this.getNotesFirstTime()
+        // this.getNotesFirstTime()
     }
 
     render() {
