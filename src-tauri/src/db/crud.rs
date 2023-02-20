@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use crate::db::{connect, get_model_fields_information};
-use rusqlite::ToSql;
+use rusqlite::{Statement, ToSql};
 use serde_json::{to_string, Value};
 
 // Commands
@@ -50,6 +50,19 @@ fn update_query(table: String, fields_names: String) -> String {
 }
 
 fn read(model_data: Value) {
+    let connection = connect().prepare(&query).unwrap();
+    let person_iter = connection.query_map([], |row| {
+        Ok(Person {
+            id: row.get(0)?,
+            name: row.get(1)?,
+            data: row.get(2)?,
+        })
+    })?;
+
+    for person in person_iter {
+        println!("Found person {:?}", person.unwrap());
+    }
+    Ok(())
     // let person_iter = stmt.query_map([], |row| {
     //     Ok(Person {
     //         id: row.get(0)?,
