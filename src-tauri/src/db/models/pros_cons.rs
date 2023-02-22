@@ -22,21 +22,9 @@ pub struct ProsCons {
 impl BaseModel for ProsCons {
     type QuerySet = ProsCons;
 
-    pub fn parse_query(row: Row) {
-        return Self::QuerySet {
-            id: row.get(0)?,
-            created_at: row.get(1)?,
-            title: row.get(2)?,
-            content: row.get(3)?,
-            pros: row.get(4)?,
-            cons: row.get(5)?,
-        };
-    }
-
-    pub fn get_all() -> Vec<Self::QuerySet> {
+    fn read(&self) -> Vec<Self::QuerySet> {
         let conn = connect();
-
-        let mut stmt = conn.prepare("SELECT * FROM pros_cons").unwrap();
+        let mut stmt = conn.prepare("SELECT * FROM proscons").unwrap();
 
         let rows = stmt
             .query_map([], |row| {

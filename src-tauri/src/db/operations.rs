@@ -38,6 +38,19 @@ pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<S
     return (fields, fields_numbers, fields_values);
 }
 
+pub fn get_model_fields_information_for_update(model_data: Value) -> String {
+    let mut fields: String = String::from("");
+
+    // When iterating it seems that the object from serde it's sorted
+    for (key, value) in model_data.as_object().unwrap() {
+        let value = value.as_str().unwrap();
+        let column = camel_to_snake_case(key);
+        let column_value = format!("{column} = {value}");
+        fields = generate_fields(fields.to_string(), column_value);
+    }
+    return fields;
+}
+
 fn generate_fields(fields: String, new_field: String) -> String {
     let fields_str: String;
 
@@ -72,6 +85,13 @@ mod tests {
         assert_eq!("id, some_thing, title", fields);
         assert_eq!("?, ?, ?", fields_numbers);
         assert_eq!(vec!("5", "d", "name"), fields_values);
+    }
+
+    #[test]
+    fn test_get_model_fields_information_for_update() {
+        let model_data = json!({ "title": "name", "id": "5", "someThing": "d"});
+        let fields = get_model_fields_information_for_update(model_data);
+        assert_eq!("id = 5, some_thing = d, title = name", fields);
     }
 
     #[test]

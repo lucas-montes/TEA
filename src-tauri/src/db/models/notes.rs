@@ -17,10 +17,10 @@ pub struct Note {
 
 impl BaseModel for Note {
     type QuerySet = Note;
-    type table: String;
 
-    fn get_all(&self, table: String) -> Vec<Self::QuerySet> {
-        let mut stmt = &self.create_read_query(table);
+    fn read(&self) -> Vec<Self::QuerySet> {
+        let conn = connect();
+        let mut stmt = conn.prepare("SELECT * FROM notes").unwrap();
 
         let rows = stmt
             .query_map([], |row| {

@@ -1,27 +1,8 @@
 #![allow(dead_code)]
 
-use crate::db::{connect, get_model_fields_information};
-use rusqlite::{Statement, ToSql};
-use serde_json::{to_string, Value};
-
-// Commands
-const CREATE_TABLE: &str = "CREATE TABLE";
-const CREATE_TABLE_IF: &str = "CREATE TABLE IF NOT EXISTS";
-const INSERT_INTO: &str = "INSERT INTO";
-const SELECT: &str = "SELECT";
-const UPDATE: &str = "UPDATE";
-
-// Arguments
-const BASE_DB: &str = "main.db";
-const VALUES: &str = "VALUES";
-const FROM: &str = "FROM";
-const SET: &str = "SET";
-
-// TYPES
-const INTEGER_PRIMARY_KEY: &str = "INTEGER PRIMARY KEY";
-const TEXT: &str = "TEXT";
-const INTEGER: &str = "INTEGER";
-const NOT_NULL: &str = "NOT NULL";
+use crate::db::{connect, get_model_fields_information, get_model_fields_information_for_update};
+use rusqlite::ToSql;
+use serde_json::Value;
 
 pub fn create(table: String, model_data: Value) {
     let (fields, fields_numbers, fields_values) = get_model_fields_information(model_data);
@@ -30,7 +11,7 @@ pub fn create(table: String, model_data: Value) {
 }
 
 fn create_query(table: String, fields: String, fields_numbers: String) -> String {
-    return format!("INSERT INTO {table} ({fields}) VALUES ({fields_numbers});").to_string();
+    return format!("INSERT INTO {table} ({fields}) VALUES ({fields_numbers});");
 }
 
 fn execute_query(query: String, fields_values: Vec<String>) -> i8 {
@@ -43,40 +24,23 @@ fn execute_query(query: String, fields_values: Vec<String>) -> i8 {
     return 0;
 }
 
-fn update(model_data: Value) {}
-
-fn update_query(table: String, fields_names: String) -> String {
-    return format!("UPDATE {table} SET {fields_names} WHERE id = ?");
+pub fn update(table: String, model_data: Value, id: String) -> i8 {
+    let fields_names = get_model_fields_information_for_update(model_data);
+    let query = update_query(table, fields_names, id);
+    connect().execute(&query, ()).unwrap();
+    return 1;
 }
 
-fn read(model_data: Value) {
-    let connection = connect().prepare(&query).unwrap();
-    let person_iter = connection.query_map([], |row| {
-        Ok(Person {
-            id: row.get(0)?,
-            name: row.get(1)?,
-            data: row.get(2)?,
-        })
-    })?;
-
-    for person in person_iter {
-        println!("Found person {:?}", person.unwrap());
-    }
-    Ok(())
-    // let person_iter = stmt.query_map([], |row| {
-    //     Ok(Person {
-    //         id: row.get(0)?,
-    //         name: row.get(1)?,
-    //         data: row.get(2)?,
-    //     })
-    // })?;
+fn update_query(table: String, fields_names: String, id: String) -> String {
+    return format!("UPDATE {table} SET {fields_names} WHERE id = {id}");
 }
 
-fn read_query(table: String) -> String {
-    return format!("SELECT * FROM {table}");
+pub fn delete(table: String, id: String) -> i8 {
+    connect()
+        .execute(&format!("DELETE FROM {table} WHERE id = {id}"), ())
+        .unwrap();
+    return 1;
 }
-
-fn delete(table: String, id: i16) {}
 
 #[cfg(test)]
 mod tests {
