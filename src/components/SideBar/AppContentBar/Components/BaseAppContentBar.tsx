@@ -1,32 +1,33 @@
 import AppItemComponent from "./AppItemComponent";
 import { BsPlus, BsAlarm } from 'react-icons/bs';
-import Note from "../../../../models/Note";
 import React from 'react';
 
-export default class AppContentBarNotes extends React.Component {
+export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            notes: [],
+            entries: [],
         }
     }
 
-    getNotesFirstTime(): void {
-        new Note().getAll()
-            .then((files) => { console.log(files), this.setState({ notes: files }); })
+    getModel() { return; }
+
+    getFirstTimeEntries(): void {
+        this.getModel().getAll()
+            .then((allEntries) => { console.log(allEntries), this.setState({ entries: allEntries }); })
             .catch((error) => {
                 console.error(error);
             })
     }
 
     componentDidMount() {
-        // this.getNotesFirstTime()
+        this.getFirstTimeEntries()
     }
 
     render() {
         return (
             <div>
-                {this.state.notes.map((value, index) => {
+                {this.state.entries.map((value, index) => {
                     return <AppItemComponent title={value.title} url={value.title} icon={<BsAlarm size="15" />} key={index} />
                 })}
             </div>

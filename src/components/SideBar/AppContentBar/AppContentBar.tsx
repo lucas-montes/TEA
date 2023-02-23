@@ -1,7 +1,7 @@
 import Modal from "../../Modals/Modal";
 import AppContentBarAlias from "./Components/AppContentBarAlias";
-import AppContentBarKanban from "./Components/AppContentBarKanban";
-import AppContentBarNotes from "./Components/AppContentBarNotes";
+import AppContentBarKanban from "./Components/Kanban";
+import AppContentBarNotes from "./Components/Notes";
 import { kanban, notes, alias, settings, schedule, prosCons } from "../../../constants/Apps"
 
 export default function AppContentBar({ app }) {

@@ -3,7 +3,9 @@
     windows_subsystem = "windows"
 )]
 
-use db::commands::{handle_create, handle_delete, handle_read, handle_update};
+use db::commands::{
+    handle_create, handle_delete, handle_read_notes, handle_read_proscons, handle_update,
+};
 use files::commands::show_files;
 use menus::get_menu;
 
@@ -18,7 +20,8 @@ fn main() {
             handle_create,
             handle_update,
             handle_delete,
-            handle_read,
+            handle_read_notes,
+            handle_read_proscons,
             show_files
         ])
         .run(tauri::generate_context!())

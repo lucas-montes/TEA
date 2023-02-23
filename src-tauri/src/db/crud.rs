@@ -4,10 +4,11 @@ use crate::db::{connect, get_model_fields_information, get_model_fields_informat
 use rusqlite::ToSql;
 use serde_json::Value;
 
-pub fn create(table: String, model_data: Value) {
+pub fn create(table: String, model_data: Value) -> i8 {
     let (fields, fields_numbers, fields_values) = get_model_fields_information(model_data);
     let query = create_query(table, fields, fields_numbers);
     execute_query(query, fields_values);
+    return 1;
 }
 
 fn create_query(table: String, fields: String, fields_numbers: String) -> String {

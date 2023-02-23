@@ -1,6 +1,4 @@
-use crate::db::models::BaseModel;
 use crate::db::operations::connect;
-use rusqlite::Result;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug, Clone, Serialize)]
@@ -15,16 +13,14 @@ pub struct Note {
     pub content: String,
 }
 
-impl BaseModel for Note {
-    type QuerySet = Note;
-
-    fn read(&self) -> Vec<Self::QuerySet> {
+impl Note {
+    pub fn read() -> Vec<Note> {
         let conn = connect();
         let mut stmt = conn.prepare("SELECT * FROM notes").unwrap();
 
         let rows = stmt
             .query_map([], |row| {
-                Ok(Self::QuerySet {
+                Ok(Note {
                     id: row.get(0)?,
                     created_at: row.get(1)?,
                     title: row.get(2)?,

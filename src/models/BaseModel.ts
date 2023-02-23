@@ -1,5 +1,4 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import { FileResult } from "../types/Files";
 
 export default class BaseModel {
     id?: Number;
@@ -8,34 +7,31 @@ export default class BaseModel {
     constructor() { }
 
     getModelName(): string {
-        let name = this.constructor.name.toLowerCase();
+        return this.constructor.name.toLowerCase();
+    }
+
+    getTableName(): string {
+        let name = this.getModelName();
         if (!name.endsWith('s')) { name = `${name}s`; };
         return name;
     }
 
-    handleModel(method: "create" | "update" | "read" | "delete", modelData?: any): Promise<unknown> {
-        return invoke(`handle_${method}`, { modelName: this.getModelName(), modelData: JSON.stringify(modelData) })
-    }
-
     create(): Promise<unknown> {
         this.createdAt = new Date().toLocaleString();
-        return this.handleModel("create", this);
+        return invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(this) });
     }
 
-    get(id: Number): Promise<unknown> {
-        return this.handleModel("read", { id: id });
+    delete(id: Number): Promise<unknown> {
+        return invoke("handle_delete", { table: this.getTableName(), id: id });
     }
 
-    delete(id: Number): void {
-        this.handleModel("delete", { id: id });
-    }
-
-    update(props: any): Promise<unknown> {
-        return this.handleModel("update", props);
+    update(id: Number, props: any): Promise<unknown> {
+        return invoke("handle_update", { table: this.getTableName(), id: id, modelData: JSON.stringify(props) });
     }
 
     getAll(): Promise<unknown> {
-        return this.handleModel("read");
+        let table = this.getTableName();
+        return invoke(`handle_read_${table}`);
     }
 
 };

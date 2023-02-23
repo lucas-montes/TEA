@@ -1,12 +1,12 @@
 import { BaseText } from "./BaseModel";
 
 export default class KanbanTicket extends BaseText {
-    ticketStatus: string;
+    ticketStatus?: string;
 
     constructor(
-        title: string,
-        content: string,
-        ticketStatus: string,
+        title?: string,
+        content?: string,
+        ticketStatus?: string,
     ) {
         super(
             title, content
