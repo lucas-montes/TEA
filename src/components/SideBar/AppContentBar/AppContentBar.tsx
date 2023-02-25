@@ -1,22 +1,27 @@
 import Modal from "../../Modals/Modal";
-import AppContentBarAlias from "./Components/AppContentBarAlias";
+import AppContentBarAlias from "./Components/Alias";
 import AppContentBarKanban from "./Components/Kanban";
 import AppContentBarNotes from "./Components/Notes";
+import AppContentBarProsCons from "./Components/ProsCons";
 import { kanban, notes, alias, settings, schedule, prosCons } from "../../../constants/Apps"
+import KanbanTicket from "../../../models/KanbanTicket";
+import ProsCons from "../../../models/ProsCons";
+import Note from "../../../models/Note";
+import Alias from "../../../models/Alias";
 
 export default function AppContentBar({ app }) {
   function displayBarContent(app: string) {
     switch (app) {
       case kanban:
-        return <AppContentBarKanban />;
+        return <AppContentBarKanban model={KanbanTicket} />;
       case notes:
-        return <AppContentBarNotes />;
+        return <AppContentBarNotes model={Note} />;
       case alias:
-        return <AppContentBarAlias />;
+        return <AppContentBarAlias model={Alias} />;
       case schedule:
         return <div />;
       case prosCons:
-        return <div />;
+        return <AppContentBarProsCons model={ProsCons} />;
       default:
         return [];
     }

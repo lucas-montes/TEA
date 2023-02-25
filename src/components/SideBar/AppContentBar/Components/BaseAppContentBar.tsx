@@ -1,6 +1,10 @@
 import AppItemComponent from "./AppItemComponent";
 import { BsPlus, BsAlarm } from 'react-icons/bs';
 import React from 'react';
+import KanbanTicket from "../../../../models/KanbanTicket";
+import ProsCons from "../../../../models/ProsCons";
+import Note from "../../../../models/Note";
+import Alias from "../../../../models/Alias";
 
 export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {
@@ -13,16 +17,16 @@ export default class BaseAppContentBar extends React.Component {
 
     getModel() { return new this.state.model }
 
-    getFirstTimeEntries(): void {
+    getEntries(): void {
         this.getModel().getAll()
-            .then((allEntries) => { console.log(allEntries), this.setState({ entries: allEntries }); })
+            .then((allEntries) => { this.setState({ entries: allEntries }); })
             .catch((error) => {
                 console.error(error);
             })
     }
 
     componentDidMount() {
-        this.getFirstTimeEntries()
+        this.getEntries()
     }
 
     render() {

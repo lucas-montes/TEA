@@ -30,7 +30,7 @@ fn build_path_json(path: DirEntry) -> Value {
     let (full_path, file_name) = files_to_string(path);
     return json!({
       "fullPath": full_path,
-      "fileName": file_name
+      "title": file_name
     });
 }
 

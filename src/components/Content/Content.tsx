@@ -1,25 +1,3 @@
-import { posts, notas } from "../../constants/testConstants";
-import React, { useState } from 'react';
-import { kanban, notes, alias, settings, schedule, prosCons } from "../../constants/Apps";
-
-
-function displayAppContent(app: string) {
-  switch (app) {
-    case kanban:
-      return <div />;
-    case notes:
-      return <div />;
-    case alias:
-      return <div />;
-    case schedule:
-      return <div />;
-    case prosCons:
-      return <div />;
-    default:
-      return [];
-  }
-}
-
 
 const Note = (title: string, content: string, key: string) => {
   return (
@@ -59,29 +37,10 @@ const Note = (title: string, content: string, key: string) => {
 
 
 const Content = ({ app }) => {
-  // const [data, setData] = useState([]);
 
-  // if (app === "kanban") {
-  //   setData(posts)
-  // } else {
-  //   setData(notas)
-  // }
-  // switch (app) {
-  //   case 'Kanban':
-  //     setData(posts)
-  //     break;
-  //   case 'Notes':
-  //     setData(notas)
-  //     break;
-  //   case 'Alias':
-  //     console.log(app);
-  // }
-  const data = posts
   return (
     <div className="h-screen bg-gray-100 dark:bg-gray-800 container mx-auto pt-4 px-7 overflow-auto">
-      {data.map((value, index) => {
-        return Note(value.title, value.content, index.toString())
-      })}
+      <Note title={"titulo de la nota"} content={"contenido de la nota"} key={"1"} />
     </div>
   );
 };

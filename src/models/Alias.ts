@@ -4,18 +4,18 @@ import { FileResult } from "../types/Files";
 
 
 export default class Alias extends BaseModel {
-    name: string;
-    description: string;
-    category: AliasCategory;
+    name?: string;
+    description?: string;
+    category?: AliasCategory;
 
-    constructor(name: string, description: string, category: AliasCategory) {
+    constructor(name?: string, description?: string, category?: AliasCategory) {
         super();
         this.name = name;
         this.description = description;
         this.category = category;
     }
 
-    static getAll(): Promise<Array<FileResult>> {
+    getAll(): Promise<Array<FileResult>> {
         return invoke('show_files', { directory: "/home/lucas/BashFast" })
     }
 };
