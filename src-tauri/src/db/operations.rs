@@ -1,5 +1,5 @@
 use rusqlite::Connection;
-use serde_json::Value;
+use serde_json::{json, Value};
 
 pub fn connect() -> Connection {
     return Connection::open("main.db").unwrap();

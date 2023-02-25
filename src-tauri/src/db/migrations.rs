@@ -1,14 +1,17 @@
 use crate::db::connect;
+use rusqlite::{Batch, Result};
 
 pub fn run_migrations() -> i8 {
-    create_initial_tables();
-    return 0;
+    println!("Running migrations");
+    let initial_tables_result = create_initial_tables();
+    let _resut = match initial_tables_result {
+        Ok(_result) => return 1,
+        Err(error) => panic!("Problem with migrations: {:?}", error),
+    };
 }
 
-fn create_initial_tables() -> i8 {
-    connect()
-        .execute(
-            "
+fn create_initial_tables() -> Result<()> {
+    let sql = "
     CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         created_at TEXT NOT NULL,
@@ -25,13 +28,16 @@ fn create_initial_tables() -> i8 {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         created_at TEXT NOT NULL,
         title TEXT NOT NULL,
-        content TEXT NOT NULL
-        pros TEXT
+        content TEXT NOT NULL,
+        pros TEXT,
         cons TEXT
     );
-    ",
-            [],
-        )
-        .unwrap();
-    return 0;
+    ";
+    let conn = connect();
+    let mut batch = Batch::new(&conn, sql);
+
+    while let Some(mut stmt) = batch.next()? {
+        stmt.execute([])?;
+    }
+    Ok(())
 }

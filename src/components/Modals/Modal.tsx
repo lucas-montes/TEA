@@ -1,8 +1,8 @@
 import React from "react";
 import ModalButton from "./Components/ModalButton"
 import ModalBody from "./Components/ModalBody"
-import NotesForm from "./Forms/NotesForm";
-import KanbanForm from "./Forms/KanbanForm";
+import NotesForm from "./Forms/Notes";
+import KanbanForm from "./Forms/Kanban";
 import { kanban, notes, alias, settings, schedule } from "../../constants/Apps"
 
 
