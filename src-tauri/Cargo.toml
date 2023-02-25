@@ -1,5 +1,5 @@
 [package]
-name = "Producter"
+name = "producter"
 version = "0.0.0"
 description = "Be more productive with less"
 authors = ["Lucas"]

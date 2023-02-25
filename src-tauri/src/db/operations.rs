@@ -1,25 +1,8 @@
 use rusqlite::Connection;
-use serde_json::{json, to_string, Value};
+use serde_json::Value;
 
 pub fn connect() -> Connection {
-    create_table();
     return Connection::open("main.db").unwrap();
-}
-
-pub fn create_table() -> i8 {
-    let conn = Connection::open("main.db").unwrap();
-
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS notes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            created_at TEXT NOT NULL,
-            title TEXT NOT NULL,
-            content TEXT NOT NULL
-        )",
-        [],
-    )
-    .unwrap();
-    return 0;
 }
 
 pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<String>) {
@@ -63,7 +46,7 @@ fn generate_fields(fields: String, new_field: String) -> String {
     return fields_str;
 }
 
-fn camel_to_snake_case(s: &str) -> String {
+pub fn camel_to_snake_case(s: &str) -> String {
     let mut snake_case = String::new();
     for c in s.chars() {
         if c.is_ascii_uppercase() {

@@ -7,10 +7,11 @@ export default class BaseAppContentBar extends React.Component {
         super(props);
         this.state = {
             entries: [],
+            model: props.model,
         }
     }
 
-    getModel() { return; }
+    getModel() { return new this.state.model }
 
     getFirstTimeEntries(): void {
         this.getModel().getAll()

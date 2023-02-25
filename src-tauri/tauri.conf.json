@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "Producter",
+    "productName": "producter",
     "version": "0.0.0"
   },
   "tauri": {
@@ -56,10 +56,18 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
         "resizable": true,
         "title": "Productive",
-        "width": 800
+        "width": 900,
+        "visible": false
+      },
+      {
+        "width": 900,
+        "height": 800,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ]
   }

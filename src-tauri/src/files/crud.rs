@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use serde_json::{json, Value};
 use std::ffi::OsString;
 use std::fs;
@@ -6,7 +8,7 @@ use std::fs::{DirEntry, ReadDir};
 pub fn handle_settings() {
     // TODO finish that
     let file = fs::File::open("./settings.json").expect("file should open read only");
-    let json_settings: serde_json::Value =
+    let _json_settings: serde_json::Value =
         serde_json::from_reader(file).expect("file should be proper JSON");
 }
 

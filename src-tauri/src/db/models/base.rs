@@ -3,10 +3,3 @@ pub trait BaseModel {
 
     fn read(&self) -> Vec<Self::QuerySet>;
 }
-
-pub fn read<T>(model: T) -> Vec<T::QuerySet>
-where
-    T: BaseModel,
-{
-    return model.read();
-}

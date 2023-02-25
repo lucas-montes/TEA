@@ -1,4 +1,4 @@
-use src::files::crud;
+use crate::src::files::crud;
 
 #[test]
 fn test_read_dir() {
