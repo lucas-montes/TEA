@@ -1,10 +1,7 @@
 import AppItemComponent from "./AppItemComponent";
-import { BsPlus, BsAlarm } from 'react-icons/bs';
+import { BsAlarm } from 'react-icons/bs';
 import React from 'react';
-import KanbanTicket from "../../../../models/KanbanTicket";
-import ProsCons from "../../../../models/ProsCons";
-import Note from "../../../../models/Note";
-import Alias from "../../../../models/Alias";
+
 
 export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {

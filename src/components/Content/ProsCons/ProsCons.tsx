@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ProsCons as ProsConsModel } from "../../../models/ProsCons";
+import ProsCons from "../../../models/ProsCons";
 
-export default class ProsCons extends React.Component {
+export default class ProsConsContent extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -10,7 +10,7 @@ export default class ProsCons extends React.Component {
     }
 
     getNotesFirstTime(): void {
-        ProsConsModel.getAll()
+        new ProsCons().getAll()
             .then((files) => { this.setState({ notes: files }); })
             .catch((error) => {
                 console.error(error);
@@ -24,7 +24,7 @@ export default class ProsCons extends React.Component {
     render() {
         return (
             <div>
-
+                eeeee
             </div>
         );
     }
