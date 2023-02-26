@@ -1,15 +1,15 @@
-import LocalStorageManager from "./LocalStorageManager";
+import SessionStorageManager from "./SessionStorageManager";
 
 
 export default class ThemeManager {
-    localStorage: LocalStorageManager;
+    localStorage: SessionStorageManager;
     darkTheme: string = "dark";
     lightTheme: string = "light";
     defaultTheme: string = "dark";
     localStorageKey: string = "theme";
 
     constructor() {
-        this.localStorage = new LocalStorageManager();
+        this.localStorage = new SessionStorageManager();
     }
 
     getLatestTheme(): string {

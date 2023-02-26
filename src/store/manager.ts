@@ -29,6 +29,9 @@ class ItemsManager {
     static find(state: any, action: any): any {
         return state.find((item: any) => item.id === action.payload.id);
     };
+    static get(state: any, action: any): any {
+        return this.find(state, action);
+    };
     static remove(state: any, action: any): void {
         const item = this.find(state, action);
         if (item) {
@@ -43,6 +46,8 @@ const AppItems = createSlice({
     initialState,
     reducers: {
         newState: (state, action) => {
+            console.log(state);
+            console.log(action);
             ItemsManager.new(state, action);
         },
         addItem: (state, action) => {
@@ -54,8 +59,11 @@ const AppItems = createSlice({
         deleteItem: (state, action) => {
             ItemsManager.remove(state, action);
         },
+        getItem: (state, action) => {
+            ItemsManager.get(state, action);
+        },
     },
 });
 
-export const { newState, addItem, editItem, deleteItem } = AppItems.actions;
+export const { newState, addItem, editItem, deleteItem, getItem } = AppItems.actions;
 export default AppItems.reducer;

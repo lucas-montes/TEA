@@ -23,7 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<ProsConsContent />} />
             <Route path="note/:Id" element={<NotesContent />} />
-            <Route path="kanban/:Id" element={<KanbanContent />} />
+            <Route path="kanbanticket/:Id" element={<KanbanContent />} />
             <Route path="proscons/:Id" element={<ProsConsContent />} />
           </Routes>
         </div>

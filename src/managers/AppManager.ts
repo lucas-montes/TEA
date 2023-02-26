@@ -1,19 +1,19 @@
 import allApps, { kanban } from "../constants/Apps";
-import LocalStorageManager from "./LocalStorageManager";
+import SessionStorageManager from "./SessionStorageManager";
 
 
 export default class AppManager {
-    localStorage: LocalStorageManager;
+    sessionStorage: SessionStorageManager;
     defaultApp: string = kanban;
-    localStorageKey: string = "currentApp";
+    sessionStorageKey: string = "currentApp";
 
     constructor() {
-        this.localStorage = new LocalStorageManager();
+        this.sessionStorage = new SessionStorageManager();
     };
 
     getLatestApp(): string {
         try {
-            return this.localStorage.getValue(this.localStorageKey);
+            return this.sessionStorage.getValue(this.sessionStorageKey);
         }
         catch (error) {
             console.log(error);
@@ -22,7 +22,7 @@ export default class AppManager {
     };
 
     setCurrentApp(currentApp: string): void {
-        this.localStorage.replaceValue(this.localStorageKey, currentApp);
+        this.sessionStorage.replaceValue(this.sessionStorageKey, currentApp);
     };
 
     fixCorrectApp(latestApp: string): string {

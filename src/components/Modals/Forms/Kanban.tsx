@@ -1,6 +1,6 @@
 import React from "react";
 import KanbanTicket from "../../../models/KanbanTicket";
-import LocalStorageManager from "../../../managers/LocalStorageManager";
+import SessionStorageManager from "../../../managers/SessionStorageManager";
 
 export default function KanbanForm(props: any) {
     const [inputs, setInputs] = React.useState(
@@ -16,7 +16,7 @@ export default function KanbanForm(props: any) {
         props.setShowModal(false)
         let ticket = new KanbanTicket(inputs.title, inputs.content, inputs.taskStatus, new Date());
         // ticket.save();
-        const localSto = new LocalStorageManager();
+        const localSto = new SessionStorageManager();
         localSto.setValue("model", JSON.stringify(ticket))
     };
     function handleChange(event: any) {
