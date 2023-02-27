@@ -11,6 +11,7 @@ import MenuApp from "../models/Apps";
 
 const SideBarIcons = [
   new MenuApp(
+    "kanban",
     <BsKanban size="28" />,
     "",
     "sidebar-icon group",
@@ -19,6 +20,7 @@ const SideBarIcons = [
     switchApp,
   ),
   new MenuApp(
+    "notes",
     <BiNote size="32" />,
     "",
     "sidebar-icon group",
@@ -27,6 +29,7 @@ const SideBarIcons = [
     switchApp,
   ),
   new MenuApp(
+    "alias",
     <TbMathFunction size="32" />,
     "",
     "sidebar-icon group",
@@ -35,6 +38,7 @@ const SideBarIcons = [
     switchApp,
   ),
   new MenuApp(
+    "schedule",
     <BsClock size="32" />,
     "",
     "sidebar-icon group",
@@ -43,6 +47,7 @@ const SideBarIcons = [
     switchApp,
   ),
   new MenuApp(
+    "prosCons",
     <FaBalanceScale size="32" />,
     "",
     "sidebar-icon group",
@@ -51,6 +56,7 @@ const SideBarIcons = [
     switchApp,
   ),
   new MenuApp(
+    "settings",
     <BsGearFill size="22" />,
     "inset-x-0 bottom-0 absolute",
     "sidebar-icon group",

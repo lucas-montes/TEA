@@ -24,7 +24,7 @@ export class SessionStorageManagerStatic {
 
     static getValue(key: string): any {
         const item = window.sessionStorage.getItem(key);
-        if (item === null) {
+        if (item === null || item === "undefined") {
             return "";
         }
         return JSON.parse(item);

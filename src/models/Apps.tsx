@@ -3,6 +3,7 @@ import { settings } from "../constants/Apps";
 
 
 export default class MenuApp extends BaseModel {
+    path: string
     icon: JSX.Element
     className: string
     tooltipClassName: string
@@ -12,6 +13,7 @@ export default class MenuApp extends BaseModel {
     items: Array<AppItem>
 
     constructor(
+        path: string,
         icon: JSX.Element,
         position: string = "",
         className: string = "sidebar-icon group",
@@ -22,6 +24,7 @@ export default class MenuApp extends BaseModel {
 
     ) {
         super();
+        this.path = path;
         this.icon = icon;
         this.className = this.createClassName(className, position);
         this.tooltipClassName = tooltipClassName;

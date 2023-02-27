@@ -30,7 +30,7 @@ export default function AppContentBar({ app }) {
 
   return (
     <div className="
-    w-3/4 flex flex-col 
+    w-5/6 flex flex-col 
     justify-between 
     h-screen bg-gray-100 
     dark:bg-gray-800 

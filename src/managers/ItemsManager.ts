@@ -15,8 +15,24 @@ export default class ItemsManager {
         this.sessionStorage.setValue(this.sessionStorageKeySingleItem, item)
     };
 
-    static getItem() {
-        return this.sessionStorage.getValue(this.sessionStorageKeySingleItem);
+    static getItemFromList(itemId: number) {
+        const item = this.getItems().find(({ id }) => id === itemId);
+        this.saveItem(item)
+        return item
+    };
+
+    static checkCorrectItem(itemId: number, currentItem: any) {
+        return currentItem.id == itemId;
+    };
+
+    static getItem(currentPath: object) {
+        const itemId = parseInt(currentPath.Id)
+        let item = this.sessionStorage.getValue(this.sessionStorageKeySingleItem);
+        if (item === "" || !this.checkCorrectItem(itemId, item)) {
+            item = this.getItemFromList(itemId);
+        }
+        console.log(item)
+        return item;
     };
 
     static getItems(): Array<any> {

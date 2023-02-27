@@ -2,7 +2,7 @@ import AppItemComponent from "./AppItemComponent";
 import { BsAlarm } from 'react-icons/bs';
 import React from 'react';
 import ItemsManager from "../../../../managers/ItemsManager";
-
+import { posts } from "../../../../constants/testConstants";
 
 export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {
@@ -36,7 +36,8 @@ export default class BaseAppContentBar extends React.Component {
         this.getModel().getAll()
             .then((entries: Array<any>) => { this.saveEntries(entries) })
             .catch((error: any) => {
-                console.error(error);
+                // console.error(error);
+                this.saveEntries(posts);
             })
     }
 

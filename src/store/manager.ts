@@ -27,6 +27,7 @@ class ItemsManager {
         this.push(state, action);
     };
     static find(state: any, action: any): any {
+        // .find(({ id }) => id === id);
         return state.find((item: any) => item.id === action.payload.id);
     };
     static get(state: any, action: any): any {
