@@ -3,11 +3,14 @@ import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 
-const Note = (title: string, content: string, key: string) => {
+
+export default function NoteContent() {
     const [markDown, setMarkdown] = useState();
+    const id = location.pathname.split("/")[2];
+    console.log(id);
 
     return (
-        <div key={key} className="shadow-lg ring-1 ring-black/10 relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100" draggable="true">
+        <div className="shadow-lg ring-1 ring-black/10 relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100" draggable="true">
             <textarea
                 value={markDown}
                 onChange={(e) => setMarkdown(e.target.value)}
@@ -17,7 +20,6 @@ const Note = (title: string, content: string, key: string) => {
                 <ReactMarkdown className="markdown" rehypePlugins={[rehypeHighlight]}>{markDown}</ReactMarkdown>
             </div>
         </div>
-    )
-}
+    );
 
-export default Note;
+};

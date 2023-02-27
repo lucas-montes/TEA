@@ -6,9 +6,10 @@ import {
   Route,
 } from "react-router-dom";
 
-import NotesContent from "./components/Content/Notes/Notes";
+import Content from "./components/Content/Content";
 import KanbanContent from "./components/Content/Kanban/Kanban";
 import ProsConsContent from "./components/Content/ProsCons/ProsCons";
+import NoteContent from "./components/Content/Notes/Note";
 
 const App = () => {
   handleInitialTheme();
@@ -21,10 +22,13 @@ const App = () => {
       <div className="flex-auto">
         <div className="h-screen bg-gray-100 dark:bg-gray-800 container mx-auto pt-4 px-7 overflow-auto">
           <Routes>
-            <Route path="/" element={<ProsConsContent />} />
-            <Route path="note/:Id" element={<NotesContent />} />
-            <Route path="kanbanticket/:Id" element={<KanbanContent />} />
-            <Route path="proscons/:Id" element={<ProsConsContent />} />
+            <Route path="/" element={<Content />} />
+            <Route path="/note/:Id" element={<NoteContent />}>
+            </Route>
+            <Route path="/kanbanticket/:Id" element={<KanbanContent />}>
+            </Route>
+            <Route path="/proscons/:Id" element={<ProsConsContent />}>
+            </Route>
           </Routes>
         </div>
       </div>

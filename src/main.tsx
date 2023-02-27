@@ -7,11 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <div className="h-screen flex">
+  <Provider store={store}>
+    <div className="h-screen flex">
+      <BrowserRouter>
         <App />
-      </div>
-    </Provider>
-  </BrowserRouter>
+      </BrowserRouter>
+    </div>
+  </Provider>
 );
