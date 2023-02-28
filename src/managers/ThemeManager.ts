@@ -17,7 +17,7 @@ export default class ThemeManager {
             return this.localStorage.getValue(this.localStorageKey);
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
             return this.defaultTheme;
         };
     };

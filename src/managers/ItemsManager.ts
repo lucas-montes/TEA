@@ -31,7 +31,6 @@ export default class ItemsManager {
         if (item === "" || !this.checkCorrectItem(itemId, item)) {
             item = this.getItemFromList(itemId);
         }
-        console.log(item)
         return item;
     };
 
@@ -40,7 +39,7 @@ export default class ItemsManager {
             return this.sessionStorage.getValue(this.sessionStorageKey);
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
             return [];
         };
     };

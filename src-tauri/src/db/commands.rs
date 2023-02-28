@@ -10,14 +10,14 @@ pub fn handle_create(table: String, model_data: String) -> i8 {
 }
 
 #[tauri::command]
-pub fn handle_update(table: String, model_data: String, id: String) -> i8 {
+pub fn handle_update(table: String, model_data: String, id: i16) -> i8 {
     let snake_table = camel_to_snake_case(&table);
     let result: Value = from_str(model_data.as_str()).unwrap();
     return update(snake_table, result, id).into();
 }
 
 #[tauri::command]
-pub fn handle_delete(table: String, id: String) -> i8 {
+pub fn handle_delete(table: String, id: i16) -> i8 {
     let snake_table = camel_to_snake_case(&table);
     return delete(snake_table, id).into();
 }

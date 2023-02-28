@@ -16,7 +16,7 @@ export default class AppManager {
             return this.sessionStorage.getValue(this.sessionStorageKey);
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
             return this.defaultApp;
         };
     };

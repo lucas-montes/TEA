@@ -21,7 +21,7 @@ fn execute_query(query: String, fields_values: Vec<String>) -> i8 {
     return 0;
 }
 
-pub fn update(table: String, model_data: Value, id: String) -> i8 {
+pub fn update(table: String, model_data: Value, id: i16) -> i8 {
     let fields_names = get_model_fields_information_for_update(model_data);
     connect()
         .execute(
@@ -32,7 +32,7 @@ pub fn update(table: String, model_data: Value, id: String) -> i8 {
     return 1;
 }
 
-pub fn delete(table: String, id: String) -> i8 {
+pub fn delete(table: String, id: i16) -> i8 {
     connect()
         .execute(&format!("DELETE FROM {table} WHERE id = {id}"), ())
         .unwrap();

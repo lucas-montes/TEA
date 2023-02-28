@@ -47,8 +47,6 @@ const AppItems = createSlice({
     initialState,
     reducers: {
         newState: (state, action) => {
-            console.log(state);
-            console.log(action);
             ItemsManager.new(state, action);
         },
         addItem: (state, action) => {
