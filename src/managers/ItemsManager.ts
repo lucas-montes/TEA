@@ -44,6 +44,14 @@ export default class ItemsManager {
         };
     };
 
+    static updateItems(item: any) {
+        const allItems = this.getItems();
+        const oldItem = allItems.find(({ id }) => id === item.id);
+        const oldItemId = allItems.indexOf(oldItem);
+        allItems[oldItemId] = item;
+        this.replaceItems(allItems);
+    };
+
     static replaceItems(items: Array<any>) {
         this.sessionStorage.replaceValue(this.sessionStorageKey, items);
     };
