@@ -1,16 +1,12 @@
-import BaseModel from "./BaseModel";
+import { BaseText } from "./BaseModel";
 
 
-export default class ProsCons extends BaseModel {
-    title?: string;
-    description?: string;
+export default class ProsCons extends BaseText {
     pros?: Array<string>;
     cons?: Array<string>;
 
-    constructor(title?: string, description?: string, pros?: Array<string>, cons?: Array<string>) {
-        super();
-        this.title = title;
-        this.description = description;
+    constructor(title?: string, content?: string, pros?: Array<string>, cons?: Array<string>) {
+        super(title, content);
         this.pros = pros;
         this.cons = cons;
     }

@@ -78,6 +78,7 @@
         "unminimize": false
       }
     },
+    "macOSPrivateApi": true,
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
@@ -120,6 +121,7 @@
     },
     "windows": [
       {
+        "transparent": false,
         "fullscreen": false,
         "height": 800,
         "resizable": true,

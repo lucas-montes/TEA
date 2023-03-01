@@ -1,8 +1,8 @@
 import React from "react";
 import ModalButton from "./Components/ModalButton"
 import ModalBody from "./Components/ModalBody"
-import NotesForm from "./Forms/Notes";
 import KanbanForm from "./Forms/Kanban";
+import NewSimpleItemForm from "./Forms/NewSimpleItem"
 import { kanban, notes, alias, settings, schedule } from "../../constants/Apps"
 
 
@@ -14,12 +14,12 @@ export default function Modal(props: any) {
         switch (app) {
             case kanban:
                 return <KanbanForm setShowModal={setShowModal} />;
-            case notes:
-                return <NotesForm setShowModal={setShowModal} />;
+            case schedule:
+                return <NewSimpleItemForm setShowModal={setShowModal} />;
             case alias:
-                return <NotesForm setShowModal={setShowModal} />;
+                return <KanbanForm setShowModal={setShowModal} />;
             default:
-                return <NotesForm setShowModal={setShowModal} />;
+                return <NewSimpleItemForm model={props.model} setShowModal={setShowModal} />;
         }
     }
 
@@ -27,7 +27,10 @@ export default function Modal(props: any) {
         <>
             <ModalButton setShowModal={setShowModal} />
             {showModal ? (
-                <ModalBody title={`Add a new ${props.app}`} setShowModal={setShowModal} form={displayForm(props.app)} />
+                <ModalBody
+                    title={`Add a new ${props.app}`}
+                    setShowModal={setShowModal}
+                    form={displayForm(props.app)} />
             ) : null}
         </>
     );

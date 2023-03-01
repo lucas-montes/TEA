@@ -1,17 +1,13 @@
-import BaseModel from "./BaseModel";
+import BaseModel, { BaseText } from "./BaseModel";
 import { invoke } from '@tauri-apps/api/tauri';
 import { FileResult } from "../types/Files";
 
 
-export default class Alias extends BaseModel {
-    name?: string;
-    description?: string;
+export default class Alias extends BaseText {
     category?: AliasCategory;
 
-    constructor(name?: string, description?: string, category?: AliasCategory) {
-        super();
-        this.name = name;
-        this.description = description;
+    constructor(title?: string, content?: string, category?: AliasCategory) {
+        super(title, content);
         this.category = category;
     }
 
@@ -21,10 +17,10 @@ export default class Alias extends BaseModel {
 };
 
 export class AliasCategory extends BaseModel {
-    name: string;
+    title: string;
 
-    constructor(name: string) {
+    constructor(title: string) {
         super();
-        this.name = name;
+        this.title = title;
     }
 };
