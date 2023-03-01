@@ -28,7 +28,7 @@ pub fn get_model_fields_information_for_update(model_data: Value) -> String {
     for (key, value) in model_data.as_object().unwrap() {
         let value = value.as_str().unwrap();
         let column = camel_to_snake_case(key);
-        let column_value = format!("{column} = {value}");
+        let column_value = format!("{column} = '{value}'");
         fields = generate_fields(fields.to_string(), column_value);
     }
     return fields;
