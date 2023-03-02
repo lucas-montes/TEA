@@ -3,11 +3,13 @@ import AppContentBarAlias from "./Components/Alias";
 import AppContentBarKanban from "./Components/Kanban";
 import AppContentBarNotes from "./Components/Notes";
 import AppContentBarProsCons from "./Components/ProsCons";
+import AppContentBarSchedule from "./Components/Schedule";
 import { kanban, notes, alias, settings, schedule, prosCons } from "../../../constants/Apps"
 import KanbanTicket from "../../../models/KanbanTicket";
 import ProsCons from "../../../models/ProsCons";
 import Note from "../../../models/Note";
 import Alias from "../../../models/Alias";
+import Schedule from "../../../models/Schedule";
 
 export default function AppContentBar({ app }) {
   function getDisplayBarAndModel(app: string) {
@@ -19,7 +21,7 @@ export default function AppContentBar({ app }) {
       case alias:
         return [<AppContentBarAlias model={Alias} />, Alias];
       case schedule:
-        return [<div />, null];
+        return [<AppContentBarSchedule model={Schedule} />, Schedule];
       case prosCons:
         return [<AppContentBarProsCons model={ProsCons} />, ProsCons];
       default:
