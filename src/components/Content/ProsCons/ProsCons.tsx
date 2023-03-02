@@ -1,5 +1,5 @@
 import ProsCons from "../../../models/ProsCons";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import ItemsManager from "../../../managers/ItemsManager";
 import { useParams } from 'react-router-dom';
@@ -71,10 +71,21 @@ export default function ProsConsContent() {
         }
     );
 
+    useEffect(() => {
+        if (inputs.title !== val.title) {
+            setInputs({ title: val.title, content: val.content });
+            setPros(val.pros);
+            setCons(val.cons);
+        }
+    });
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        val.title = inputs.title
+        val.content = inputs.content
+        ItemsManager.saveItem(val);
         ItemsManager.updateItems(val);
-        new ProsCons().update(val.id, { title: inputs.title, content: inputs.content });
+        new ProsCons().update(val.id, { title: inputs.title, content: inputs.content, cons: Cons, pros: Pros });
     };
 
     function addNewPro(event: any) {
@@ -105,34 +116,34 @@ export default function ProsConsContent() {
     function handleChange(event: any) {
         const name = event.target.name;
         const value = event.target.value;
-        console.log(value)
-        val.title = value;
-        ItemsManager.saveItem(val);
+        // val.title = value;
+        // ItemsManager.saveItem(val);
         setInputs(values => ({ ...values, [name]: value }));
     };
 
     return (
-        <div className="
+        <form onSubmit={handleSubmit}>
+            <div className="
             shadow-lg ring-1 ring-black/10 
             relative flex flex-col 
             items-start p-4 mt-3 bg-white rounded-lg 
             bg-opacity-90 group hover:bg-opacity-100">
-            <input
-                type="text"
-                id="title"
-                name="title"
-                value={inputs.title}
-                onChange={handleChange}
-                className="
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={inputs.title}
+                    onChange={handleChange}
+                    className="
                     bg-gray-50 border border-gray-300 mb-4
                     text-gray-900 text-sm rounded-lg block w-full p-2.5  
                     "/>
-            <textarea
-                id="content"
-                name="content"
-                value={inputs.content}
-                onChange={handleChange}
-                className="
+                <textarea
+                    id="content"
+                    name="content"
+                    value={inputs.content}
+                    onChange={handleChange}
+                    className="
                 block p-2.5 w-full 
                 text-sm text-gray-900 bg-gray-50 rounded-lg 
                 border border-gray-300 focus:ring-blue-500 
@@ -140,15 +151,28 @@ export default function ProsConsContent() {
                 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 
                 dark:focus:border-blue-500"
-                placeholder="Write your thoughts here..."></textarea>
+                    placeholder="Write your thoughts here..."></textarea>
 
-            <div className="container m-auto grid grid-cols-2 gap-1 mt-4 rounded-lg">
-                <Table title={"PROS"} items={Pros} handleSubmit={addNewPro} handleChange={handleChangePros} value={newPros} name={"pros"} />
-                <Table title={"CONS"} items={Cons} handleSubmit={addNewCons} handleChange={handleChangeCons} value={newCons} name={"cons"} />
-            </div>
+                <div className="container m-auto grid grid-cols-2 gap-1 mt-4 rounded-lg">
+                    <Table title={"PROS"} items={Pros} handleSubmit={addNewPro} handleChange={handleChangePros} value={newPros} name={"pros"} />
+                    <Table title={"CONS"} items={Cons} handleSubmit={addNewCons} handleChange={handleChangeCons} value={newCons} name={"cons"} />
+                </div>
 
+                <button
+                    className="
+                        bg-emerald-500 
+                        text-white active:bg-emerald-600 
+                        font-bold uppercase text-sm px-6 py-3 
+                        rounded shadow hover:shadow-lg outline-none 
+                        focus:outline-none mr-1 mt-3 ease-linear 
+                        transition-all duration-150"
+                    type="submit"
 
+                >
+                    Save Changes
+                </button>
 
-        </div >
+            </div >
+        </form>
     )
 };

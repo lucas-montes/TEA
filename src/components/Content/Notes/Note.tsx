@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import ItemsManager from "../../../managers/ItemsManager";
 import { useParams } from 'react-router-dom';
@@ -12,7 +12,11 @@ import Note from "../../../models/Note";
 export default function NoteContent() {
     const val = ItemsManager.getItem(useParams());
     const editor = useRef<SunEditorCore>();
-    const [inputs, setInputs] = useState({ title: val.title, content: "", });
+    const [inputs, setInputs] = useState({ title: "", content: "" });
+
+    useEffect(() => {
+        if (inputs.title !== val.title) { setInputs({ title: val.title, content: val.content }); }
+    });
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -60,7 +64,7 @@ export default function NoteContent() {
                     name="content"
                     height="65vh"
                     onChange={handleChangeEditor}
-                    setContents={val.content}
+                    setContents={inputs.content}
                     setOptions={{
                         width: "100%",
                         buttonList: [

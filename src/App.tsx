@@ -22,10 +22,11 @@ const App = () => {
       <div className="flex-auto">
         <div className="h-screen bg-gray-100 dark:bg-gray-800 mx-auto pt-4 px-7 overflow-auto">
           <Routes>
-            {/* <Route path="/" element={<Content />} /> */}
-            <Route path="/note/:Id" element={<NoteContent />} />
-            <Route path="/kanbanticket/:Id" element={<KanbanContent />} />
-            <Route path="/proscons/:Id" element={<ProsConsContent />} />
+            <Route path="/" element={<Content />}>
+              <Route path="/note/:Id" element={<NoteContent />} />
+              <Route path="/kanbanticket/:Id" element={<KanbanContent />} />
+              <Route path="/proscons/:Id" element={<ProsConsContent />} />
+            </Route>
           </Routes>
         </div>
       </div>
