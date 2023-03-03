@@ -26,6 +26,37 @@
     .sidebar-hr {
         @apply bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-full mx-2;
     }
+
+    .card-styled {
+    @apply shadow-lg ring-1 ring-black/10
+            relative flex flex-col
+            items-start p-4 mt-3 bg-white rounded-lg
+            bg-opacity-90 hover:bg-opacity-100;
+}
+
+.input-styled {
+    @apply bg-gray-50 border border-gray-300 mb-4
+                    text-gray-900 text-sm rounded-lg block w-full p-2.5;
+}
+
+.textfield-styled {
+    @apply block p-2.5 w-full
+                text-sm text-gray-900 bg-gray-50 rounded-lg
+                border border-gray-300 focus:ring-blue-500
+                focus:border-blue-500 dark:bg-gray-700
+                dark:border-gray-600 dark:placeholder-gray-400
+                dark:text-white dark:focus:ring-blue-500
+                dark:focus:border-blue-500;
+}
+
+.save-button {
+    @apply bg-emerald-500
+                        text-white active:bg-emerald-600
+                        font-bold uppercase text-sm px-6 py-3
+                        rounded shadow hover:shadow-lg outline-none
+                        focus:outline-none mr-1 mt-3 ease-linear
+                        transition-all duration-150;
+}
 }
 
 @tailwind utilities;

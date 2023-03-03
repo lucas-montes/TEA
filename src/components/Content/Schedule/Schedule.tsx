@@ -1,17 +1,124 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import ItemsManager from "../../../managers/ItemsManager";
 import { useParams } from 'react-router-dom';
 
-function scheduleItem() {
-    return (<div></div>)
+function* range(start:number, stop:number, step = 1) {
+    if (stop == null) {
+        // one param defined
+        stop = start;
+        start = 0;
+    }
+
+    for (let i = start; step > 0 ? i < stop : i > stop; i += step) {
+        yield i;
+    }
+}
+
+class TimePicker extends React.Component {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            value: "",
+            hour: "",
+            minute: "",
+            ampm: "",
+        }
+    }
+
+    componentDidMount() {
+        if (this.state.value !== "") {}
+    }
+
+    createOption(num:number){
+        return (
+            <option value={num.toString()}>{num}</option>
+        )
+    }
+    generateOptions(stop:number){
+        const options = []
+        for (let i of range(1,stop)){
+            options.push(this.createOption(i))
+        }
+        return options;
+    }
+
+    uuidv4() {
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+    }
+
+    updateAMPM(event:any){
+        console.log(event.taget)
+        this.setState({ampm: event.target.value})
+    }
+    updateHour(event:any){this.setState({hour: event.target.value})}
+    updateMinute(event:any){this.setState({minute: event.target.value})}
+
+    render() {
+        return(
+        <div key={this.uuidv4()} className="flex justify-center">
+                <div className="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
+                    <div className="flex">
+                        <select
+                            onChange={this.updateHour}
+                            name="hours"
+                            className="bg-transparent text-xl appearance-none outline-none"
+                        >
+                            {this.generateOptions(13)}
+                        </select>
+                        <span className="text-xl mr-3">:</span>
+                        <select
+                            onChange={this.updateMinute}
+                            name="minutes"
+                            className="bg-transparent text-xl appearance-none outline-none mr-4"
+                        >
+                            {this.generateOptions(60)}
+                        </select>
+                        <select
+                            onChange={this.updateAMPM}
+                            name="ampm"
+                            className="bg-transparent text-xl appearance-none outline-none"
+                        >
+                            <option value="am">AM</option>
+                            <option value="pm">PM</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+    )
+    }
+}
+function scheduleItem(value:any, key:String, inputs:any, handleChange:any) {
+    return (
+        <div key={value.id} className="card-styled group">
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={inputs.title}
+                    onChange={handleChange}
+                    className="input-styled"/>
+                <textarea
+                    id="content"
+                    name="content"
+                    value={inputs.content}
+                    onChange={handleChange}
+                    className="textfield-styled"
+                    placeholder="Write your thoughts here..."></textarea>
+                <TimePicker/>
+        </div>
+    )
 }
 
 export default function ScheduleContent() {
     const val = ItemsManager.getItem(useParams());
     const [inputs, setInputs] = useState({ title: "", content: "" });
     const [allTasks, setAllTasks] = useState([]);
+    const [taskInputs, setTaskInputs] = useState({ title: "", content: "", start: "", end: "" });
     const [newTask, setNewTask] = useState({ title: "", content: "", start: "", end: "" });
+
 
     useEffect(() => {
         if (inputs.title !== val.title) {
@@ -26,18 +133,34 @@ export default function ScheduleContent() {
         val.content = inputs.content
         ItemsManager.saveItem(val);
         ItemsManager.updateItems(val);
-        new ProsCons().update(val.id, { title: inputs.title, content: inputs.content, cons: Cons, pros: Pros });
+        // new ProsCons().update(val.id, { title: inputs.title, content: inputs.content, cons: Cons, pros: Pros });
     };
 
     function addNewPro(event: any) {
         event.preventDefault();
-        const updatedPros = [...Pros];
-        updatedPros.push(newPros);
-        setPros(updatedPros);
-        setnewPros("");
-        val.pros = updatedPros;
+        // const updatedPros = [...Pros];
+        // updatedPros.push(newPros);
+        // setPros(updatedPros);
+        // setnewPros("");
+        // val.pros = updatedPros;
         ItemsManager.saveItem(val);
+    }
+
+    function handleChange(event: any) {
+        const name = event.target.name;
+        const value = event.target.value;
+        // val.title = value;
+        // ItemsManager.saveItem(val);
+        setInputs(values => ({ ...values, [name]: value }));
     };
 
-    return (<div></div>)
+    return (
+        <>
+        {
+            allTasks.map((value:any, index:number) => {
+                    return scheduleItem(value, index.toString(), taskInputs, handleChange)
+                })
+        }
+        </>
+    )
 };
