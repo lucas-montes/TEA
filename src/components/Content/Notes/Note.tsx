@@ -56,10 +56,7 @@ export default function NoteContent() {
                     name="title"
                     value={inputs.title}
                     onChange={handleChange}
-                    className="
-                    bg-gray-50 border border-gray-300 mb-4
-                    text-gray-900 text-sm rounded-lg block w-full p-2.5  
-                    "/>
+                    className="input-styled" />
                 <SunEditor
                     name="content"
                     height="65vh"
@@ -90,13 +87,7 @@ export default function NoteContent() {
                     }}
                     getSunEditorInstance={getSunEditorInstance} />
                 <button
-                    className="
-                        bg-emerald-500 
-                        text-white active:bg-emerald-600 
-                        font-bold uppercase text-sm px-6 py-3 
-                        rounded shadow hover:shadow-lg outline-none 
-                        focus:outline-none mr-1 mt-3 ease-linear 
-                        transition-all duration-150"
+                    className="save-button"
                     type="submit"
 
                 >

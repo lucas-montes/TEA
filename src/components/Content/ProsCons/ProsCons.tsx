@@ -134,23 +134,13 @@ export default function ProsConsContent() {
                     name="title"
                     value={inputs.title}
                     onChange={handleChange}
-                    className="
-                    bg-gray-50 border border-gray-300 mb-4
-                    text-gray-900 text-sm rounded-lg block w-full p-2.5  
-                    "/>
+                    className="input-styled" />
                 <textarea
                     id="content"
                     name="content"
                     value={inputs.content}
                     onChange={handleChange}
-                    className="
-                block p-2.5 w-full 
-                text-sm text-gray-900 bg-gray-50 rounded-lg 
-                border border-gray-300 focus:ring-blue-500 
-                focus:border-blue-500 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 
-                dark:focus:border-blue-500"
+                    className="textfield-styled"
                     placeholder="Write your thoughts here..."></textarea>
 
                 <div className="container m-auto grid grid-cols-2 gap-1 mt-4 rounded-lg">
@@ -159,16 +149,8 @@ export default function ProsConsContent() {
                 </div>
 
                 <button
-                    className="
-                        bg-emerald-500 
-                        text-white active:bg-emerald-600 
-                        font-bold uppercase text-sm px-6 py-3 
-                        rounded shadow hover:shadow-lg outline-none 
-                        focus:outline-none mr-1 mt-3 ease-linear 
-                        transition-all duration-150"
-                    type="submit"
-
-                >
+                    className="save-button"
+                    type="submit">
                     Save Changes
                 </button>
 

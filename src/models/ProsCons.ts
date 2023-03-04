@@ -10,4 +10,12 @@ export default class ProsCons extends BaseText {
         this.pros = pros;
         this.cons = cons;
     }
+
+    getCreateData() {
+        this.createdAt = new Date().toLocaleString();
+        let createdData = this;
+        createdData.pros = createdData.pros.join()
+        createdData.cons = createdData.cons.join()
+        return createdData
+    }
 };

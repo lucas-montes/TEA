@@ -16,9 +16,15 @@ export default class BaseModel {
         return name;
     }
 
-    create(): Promise<unknown> {
+    getCreateData() {
         this.createdAt = new Date().toLocaleString();
-        return invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(this) });
+        let createdData = this;
+        return createdData
+    }
+
+    create(): Promise<unknown> {
+        const createData = this.getCreateData();
+        return invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
     }
 
     delete(id: Number): Promise<unknown> {
