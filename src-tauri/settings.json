@@ -1,5 +1,10 @@
 {
-  "id": "5",
-  "someThing": "d",
-  "title": "name"
+  "apps": [
+    "kanban",
+    "alias",
+    "notes",
+    "schedule",
+    "proscons"
+  ],
+  "theme": "dark"
 }

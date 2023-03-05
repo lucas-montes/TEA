@@ -5,7 +5,7 @@ export default class KanbanTicket extends BaseText {
 
     constructor(
         title?: string,
-        content?: string,
+        content: string = "",
         ticketStatus?: string,
     ) {
         super(

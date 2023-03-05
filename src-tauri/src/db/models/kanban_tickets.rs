@@ -16,7 +16,7 @@ pub struct KanbanTicket {
 impl KanbanTicket {
     pub fn read() -> Vec<KanbanTicket> {
         let conn = connect();
-        let mut stmt = conn.prepare("SELECT * FROM kanban_tickets").unwrap();
+        let mut stmt = conn.prepare("SELECT * FROM kanbantickets").unwrap();
 
         let rows = stmt
             .query_map([], |row| {

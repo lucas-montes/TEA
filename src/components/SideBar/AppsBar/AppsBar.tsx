@@ -1,9 +1,6 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
-
 import SideBarIcons from '../../../constants/SideBarIcons';
 import MenuApp from '../../../models/Apps';
 
-import { useSelector, useDispatch } from 'react-redux'
 
 export default function AppsBar({ app, setApp }) {
   return (
@@ -15,7 +12,12 @@ export default function AppsBar({ app, setApp }) {
   );
 };
 
-function SideBarIcon(MenuApp: MenuApp, setApp: any, key: string) {
+function SideBarIcon(MenuApp: MenuApp, setApp: any, key: String) {
+  function handleSetApp(setApp: any, MenuApp: MenuApp) {
+    MenuApp.onClickMethod(MenuApp.tooltipText);
+    setApp(MenuApp.tooltipText);
+  };
+
   if (MenuApp.isSettings) {
     return (
       <button key={key} className={MenuApp.className} onClick={() => MenuApp.onClickMethod(MenuApp.tooltipText)}>
@@ -28,7 +30,7 @@ function SideBarIcon(MenuApp: MenuApp, setApp: any, key: string) {
   }
 
   return (
-    <button key={key} className={MenuApp.className} onClick={() => setApp(MenuApp.tooltipText)}>
+    <button key={key} className={MenuApp.className} onClick={() => handleSetApp(setApp, MenuApp)}>
       {MenuApp.icon}
       <span className={MenuApp.tooltipClassName}>
         {MenuApp.tooltipText}

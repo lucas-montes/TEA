@@ -20,7 +20,12 @@ pub fn settings_on_init() {
 }
 
 fn create_initial_settings(mut file: File) {
-    let settings = json!({ "title": "name", "id": "5", "someThing": "d"});
+    let settings = json!(
+        { 
+            "theme": "dark", 
+            "apps": ["kanban", "alias", "notes", "schedule", "proscons"],
+        }
+    );
     file.write_all(serde_json::to_string_pretty(&settings).unwrap().as_bytes());
 }
 

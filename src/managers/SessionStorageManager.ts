@@ -22,6 +22,10 @@ export class SessionStorageManagerStatic {
         window.sessionStorage.setItem(key, JSON.stringify(value));
     };
 
+    static setStringValue(key: string, value: string): void {
+        window.sessionStorage.setItem(key, JSON.stringify(value));
+    };
+
     static getValue(key: string): any {
         const item = window.sessionStorage.getItem(key);
         if (item === null || item === "undefined") {
@@ -30,9 +34,17 @@ export class SessionStorageManagerStatic {
         return JSON.parse(item);
     };
 
+    static getStringValue(key: string): any { return window.sessionStorage.getItem(key); };
+
     static replaceValue(key: string, value: any): any {
         let oldValue = this.getValue(key);
         this.setValue(key, value);
+        return oldValue;
+    };
+
+    static replaceStringValue(key: string, value: string): any {
+        let oldValue = this.getStringValue(key);
+        this.setStringValue(key, value);
         return oldValue;
     };
 }

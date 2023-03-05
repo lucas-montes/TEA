@@ -20,7 +20,7 @@ pub struct ProsCons {
 impl ProsCons {
     pub fn read() -> Vec<ProsCons> {
         let conn = connect();
-        let mut stmt = conn.prepare("SELECT * FROM pros_cons").unwrap();
+        let mut stmt = conn.prepare("SELECT * FROM proscons").unwrap();
 
         let rows = stmt
             .query_map([], |row| {

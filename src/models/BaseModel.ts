@@ -1,52 +1,73 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
-export default class BaseModel {
+export default abstract class BaseModel extends Object {
     id?: Number;
     createdAt?: string;
 
-    constructor() { }
-
-    getModelName(): string {
+    public getModelName(): string {
         return this.constructor.name.toLowerCase();
     }
 
-    getTableName(): string {
+    public getTableName(): string {
         let name = this.getModelName();
         if (!name.endsWith('s')) { name = `${name}s`; };
         return name;
     }
 
-    getCreateData() {
+    public getCreateData(): any {
         this.createdAt = new Date().toLocaleString();
         let createdData = this;
         return createdData
     }
 
-    create(): Promise<unknown> {
+    public async create(): Promise<number> {
         const createData = this.getCreateData();
-        return invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
+        return await invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
     }
 
-    delete(id: Number): Promise<unknown> {
-        return invoke("handle_delete", { table: this.getTableName(), id: id });
+    public async delete(id: Number): Promise<number> {
+        return await invoke("handle_delete", { table: this.getTableName(), id: id });
     }
 
-    update(id: Number, props: any): Promise<unknown> {
-        return invoke("handle_update", { table: this.getTableName(), id: id, modelData: JSON.stringify(props) });
+    public async update(id: Number, props: any): Promise<number> {
+        return await invoke("handle_update", { table: this.getTableName(), id: id, modelData: JSON.stringify(props) });
     }
 
-    getAll(): Promise<unknown> {
+    public async read(): Promise<Array<any>> {
         let table = this.getTableName();
-        return invoke(`handle_read_${table}`);
+        return await invoke(`handle_read_${table}`);
+    }
+
+    public serializeModel(entry: any): this {
+        let newEntry: this = this;
+        Object.entries(entry).forEach(([key, value]) => {
+            if (key === "pros" || key === "cons") {
+                if (value === "") { value = []; } else { value = value.split(","); }
+            };
+            this[key] = value;
+        });
+        return newEntry;
+    }
+
+    public serializeModels(entries: any): Array<this> {
+        let newEntries: Array<this> = [];
+        entries.map((value: this) => newEntries.push(this.serializeModel(value)));
+        return newEntries;
+    }
+
+    public async getAll() {
+        return this.read()
+            .then((entries: Array<any>) => { return this.serializeModels(entries) })
+            .catch((error: any) => { console.error(error); })
     }
 
 };
 
-export class BaseText extends BaseModel {
+export abstract class BaseText extends BaseModel {
     title?: string;
     content?: string;
 
-    constructor(title?: string, content?: string) {
+    constructor(title?: string, content: string = "") {
         super();
         this.title = title;
         this.content = content;

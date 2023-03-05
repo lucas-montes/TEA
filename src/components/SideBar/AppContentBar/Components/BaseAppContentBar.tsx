@@ -44,6 +44,7 @@ export default class BaseAppContentBar extends React.Component {
     getModel() { return new this.state.model }
 
     saveEntries(entries: Array<any>) {
+        console.log(entries);
         ItemsManager.saveAllItems(entries);
         this.setState({ entries: entries });
     }

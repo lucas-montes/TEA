@@ -14,19 +14,19 @@ fn create_initial_tables() -> Result<()> {
     let sql = "
     CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         title TEXT NOT NULL,
         content TEXT NOT NULL
     );
-    CREATE TABLE IF NOT EXISTS kanban_tickets (
+    CREATE TABLE IF NOT EXISTS kanbantickets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         title TEXT NOT NULL,
         content TEXT NOT NULL
     );
-    CREATE TABLE IF NOT EXISTS pros_cons (
+    CREATE TABLE IF NOT EXISTS proscons (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
         pros TEXT,

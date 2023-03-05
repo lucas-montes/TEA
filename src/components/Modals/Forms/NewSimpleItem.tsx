@@ -5,7 +5,13 @@ export default function NewSimpleItemForm(props: any) {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         props.setShowModal(false)
-        new props.model(inputs.title).create();
+        const newObj = new props.model(inputs.title);
+        newObj.create()
+            .then((newId: number) => { console.log(newId) })
+            .catch((error: any) => {
+                console.error(error);
+            });
+
     };
     function handleChange(event: any) {
         const name = event.target.name;

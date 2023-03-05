@@ -1,19 +1,15 @@
 import allApps, { kanban } from "../constants/Apps";
-import SessionStorageManager from "./SessionStorageManager";
+import { SessionStorageManagerStatic } from "./SessionStorageManager";
 
 
 export default class AppManager {
-    sessionStorage: SessionStorageManager;
-    defaultApp: string = kanban;
-    sessionStorageKey: string = "currentApp";
+    static sessionStorage = SessionStorageManagerStatic;
+    static defaultApp: string = kanban;
+    static sessionStorageKey: string = "currentApp";
 
-    constructor() {
-        this.sessionStorage = new SessionStorageManager();
-    };
-
-    getLatestApp(): string {
+    static getLatestApp(): string {
         try {
-            return this.sessionStorage.getValue(this.sessionStorageKey);
+            return this.sessionStorage.getStringValue(this.sessionStorageKey);
         }
         catch (error) {
             console.error(error);
@@ -21,11 +17,11 @@ export default class AppManager {
         };
     };
 
-    setCurrentApp(currentApp: string): void {
-        this.sessionStorage.replaceValue(this.sessionStorageKey, currentApp);
+    static setCurrentApp(currentApp: string): void {
+        this.sessionStorage.replaceStringValue(this.sessionStorageKey, currentApp);
     };
 
-    fixCorrectApp(latestApp: string): string {
+    static fixCorrectApp(latestApp: string): string {
         if (!(latestApp in allApps)) {
             this.setCurrentApp(this.defaultApp);
             return this.defaultApp;
@@ -35,7 +31,7 @@ export default class AppManager {
         };
     };
 
-    setAndGetLatestApp(): string {
+    static setAndGetLatestApp(): string {
         const latestApp = this.getLatestApp();
         this.setCurrentApp(latestApp);
         return latestApp;
@@ -44,6 +40,5 @@ export default class AppManager {
 };
 
 export function switchApp(app: string): void {
-    const appManager = new AppManager();
-    appManager.setCurrentApp(app);
+    AppManager.setCurrentApp(app);
 };

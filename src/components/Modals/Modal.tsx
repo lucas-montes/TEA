@@ -11,16 +11,9 @@ export default function Modal(props: any) {
     const [showModal, setShowModal] = React.useState(false);
 
     function displayForm(app: string) {
-        switch (app) {
-            case kanban:
-                return <KanbanForm setShowModal={setShowModal} />;
-            case schedule:
-                return <NewSimpleItemForm setShowModal={setShowModal} />;
-            case alias:
-                return <KanbanForm setShowModal={setShowModal} />;
-            default:
-                return <NewSimpleItemForm model={props.model} setShowModal={setShowModal} />;
-        }
+        let FormComponent = NewSimpleItemForm;
+        if (app === kanban || app === alias) { FormComponent = KanbanForm; }
+        return <FormComponent model={props.model} setShowModal={setShowModal} />;
     }
 
     return (

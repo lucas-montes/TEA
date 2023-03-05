@@ -5,7 +5,7 @@ export class ScheduleTask extends BaseText {
     start?: Date;
     end?: Date;
 
-    constructor(title?: string, content?: string, start?: Date, end?: Date) {
+    constructor(title?: string, content: string = "", start?: Date, end?: Date) {
         super(title, content);
         this.start = start;
         this.end = end;

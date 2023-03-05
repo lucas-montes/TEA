@@ -1,25 +1,21 @@
-use crate::db::{camel_to_snake_case, create, delete, update, KanbanTicket, Note, ProsCons};
+use crate::db::{create, delete, update, KanbanTicket, Note, ProsCons};
 use serde_json::{from_str, Value};
 
 #[tauri::command]
-pub fn handle_create(table: String, model_data: String) -> i8 {
-    let snake_table = camel_to_snake_case(&table);
+pub fn handle_create(table: String, model_data: String) -> i64 {
     let result: Value = from_str(model_data.as_str()).unwrap();
-    println!("{:#?}", result);
-    return create(snake_table, result).into();
+    return create(table, result).into();
 }
 
 #[tauri::command]
-pub fn handle_update(table: String, model_data: String, id: i16) -> i8 {
-    let snake_table = camel_to_snake_case(&table);
+pub fn handle_update(table: String, model_data: String, id: i16) -> i16 {
     let result: Value = from_str(model_data.as_str()).unwrap();
-    return update(snake_table, result, id).into();
+    return update(table, result, id).into();
 }
 
 #[tauri::command]
-pub fn handle_delete(table: String, id: i16) -> i8 {
-    let snake_table = camel_to_snake_case(&table);
-    return delete(snake_table, id).into();
+pub fn handle_delete(table: String, id: i16) -> i16 {
+    return delete(table, id).into();
 }
 
 #[tauri::command]

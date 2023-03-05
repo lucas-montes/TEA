@@ -10,26 +10,28 @@ import ProsCons from "../../../models/ProsCons";
 import Note from "../../../models/Note";
 import Alias from "../../../models/Alias";
 import Schedule from "../../../models/Schedule";
+import React from 'react';
 
 export default function AppContentBar({ app }) {
+
   function getDisplayBarAndModel(app: string) {
     switch (app) {
       case kanban:
-        return [<AppContentBarKanban model={KanbanTicket} />, KanbanTicket];
+        return [AppContentBarKanban, KanbanTicket];
       case notes:
-        return [<AppContentBarNotes model={Note} />, Note];
+        return [AppContentBarNotes, Note];
       case alias:
-        return [<AppContentBarAlias model={Alias} />, Alias];
+        return [AppContentBarAlias, Alias];
       case schedule:
-        return [<AppContentBarSchedule model={Schedule} />, Schedule];
+        return [AppContentBarSchedule, Schedule];
       case prosCons:
-        return [<AppContentBarProsCons model={ProsCons} />, ProsCons];
+        return [AppContentBarProsCons, ProsCons];
       default:
         return [null, null];
     }
   }
 
-  let [contentBar, currentModel] = getDisplayBarAndModel(app);
+  let [ContentBar, currentModel] = getDisplayBarAndModel(app);
 
   return (
     <div className="
@@ -48,8 +50,8 @@ export default function AppContentBar({ app }) {
         </h1>
 
         <nav aria-label="Main Nav" className="flex flex-col mt-6 space-y-1 overflow-auto">
-          <Modal app={app} model={currentModel}></Modal>
-          {contentBar}
+          <Modal app={app} model={currentModel} />
+          <ContentBar model={currentModel} />
         </nav>
       </div>
     </div>
