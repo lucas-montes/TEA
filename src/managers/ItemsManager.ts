@@ -1,5 +1,6 @@
 import allApps, { kanban } from "../constants/Apps";
 import { SessionStorageManagerStatic } from "./SessionStorageManager";
+import AppManager from "./AppManager";
 
 
 export default class ItemsManager {
@@ -21,14 +22,15 @@ export default class ItemsManager {
         return item
     };
 
-    static checkCorrectItem(itemId: number, currentItem: any) {
-        return currentItem.id == itemId;
+    static checkCorrectItem(itemId: number, currentItem: any, currentLocation?: any) {
+        const currentApp = AppManager.getLatestApp();
+        return currentItem.id == itemId || currentLocation == currentApp;
     };
 
-    static getItem(currentPath: object) {
+    static getItem(currentPath: object, currentLocation?: object) {
         const itemId = parseInt(currentPath.Id)
         let item = this.sessionStorage.getValue(this.sessionStorageKeySingleItem);
-        if (item === "" || !this.checkCorrectItem(itemId, item)) {
+        if (item === "" || !this.checkCorrectItem(itemId, item, currentLocation)) {
             item = this.getItemFromList(itemId);
         }
         return item;

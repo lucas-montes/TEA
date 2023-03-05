@@ -2,7 +2,7 @@ import ProsCons from "../../../models/ProsCons";
 import { useState, useEffect } from "react";
 
 import ItemsManager from "../../../managers/ItemsManager";
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 
 function TableRow(item: String, key: String) {
@@ -59,7 +59,7 @@ function Table(props: any) {
 
 
 export default function ProsConsContent() {
-    const val = ItemsManager.getItem(useParams());
+    const val = ItemsManager.getItem(useParams(), useLocation());
     const [newPros, setnewPros] = useState("")
     const [newCons, setnewCons] = useState("")
     const [Pros, setPros] = useState(val.pros)

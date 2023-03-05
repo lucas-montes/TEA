@@ -17,9 +17,15 @@ export default class AppItemComponent extends React.Component {
 
     isDropdown(): boolean { return false; }
 
+    changeCurrentItem() {
+        // get the model name and the id
+        // set the item here so it can be retieved latter on
+    }
+
     render() {
         return (
             <Link
+                onClick={this.changeCurrentItem}
                 className="
         flex items-center px-4 py-2 cursor-pointer rounded-lg
         text-black hover:bg-gray-900 hover:text-gray-100
