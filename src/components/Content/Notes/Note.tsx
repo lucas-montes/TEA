@@ -6,6 +6,8 @@ import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
+import { useDispatch, useSelector } from "react-redux";
+import { editItem } from "../../../store/manager";
 import Note from "../../../models/Note";
 
 
@@ -14,6 +16,8 @@ export default function NoteContent() {
     const editor = useRef<SunEditorCore>();
     const [inputs, setInputs] = useState({ title: "", content: "" });
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if (inputs.title !== val.title) { setInputs({ title: val.title, content: val.content }); }
     });
@@ -21,7 +25,8 @@ export default function NoteContent() {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         ItemsManager.updateItems(val);
-        new Note().update(val.id, { title: inputs.title, content: inputs.content });
+        dispatch(editItem(val))
+        // new Note().update(val.id, { title: inputs.title, content: inputs.content });
     };
 
     function handleChange(event: any) {

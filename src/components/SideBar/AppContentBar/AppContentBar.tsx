@@ -1,16 +1,23 @@
 import Modal from "../../Modals/Modal";
+
 import AppContentBarAlias from "./Components/Alias";
 import AppContentBarKanban from "./Components/Kanban";
 import AppContentBarNotes from "./Components/Notes";
 import AppContentBarProsCons from "./Components/ProsCons";
 import AppContentBarSchedule from "./Components/Schedule";
+
 import { kanban, notes, alias, settings, schedule, prosCons } from "../../../constants/Apps"
+
 import KanbanTicket from "../../../models/KanbanTicket";
 import ProsCons from "../../../models/ProsCons";
 import Note from "../../../models/Note";
 import Alias from "../../../models/Alias";
 import Schedule from "../../../models/Schedule";
-import React from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+import { addCurrentApp } from "../../../store/manager";
+
+import { useState, useRef, useEffect } from "react";
 
 export default function AppContentBar({ app }) {
 
@@ -31,7 +38,13 @@ export default function AppContentBar({ app }) {
     }
   }
 
+  // useEffect(() => {
+  //   useSelector((state) => state.items.items);
+  // });
+
+  const selectorData = useSelector((state) => state.items.items);
   let [ContentBar, currentModel] = getDisplayBarAndModel(app);
+  useDispatch()(addCurrentApp(app))
 
   return (
     <div className="
@@ -51,7 +64,7 @@ export default function AppContentBar({ app }) {
 
         <nav aria-label="Main Nav" className="flex flex-col mt-6 space-y-1 overflow-auto">
           <Modal app={app} model={currentModel} />
-          <ContentBar model={currentModel} />
+          <ContentBar selectorData={selectorData} model={currentModel} />
         </nav>
       </div>
     </div>

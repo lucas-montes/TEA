@@ -1,9 +1,13 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import {posts} from "../constants/testConstants";
+import { posts } from "../constants/testConstants";
 
 export default abstract class BaseModel extends Object {
     id?: Number;
     createdAt?: string;
+
+    public static getModelName(): string {
+        return this.constructor.name.toLowerCase();
+    }
 
     public getModelName(): string {
         return this.constructor.name.toLowerCase();

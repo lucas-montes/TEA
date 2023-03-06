@@ -8,7 +8,7 @@ export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            entries: [],
+            entries: props.selectorData,
             model: props.model,
         }
     }
@@ -35,7 +35,7 @@ export default class BaseAppContentBar extends React.Component {
     getEntriesFromDB(): void {
         this.getModel().getAll()
             .then((entries: Array<any>) => { this.saveEntries(entries); })
-            .catch((error: any) => {console.error(error);})
+            .catch((error: any) => { console.error(error); })
     }
 
     getModel() { return new this.state.model }
@@ -45,7 +45,7 @@ export default class BaseAppContentBar extends React.Component {
         this.setState({ entries: entries });
     }
 
-    handleDropDown(event:any){
+    handleDropDown(event: any) {
         console.log(event)
     }
 

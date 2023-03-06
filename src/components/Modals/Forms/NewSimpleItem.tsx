@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../../store/manager";
+
 
 export default function NewSimpleItemForm(props: any) {
     const [inputs, setInputs] = React.useState({ title: "", });
