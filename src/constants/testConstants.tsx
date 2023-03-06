@@ -3,8 +3,8 @@ const posts = [
         id: 2,
         title: "epa",
         content: "lorem ipsum dolor sit amet",
-        pros: ["one", "two"],
-        cons: ["heyheyhey"],
+        pros: [],
+        cons: [],
         tasks: [
             {
                 id: 2,
@@ -29,8 +29,22 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
-        start: Date.parse("12:05:44"),
-        end: Date.parse("18:46:30"),
+        tasks: [
+            {
+                id: 2,
+                title: "epa",
+                content: "lorem ipsum dolor sit amet",
+                start: Date.parse("12:05:44"),
+                end: Date.parse("18:46:30"),
+            },
+            {
+                id: 3,
+                title: "epasdfsdf",
+                content: "lopsum dolor sit amet",
+                start: Date.parse("11:05:44"),
+                end: Date.parse("15:46:30"),
+            }
+        ]
     },
     {
         id: 4,
@@ -38,8 +52,22 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
-        start: Date.parse("12:05:44"),
-        end: Date.parse("18:46:30"),
+        tasks: [
+            {
+                id: 2,
+                title: "epa",
+                content: "lorem ipsum dolor sit amet",
+                start: Date.parse("12:05:44"),
+                end: Date.parse("18:46:30"),
+            },
+            {
+                id: 3,
+                title: "epasdfsdf",
+                content: "lopsum dolor sit amet",
+                start: Date.parse("11:05:44"),
+                end: Date.parse("15:46:30"),
+            }
+        ]
     },
     {
         id: 5,
@@ -47,8 +75,22 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
-        start: Date.parse("12:05:44"),
-        end: Date.parse("18:46:30"),
+        tasks: [
+            {
+                id: 2,
+                title: "epa",
+                content: "lorem ipsum dolor sit amet",
+                start: Date.parse("12:05:44"),
+                end: Date.parse("18:46:30"),
+            },
+            {
+                id: 3,
+                title: "epasdfsdf",
+                content: "lopsum dolor sit amet",
+                start: Date.parse("11:05:44"),
+                end: Date.parse("15:46:30"),
+            }
+        ]
     },
     {
         id: 6,
@@ -56,8 +98,22 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
-        start: Date.parse("12:05:44"),
-        end: Date.parse("18:46:30"),
+        tasks: [
+            {
+                id: 2,
+                title: "epa",
+                content: "lorem ipsum dolor sit amet",
+                start: Date.parse("12:05:44"),
+                end: Date.parse("18:46:30"),
+            },
+            {
+                id: 3,
+                title: "epasdfsdf",
+                content: "lopsum dolor sit amet",
+                start: Date.parse("11:05:44"),
+                end: Date.parse("15:46:30"),
+            }
+        ]
     },
 ];
 

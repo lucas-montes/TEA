@@ -34,26 +34,26 @@ export default class BaseAppContentBar extends React.Component {
 
     getEntriesFromDB(): void {
         this.getModel().getAll()
-            .then((entries: Array<any>) => { this.saveEntries(entries) })
-            .catch((error: any) => {
-                // console.error(error);
-                this.saveEntries(posts);
-            })
+            .then((entries: Array<any>) => { this.saveEntries(entries); })
+            .catch((error: any) => {console.error(error);})
     }
 
     getModel() { return new this.state.model }
 
     saveEntries(entries: Array<any>) {
-        console.log(entries);
         ItemsManager.saveAllItems(entries);
         this.setState({ entries: entries });
+    }
+
+    handleDropDown(event:any){
+        console.log(event)
     }
 
     render() {
         return (
             <div>
                 {this.state.entries.map((value, index) => {
-                    return <AppItemComponent title={value.title} url={`/${this.getModelName()}/${value.id}`} icon={<BsAlarm size="15" />} key={index} />
+                    return <AppItemComponent value={value} title={value.title} url={`/${this.getModelName()}/${value.id}`} icon={<BsAlarm size="15" />} key={index} />
                 })}
             </div>
         );

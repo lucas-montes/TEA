@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri';
+import {posts} from "../constants/testConstants";
 
 export default abstract class BaseModel extends Object {
     id?: Number;
@@ -58,7 +59,10 @@ export default abstract class BaseModel extends Object {
     public async getAll() {
         return this.read()
             .then((entries: Array<any>) => { return this.serializeModels(entries) })
-            .catch((error: any) => { console.error(error); })
+            .catch((error: any) => {
+                // console.error(error);
+                return posts;
+            })
     }
 
 };

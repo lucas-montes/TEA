@@ -57,6 +57,12 @@
                         focus:outline-none mr-1 mt-3 ease-linear
                         transition-all duration-150;
 }
+
+    .sidebar-entry {
+    @apply flex items-center px-4 py-2 cursor-pointer rounded-lg
+        text-black hover:bg-gray-900 hover:text-gray-100
+        dark:text-white dark:hover:bg-gray-100 dark:hover:text-gray-900
+    }
 }
 
 @tailwind utilities;
