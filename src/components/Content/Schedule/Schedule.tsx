@@ -26,12 +26,10 @@ class TimePicker extends React.Component {
             hour: "",
             minute: "",
             ampm: "",
-            key: "",
-        }
+        };
     }
 
     componentDidMount() {
-        this.setState({ key: `${this.uuidv4()}-` })
         if (this.state.value !== "") { }
     }
 
@@ -79,7 +77,7 @@ class TimePicker extends React.Component {
 
     render() {
         return (
-            <div key={this.state.key} className={`flex justify-center ${this.props.className}`}>
+            <div className={`flex justify-center ${this.props.className}`}>
                 <div className="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
                     <div className="flex">
                         <select
@@ -131,15 +129,9 @@ function scheduleItem(value: any, key: String, inputs: any, handleChange: any) {
                 placeholder="Write your thoughts here..."></textarea>
 
             <div className="flex items-stretch mt-2 left-0">
-                <TimePicker className={"mr-4"} value={inputs.start} />
-                <TimePicker value={inputs.end} />
-                <button
-                    className="save-button absolute right-0"
-                    type="submit">
-                    Save Changes
-                </button>
+                <TimePicker key={`${scheduleItemKey}-s`} value={inputs.start} />
+                <TimePicker key={`${scheduleItemKey}-e`} className={"absolute right-0 mr-5"} value={inputs.end} />
             </div>
-
         </div>
     )
 }
@@ -188,12 +180,17 @@ export default function ScheduleContent() {
     };
 
     return (
-        <>
+        <form>
             {
                 allTasks.map((value: any, index: number) => {
                     return scheduleItem(value, index.toString(), taskInputs, handleChange)
                 })
             }
-        </>
+            <button
+                className="save-button absolute right-5"
+                type="submit">
+                Save Changes
+            </button>
+        </form>
     )
 };
