@@ -3,17 +3,8 @@ import React, { useState, useEffect } from "react";
 import ItemsManager from "../../../managers/ItemsManager";
 import { useParams } from 'react-router-dom';
 
-function* range(start: number, stop: number, step = 1) {
-    if (stop == null) {
-        // one param defined
-        stop = start;
-        start = 0;
-    }
+import { range } from "../../../utils/general";
 
-    for (let i = start; step > 0 ? i < stop : i > stop; i += step) {
-        yield i;
-    }
-}
 
 class TimePicker extends React.Component {
     constructor(props: any) {

@@ -5,6 +5,7 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: [],
         cons: [],
+        ticketStatus: "to-do",
         tasks: [
             {
                 id: 2,
@@ -29,6 +30,7 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
+        ticketStatus: "doing",
         tasks: [
             {
                 id: 2,
@@ -52,6 +54,7 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
+        ticketStatus: "done",
         tasks: [
             {
                 id: 2,
@@ -75,6 +78,7 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
+        ticketStatus: "done",
         tasks: [
             {
                 id: 2,
@@ -98,6 +102,7 @@ const posts = [
         content: "lorem ipsum dolor sit amet",
         pros: ["one", "two"],
         cons: ["heyheyhey"],
+        ticketStatus: "to-do",
         tasks: [
             {
                 id: 2,
