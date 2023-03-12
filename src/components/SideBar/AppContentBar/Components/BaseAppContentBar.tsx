@@ -2,13 +2,16 @@ import AppItemComponent from "./AppItemComponent";
 import { BsAlarm } from 'react-icons/bs';
 import React from 'react';
 import ItemsManager from "../../../../managers/ItemsManager";
-import { posts } from "../../../../constants/testConstants";
+
+import { useDispatch, useSelector } from "react-redux";
+import {changeCurrentApp} from "../../../../store/manager";
+
 
 export default class BaseAppContentBar extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            entries: props.selectorData,
+            entries: [],
             model: props.model,
         }
     }

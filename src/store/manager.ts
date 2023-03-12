@@ -1,31 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { kanban, notes, alias, settings, schedule, prosCons } from "../constants/Apps";
 
-type AppItemType = {
-    id: number;
-    title: String;
-    createdAt?: string;
-    content?: String;
-    pros?: Array<string>;
-    cons?: Array<string>;
-    tasks?: Array<any>;
-}
 
 const initialState = {
-    currentApp: "",
-    items: [],
+    currentApp: kanban,
+    itemsPerApp: {
+        kanban: [],
+        notes: [],
+        alias: [],
+        schedule: [],
+        prosCons: [],
+    },
 };
 
 
 class ItemsManager {
-    static new(state: any, action: any): void {
-        state = action.payload;
+    static getCurrentApp(state: any, action: any): void {
+        return state.currentApp;
     };
-    static addCurrentApp(state: any, action: any): void {
+    static changeCurrentApp(state: any, action: any): void {
         state.currentApp = action.payload;
     };
+
     static push(state: any, action: any): void {
-        state.items.push(action.payload);
+        state.itemsPerApp[state.currentApp].push(action.payload);
     };
     static edit(state: any, action: any): void {
         this.remove(state, action);
@@ -33,18 +32,18 @@ class ItemsManager {
     };
     static find(state: any, action: any): any {
         // .find(({ id }) => id === id);
-        return state.items.find((item: any) => item.id === action.payload.id);
+        return state.itemsPerApp[state.currentApp].find((item: any) => item.id === action.payload.id);
     };
     static get(state: any, action: any): any {
         return this.find(state, action);
     };
     static getAll(state: any): any {
-        return state.items;
+        return state.itemsPerApp[state.currentApp];
     };
     static remove(state: any, action: any): void {
         const item = this.find(state, action);
         if (item) {
-            state.items.splice(state.indexOf(item), 1);
+            state.itemsPerApp[state.currentApp].splice(state.indexOf(item), 1);
         }
     };
 }
@@ -54,12 +53,13 @@ const AppItems = createSlice({
     name: "AppItems",
     initialState,
     reducers: {
-        newState: (state, action) => {
-            ItemsManager.new(state, action);
+        changeCurrentApp: (state, action) => {
+            ItemsManager.changeCurrentApp(state, action);
         },
-        addCurrentApp: (state, action) => {
-            ItemsManager.addCurrentApp(state, action);
+        getCurrentApp: (state, action) => {
+            ItemsManager.getCurrentApp(state, action);
         },
+
         addItem: (state, action) => {
             console.log("here")
             console.log(state)
@@ -81,5 +81,5 @@ const AppItems = createSlice({
     },
 });
 
-export const { newState, addItem, editItem, deleteItem, getItem, addCurrentApp } = AppItems.actions;
+export const { addItem, editItem, deleteItem, getItem, changeCurrentApp, getCurrentApp } = AppItems.actions;
 export default AppItems.reducer;

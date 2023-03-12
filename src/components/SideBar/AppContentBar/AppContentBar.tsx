@@ -15,11 +15,11 @@ import Alias from "../../../models/Alias";
 import Schedule from "../../../models/Schedule";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addCurrentApp } from "../../../store/manager";
 
-import { useState, useRef, useEffect } from "react";
 
-export default function AppContentBar({ app }) {
+export default function AppContentBar() {
+
+  const app = useSelector((state) => state.items.currentApp)
 
   function getDisplayBarAndModel(app: string) {
     switch (app) {
@@ -38,13 +38,7 @@ export default function AppContentBar({ app }) {
     }
   }
 
-  // useEffect(() => {
-  //   useSelector((state) => state.items.items);
-  // });
-
-  const selectorData = useSelector((state) => state.items.items);
   let [ContentBar, currentModel] = getDisplayBarAndModel(app);
-  useDispatch()(addCurrentApp(app))
 
   return (
     <div className="
@@ -64,7 +58,7 @@ export default function AppContentBar({ app }) {
 
         <nav aria-label="Main Nav" className="flex flex-col mt-6 space-y-1 overflow-auto">
           <Modal app={app} model={currentModel} />
-          <ContentBar selectorData={selectorData} model={currentModel} />
+          <ContentBar model={currentModel} />
         </nav>
       </div>
     </div>

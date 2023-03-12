@@ -1,6 +1,6 @@
 import SideBar from './components/SideBar/SideBar';
 import handleInitialTheme from "./context/ThemeContext/ThemeContext";
-import handleInitialApp from "./context/AppContext/AppContext";
+
 import {
   Routes,
   Route,
@@ -12,14 +12,13 @@ import ProsConsContent from "./components/Content/ProsCons/ProsCons";
 import NoteContent from "./components/Content/Notes/Note";
 import ScheduleContent from "./components/Content/Schedule/Schedule";
 
-
 const App = () => {
   handleInitialTheme();
-  const [app, setApp]: [string, (app: string) => void] = handleInitialApp();
+
   return (
     <>
       <div className="flex-initial w-64">
-        <SideBar app={app} setApp={setApp} />
+        <SideBar />
       </div>
       <div className="flex-auto">
         <div className="h-screen bg-gray-100 dark:bg-gray-800 mx-auto pt-4 px-7 overflow-auto">

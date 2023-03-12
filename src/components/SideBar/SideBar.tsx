@@ -3,12 +3,12 @@ import AppsBar from './AppsBar/AppsBar';
 import AppContentBar from './AppContentBar/AppContentBar';
 
 
-export default function SideBar({ app, setApp }) {
+export default function SideBar() {
 
   return (
     <div className="h-screen flex">
-      <AppsBar app={app} setApp={setApp} />
-      <AppContentBar app={app} />
+      <AppsBar  />
+      <AppContentBar />
     </div>
   );
 
