@@ -122,6 +122,55 @@ const posts = [
     },
 ];
 
+const kanbanTickets = [
+    {
+        id: 1,
+        title: "ep",
+        tickets: [
+            {
+        id: 4,
+        title: "ep",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    },
+    {
+        id: 3,
+        title: "ep5",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    },
+    {
+        id: 6,
+        title: "epa65",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    }
+        ]
+    },
+    {
+        id: 2,
+        title: "ep34343434",
+        tickets: [
+            {
+        id: 4,
+        title: "ep",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    },
+    {
+        id: 3,
+        title: "ep5",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    },
+    {
+        id: 6,
+        title: "epa65",
+        content: "lorem ipsum dolor sit amet",
+        ticketStatus: "to-do",
+    }
+        ]
+    },
+];
 
-
-export { posts };
+export { posts, kanbanTickets };

@@ -4,7 +4,7 @@ import ItemsManager from "../../../managers/ItemsManager";
 import { useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from "react-redux";
-import { editItem } from "../../../store/manager";
+import { getItem } from "../../../store/manager";
 import { range } from "../../../utils/general";
 import Ticket from "./Ticket";
 
@@ -17,14 +17,14 @@ class KanbanColumn extends Component {
     datas() {
         const datas = [];
         for (let i of range(1, 12)) {
-            datas.push(<Ticket />)
+            datas.push(<Ticket ukey={`${this.props.ukey}-${i}`} />)
         }
         return datas;
     }
 
     render(): ReactNode {
         return (
-            <div className="bg-white rounded px-2 py-2  ">
+            <div key={this.props.ukey} className="bg-white rounded px-2 py-2  ">
 
                 <div className="flex flex-row justify-between items-center mb-5 mx-1 shadow-lg">
                     <div className="flex items-center">
@@ -63,16 +63,19 @@ class KanbanColumn extends Component {
 
 export default function KanbanContent() {
     const val = ItemsManager.getItem(useParams());
+
+    // const item = useDispatch()(getItem(useParams()))
+
     const [inputs, setInputs] = useState({ title: "", content: "" });
-    console.log(val)
+
     return (
         <div>
             <div className="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-3">
 
 
-                <KanbanColumn title={"To-Do"} />
-                <KanbanColumn title={"Doing"} />
-                <KanbanColumn title={"Done"} />
+                <KanbanColumn ukey={1} title={"To-Do"} />
+                <KanbanColumn ukey={2} title={"Doing"} />
+                <KanbanColumn ukey={3} title={"Done"} />
 
             </div>
         </div>

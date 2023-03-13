@@ -4,6 +4,7 @@ import { posts } from "../constants/testConstants";
 export default abstract class BaseModel extends Object {
     id?: Number;
     createdAt?: string;
+    defaultData = posts;
 
     public static getModelName(): string {
         return this.constructor.name.toLowerCase();
@@ -65,7 +66,7 @@ export default abstract class BaseModel extends Object {
             .then((entries: Array<any>) => { return this.serializeModels(entries) })
             .catch((error: any) => {
                 // console.error(error);
-                return posts;
+                return this.defaultData;
             })
     }
 

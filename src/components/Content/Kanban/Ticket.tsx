@@ -1,6 +1,13 @@
-const Ticket = (title: string, content: string, key: string) => {
-    return (
-        <div key={key} className="shadow-lg ring-1 ring-black/10 relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100" draggable="true">
+import { useState, useRef, useEffect, Component, ReactNode } from "react";
+
+export default class Ticket extends Component {
+    constructor(props: any) {
+        super(props);
+    }
+
+    render(): ReactNode {
+        return (
+        <div key={this.props.ukey} className="shadow-lg ring-1 ring-black/10 relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100" draggable="true">
             <button className="absolute top-0 right-0 flex items-center justify-center hidden w-5 h-5 mt-3 mr-2 text-gray-500 rounded hover:bg-gray-200 hover:text-gray-700 group-hover:flex">
                 <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -30,7 +37,4 @@ const Ticket = (title: string, content: string, key: string) => {
                 <img className="w-6 h-6 ml-auto rounded-full" src='https://randomuser.me/api/portraits/women/26.jpg' />
             </div>
         </div>
-    )
-};
-
-export default Ticket;
+    )}}

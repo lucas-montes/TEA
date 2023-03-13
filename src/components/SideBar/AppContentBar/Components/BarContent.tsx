@@ -3,14 +3,14 @@ import { BsAlarm } from 'react-icons/bs';
 import React from 'react';
 import ItemsManager from "../../../../managers/ItemsManager";
 
-import { useDispatch, useSelector } from "react-redux";
-import {changeCurrentApp} from "../../../../store/manager";
+import {fillAppItems, getItem} from "../../../../store/manager";
+import { connect } from 'react-redux';
 
-
-export default class BaseAppContentBar extends React.Component {
+class BarContent extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
+            name:"",
             entries: [],
             model: props.model,
         }
@@ -21,8 +21,33 @@ export default class BaseAppContentBar extends React.Component {
     }
 
     componentDidMount() {
+        console.log("componentDidMount")
         this.getEntries()
     }
+
+    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.model !== this.state.model){
+            console.log("componentDidUpdate prevProps.model")
+            console.log(this.state.model)
+            // this.getEntries()
+        }
+
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+    // check if the value of the state property 'myData' has changed
+        console.log("componentDidUpdate")
+        console.log(this.state.model)
+        //on load check that the current model is the first to be initialized on load
+    if (nextProps.model !== this.state.model) {
+      // allow the component to update if the value has changed
+        console.log("changed")
+      return true;
+    }
+    console.log("not changed")
+    // prevent the component from updating if the value hasn't changed
+    return false;
+  }
 
     getEntries(): void {
         // Check that the items stored are the ones from the current app
@@ -45,6 +70,7 @@ export default class BaseAppContentBar extends React.Component {
 
     saveEntries(entries: Array<any>) {
         ItemsManager.saveAllItems(entries);
+        this.props.setItems(entries);
         this.setState({ entries: entries });
     }
 
@@ -62,3 +88,18 @@ export default class BaseAppContentBar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log(state);
+  return {
+    name: state.name
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setItems: (data) => dispatch(fillAppItems(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BarContent);
