@@ -16,30 +16,21 @@ export default function AppsBar() {
 };
 
 function SideBarIcon(MenuApp: MenuApp, key: String) {
-  const dispatch = useDispatch();
-  
-  function handleSetApp( MenuApp: MenuApp) {
-    MenuApp.onClickMethod(MenuApp.tooltipText);
-    dispatch(changeCurrentApp(MenuApp.tooltipText));
-  };
+    const dispatch = useDispatch();
 
-  if (MenuApp.isSettings) {
+    function handleSetApp( MenuApp: MenuApp): void {
+        MenuApp.onClickMethod(MenuApp.tooltipText);
+        if (!MenuApp.isSettings) {
+            dispatch(changeCurrentApp(MenuApp.path));
+        }
+    }
+
     return (
-      <button key={key} className={MenuApp.className} onClick={() => MenuApp.onClickMethod(MenuApp.tooltipText)}>
-        {MenuApp.icon}
-        <span className={MenuApp.tooltipClassName}>
-          {MenuApp.tooltipText}
-        </span>
-      </button>
+        <button key={key} className={MenuApp.className} onClick={() => handleSetApp(MenuApp)}>
+          {MenuApp.icon}
+          <span className={MenuApp.tooltipClassName}>
+            {MenuApp.tooltipText}
+          </span>
+        </button>
     )
-  }
-
-  return (
-    <button key={key} className={MenuApp.className} onClick={() => handleSetApp(MenuApp)}>
-      {MenuApp.icon}
-      <span className={MenuApp.tooltipClassName}>
-        {MenuApp.tooltipText}
-      </span>
-    </button>
-  )
-};
+}

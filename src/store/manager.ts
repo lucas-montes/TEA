@@ -1,37 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { kanban, notes, alias, settings, schedule, prosCons } from "../constants/Apps";
+import { kanban } from "../constants/Apps";
 
 
 const initialState = {
     stateData: {
         currentApp: kanban,
-itemsPerApp:{
-    "kanban"
-:
-    [],
-        "notes"
-:
-    [],
-        "alias"
-:
-    [],
-        "schedule"
-:
-    [],
-        "prosCons"
-:
-    [],
-}
+        previousApp: kanban,
+        itemsPerApp:{
+            "kanban": [],
+            "notes": [],
+            "alias": [],
+            "schedule": [],
+            "prosCons": [],
+        }
     },
 };
 
 
 class ItemsManager {
-    static getCurrentApp(state: any, action: any): void {
+    static getCurrentApp(state: any, action: any): string {
         return state.stateData.currentApp;
     };
     static changeCurrentApp(state: any, action: any): void {
+        state.stateData.previousApp = state.stateData.currentApp;
         state.stateData.currentApp = action.payload;
     };
 

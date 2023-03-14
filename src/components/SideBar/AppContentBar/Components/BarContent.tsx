@@ -10,48 +10,36 @@ class BarContent extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            name:"",
             entries: [],
             model: props.model,
         }
     }
 
-    getModelName(): String {
-        return this.getModel().getModelName()
+    getModelName(): String {return this.getModel().getModelName()}
+
+    componentDidMount(): void {this.getEntries()}
+
+    currentAppHasChanged(propsToCompare: any):boolean {
+        return propsToCompare.currentApp !== this.props.currentApp
     }
 
-    componentDidMount() {
-        console.log("componentDidMount")
-        this.getEntries()
-    }
-
-    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.model !== this.state.model){
-            console.log("componentDidUpdate prevProps.model")
-            console.log(this.state.model)
-            // this.getEntries()
+    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
+        if (this.currentAppHasChanged(prevProps)){
+            this.getEntries()
         }
-
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-    // check if the value of the state property 'myData' has changed
-        console.log("componentDidUpdate")
-        console.log(this.state.model)
+    shouldComponentUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>): boolean {
         //on load check that the current model is the first to be initialized on load
-    if (nextProps.model !== this.state.model) {
-      // allow the component to update if the value has changed
-        console.log("changed")
-      return true;
+        if (this.currentAppHasChanged(nextProps)) {
+          // allow the component to update if the value has changed
+          return true;
+        }
+        // prevent the component from updating if the value hasn't changed
+        return false;
     }
-    console.log("not changed")
-    // prevent the component from updating if the value hasn't changed
-    return false;
-  }
 
     getEntries(): void {
-        // Check that the items stored are the ones from the current app
-        // const entries = ItemsManager.getItems();
         // if (entries.length === 0) {
         // this.getEntriesFromDB()
         // } else {
@@ -66,16 +54,14 @@ class BarContent extends React.Component {
             .catch((error: any) => { console.error(error); })
     }
 
-    getModel() { return new this.state.model }
+    getModel(): any { // @ts-ignore
+        return new this.state.model }
 
-    saveEntries(entries: Array<any>) {
+    saveEntries(entries: Array<any>): void {
         ItemsManager.saveAllItems(entries);
+        // @ts-ignore
         this.props.setItems(entries);
         this.setState({ entries: entries });
-    }
-
-    handleDropDown(event: any) {
-        console.log(event)
     }
 
     render() {
@@ -89,16 +75,15 @@ class BarContent extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log(state);
-  return {
-    name: state.name
-  }
+const mapStateToProps = (state:any) => {
+    // Redux store state
+    console.log(state.items)
+  return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch:any) => {
   return {
-    setItems: (data) => dispatch(fillAppItems(data))
+    setItems: (data:any) => dispatch(fillAppItems(data))
     }
 }
 

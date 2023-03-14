@@ -1,9 +1,9 @@
-const kanban: string = "Kanban";
-const notes: string = "Notes";
-const alias: string = "Alias";
-const settings: string = "Settings";
-const schedule: string = "Schedule";
-const prosCons: string = "Pros & Cons";
+const kanban: string = "kanban";
+const notes: string = "notes";
+const alias: string = "alias";
+const settings: string = "settings";
+const schedule: string = "schedule";
+const prosCons: string = "prosCons";
 
 const allApps: Array<string> = [kanban, notes, alias, settings, schedule, prosCons];
 
