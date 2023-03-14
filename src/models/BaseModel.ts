@@ -4,7 +4,7 @@ import { posts } from "../constants/testConstants";
 export default abstract class BaseModel extends Object {
     id?: Number;
     createdAt?: string;
-    defaultData = posts;
+    defaultData: any = posts;
 
     public static getModelName(): string {
         return this.constructor.name.toLowerCase();
@@ -16,7 +16,7 @@ export default abstract class BaseModel extends Object {
 
     public getTableName(): string {
         let name = this.getModelName();
-        if (!name.endsWith('s')) { name = `${name}s`; };
+        if (!name.endsWith('s')) { name = `${name}s`; }
         return name;
     }
 

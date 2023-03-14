@@ -7,11 +7,11 @@ import {fillAppItems, getItem} from "../../../../store/manager";
 import { connect } from 'react-redux';
 
 class BarContent extends React.Component {
+
     constructor(props: any) {
         super(props);
         this.state = {
             entries: [],
-            model: props.model,
         }
     }
 
@@ -23,7 +23,12 @@ class BarContent extends React.Component {
         return propsToCompare.currentApp !== this.props.currentApp
     }
 
+    currentStateHasChanged(stateToCompare:any):boolean {
+        return stateToCompare !== this.state
+    }
+
     componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
+        console.log(this.state)
         if (this.currentAppHasChanged(prevProps)){
             this.getEntries()
         }
@@ -31,7 +36,7 @@ class BarContent extends React.Component {
 
     shouldComponentUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>): boolean {
         //on load check that the current model is the first to be initialized on load
-        if (this.currentAppHasChanged(nextProps)) {
+        if (this.currentAppHasChanged(nextProps) || this.currentStateHasChanged(nextState)) {
           // allow the component to update if the value has changed
           return true;
         }
@@ -55,19 +60,25 @@ class BarContent extends React.Component {
     }
 
     getModel(): any { // @ts-ignore
-        return new this.state.model }
+        return new this.props.model
+    }
+
+    updateEntries(value:Array<any>):void{
+        this.setState({entries:[]})
+        this.setState({entries:value})
+    }
 
     saveEntries(entries: Array<any>): void {
-        ItemsManager.saveAllItems(entries);
         // @ts-ignore
         this.props.setItems(entries);
-        this.setState({ entries: entries });
+        this.updateEntries(entries)
     }
 
     render() {
+        // Problems with the urls
         return (
             <div>
-                {this.state.entries.map((value, index) => {
+                {this.props.entries.map((value, index) => {
                     return <AppItemComponent value={value} title={value.title} url={`/${this.getModelName()}/${value.id}`} icon={<BsAlarm size="15" />} key={index} />
                 })}
             </div>
@@ -76,9 +87,12 @@ class BarContent extends React.Component {
 }
 
 const mapStateToProps = (state:any) => {
-    // Redux store state
-    console.log(state.items)
-  return {}
+    // the param state is the redux state store
+    // the return, returns props for the class
+    const entries = state.items.stateData.itemsPerApp[state.items.stateData.currentApp]
+  return {
+        entries: entries
+  }
 }
 
 const mapDispatchToProps = (dispatch:any) => {
