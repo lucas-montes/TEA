@@ -22,8 +22,7 @@ export default abstract class BaseModel extends Object {
 
     public getCreateData(): any {
         this.createdAt = new Date().toLocaleString();
-        let createdData = this;
-        return createdData
+        return this;
     }
 
     public async create(): Promise<number> {

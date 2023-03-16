@@ -32,7 +32,9 @@ class ItemsManager {
     };
 
     static push(state: any, action: any): void {
-        state.stateData.itemsPerApp[state.stateData.currentApp].push(action.payload);
+        const item = action.payload
+        const itemsApp = item.getModelName()
+        state.stateData.itemsPerApp[itemsApp].push(item);
     };
     static edit(state: any, action: any): void {
         this.remove(state, action);

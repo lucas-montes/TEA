@@ -5,15 +5,22 @@ import { addItem } from "../../../store/manager";
 
 export default function NewSimpleItemForm(props: any) {
     const [inputs, setInputs] = React.useState({ title: "", });
+
+    function createNewObj(props:any):void{
+        const obj = props.obj
+        obj.id = props.id
+        useDispatch()(addItem(obj))
+    }
     const handleSubmit = (event: any) => {
         event.preventDefault();
         props.setShowModal(false)
         const newObj = new props.model(inputs.title);
         newObj.create()
-            .then((newId: number) => { console.log(newId) })
+            .then((newId: number) => { createNewObj({id: newId, obj:newObj}) })
             .catch((error: any) => {
                 console.error(error);
             });
+
 
     };
     function handleChange(event: any) {

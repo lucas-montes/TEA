@@ -28,7 +28,6 @@ class BarContent extends React.Component {
     }
 
     componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
-        console.log(this.state)
         if (this.currentAppHasChanged(prevProps)){
             this.getEntries()
         }
@@ -86,7 +85,7 @@ class BarContent extends React.Component {
     }
 }
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state:any, props:any) => {
     // the param state is the redux state store
     // the return, returns props for the class
     const entries = state.items.stateData.itemsPerApp[state.items.stateData.currentApp]
