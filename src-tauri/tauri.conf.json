@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "producter",
+    "productName": "BeProd",
     "version": "0.0.0"
   },
   "tauri": {

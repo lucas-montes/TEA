@@ -1,10 +1,10 @@
 [package]
-name = "producter"
+name = "BePRod"
 version = "0.0.0"
 description = "Be more productive with less"
 authors = ["Lucas"]
 license = ""
-repository = ""
+repository = "https://github.com/lluc2397/tauri-main-tools"
 edition = "2021"
 rust-version = "1.57"
 
