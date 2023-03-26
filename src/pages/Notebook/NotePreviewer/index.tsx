@@ -2,6 +2,8 @@ import { ReactNode, Ref, UIEvent } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import rehypeRaw from "rehype-raw";
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -18,7 +20,7 @@ import { Folder } from "@/utils/enums";
 import { NoteLink } from "@/components/NotePreviewer/NoteLink";
 
 import { Previewer, PreviewerWrapper } from "./style";
-
+import 'katex/dist/katex.min.css';
 type Props = {
   innerRef?: Ref<HTMLDivElement>;
   previewNote: Note;
@@ -61,8 +63,8 @@ export const NotePreview = ({ innerRef, previewNote, border, onScroll }: Props) 
       <Previewer
         className="previewer"
         border={border}
-        remarkPlugins={[remarkParse, remarkGfm, remarkBreaks]}
-        rehypePlugins={renderHtml ? [rehypeRaw] : []}
+        remarkPlugins={[remarkParse, remarkGfm, remarkBreaks, remarkMath]}
+        rehypePlugins={renderHtml ? [rehypeRaw, rehypeKatex] : []}
         components={{
           a: ({ href, children }) => returnNoteLink(href, children),
           code({ inline, className, children, ...props }) {
