@@ -28,6 +28,7 @@
 	padding-bottom: 100%;
 	text-decoration: none;
 	color: var(--text-contrast);
+	color: #929292;
 }
 
 .nav .menu a.active {

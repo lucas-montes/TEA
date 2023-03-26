@@ -12,40 +12,46 @@ import { SimpleForm } from "@/components/Forms/SimpleForm";
 import { ProjectContext } from "./ProjectContext";
 import { ProjectOption } from "./ProjectOption";
 import { CollapseListButton } from "@/components/CollapseListButton";
-import { CategoryTitle, List } from "./style";
+import { ProjectTitle, List } from "./style";
+import { Category } from "@/recoil/types";
 
-export const CategoryList = () => {
+import { NewProjectForm } from "./NewProjectForm"
+
+export const ProjectList = () => {
   const [renamingCategoryId, setRenamingCategoryId] = useState("");
   const [addingTempCategory, setAddingTempCategory] = useState(false);
-  const categories = useRecoilValue(categoriesSelector);
+  const projects = useRecoilValue(categoriesSelector);
   const [categoryListOpen, setCategoryListOpen] = useRecoilState(openCategoryListSelector);
 
   const cancelRenaming = useCallback(() => setRenamingCategoryId(""), []);
 
+  const caty: Category = {name: "heydfdf", id: "51"};
   return (
     <>
-      <CategoryTitle>
-        <CollapseListButton
-          onClick={() => setCategoryListOpen(!categoryListOpen)}
-          label="Collapse Projects List"
-          labelTitle="Collapse Projects List"
-          isListOpen={categoryListOpen}
-          showIcon={categories.length > 0}
-        />
-        <IconButton title={LabelText.ADD_CATEGORY} onClick={() => setAddingTempCategory(true)}>
-          <Plus size={18} />
-        </IconButton>
-      </CategoryTitle>
+    <NewProjectForm/>
       <List>
-        {categoryListOpen &&
-          categories.map((category) => (
-            <ProjectContext
-              key={category.id}
-              categoryId={category.id}
+        
+      <ProjectContext
+              key={0}
+              categoryId={"0"}
               setRenamingCategoryId={setRenamingCategoryId}
             >
               <ProjectOption
-                category={category}
+                category={caty}
+                renamingId={renamingCategoryId}
+                cancelRenaming={cancelRenaming}
+              />
+            </ProjectContext>
+        {
+        // categoryListOpen &&
+          projects.map((project) => (
+            <ProjectContext
+              key={project.id}
+              categoryId={project.id}
+              setRenamingCategoryId={setRenamingCategoryId}
+            >
+              <ProjectOption
+                category={project}
                 renamingId={renamingCategoryId}
                 cancelRenaming={cancelRenaming}
               />

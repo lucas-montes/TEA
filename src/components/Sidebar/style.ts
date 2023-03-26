@@ -8,7 +8,7 @@ const StyledSidebar = styled(Flex)`
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;
-  background-color: #2d2d2d;
+  background-color: #252525;
 
   &:hover {
     overflow-y: auto;

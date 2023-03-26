@@ -1,36 +1,5 @@
 import styled from "styled-components";
 
-import { Flex } from "@/styles/layout";
-
-const StyledSidebar = styled(Flex)`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background-color: #2d2d2d;
-
-  &:hover {
-    overflow-y: auto;
-  }
-`;
-
-const Header = styled.h2`
-  width: 100%;
-  color: ${(props) => props.theme.color.white};
-  font-size: 24px;
-  padding: 15px;
-
-  mark {
-    background-color: transparent;
-    color: ${(props) => props.theme.color.primary};
-  }
-
-  svg {
-    margin-right: 8px;
-  }
-`;
-
 const SidebarButton = styled.button<{ selected?: boolean }>`
   width: 100%;
   cursor: pointer;
@@ -83,7 +52,7 @@ const CollapseButton = styled.button`
   }
 `;
 
-const CategoryTitle = styled.div`
+const ProjectTitle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -146,11 +115,9 @@ const List = styled.div`
 `;
 
 export {
-  StyledSidebar,
-  Header,
   SidebarButton,
   CollapseButton,
-  CategoryTitle,
+  ProjectTitle,
   Form,
   CategoryItem,
   CategoryForm,

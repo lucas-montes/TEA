@@ -18,6 +18,7 @@ const Container = styled.div`
   height: 100vh;
   overflow: hidden;
   position: relative;
+  background-color: #1a1919;
 `;
 
 const Flex = styled.div<FlexProps>`
