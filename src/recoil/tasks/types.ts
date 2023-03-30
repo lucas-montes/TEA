@@ -9,7 +9,6 @@ export enum TasksSortKey {
 
 export type Task = {
   id: string;
-  title: string;
   content: string;
   createdAt: string;
   updatedAt: string;
@@ -19,7 +18,8 @@ export type Task = {
 
 export type Project = {
   id: string;
-  title: string;
+  name: string;
+  tasks: object;
 };
 
 export type NotesState = {

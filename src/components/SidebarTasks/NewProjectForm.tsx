@@ -1,13 +1,45 @@
 import { IconButton } from "@/components/Button";
 import { Plus } from "@/components/Icons";
+import {Project} from "@/recoil/tasks/types"
 
-export const NewProjectForm = () => {
+import { FormEvent, useState } from "react";
+import { useRecoilState, RecoilState } from "recoil";
+import { v4 as uuid } from "uuid";
+
+type Props = {
+    recoilStateMethod: RecoilState<any>
+  };
+
+export const NewProjectForm = ({ recoilStateMethod }: Props) => {
+  const [tempName, setTempName] = useState("");
+  const [items, setItems] = useRecoilState(recoilStateMethod);
+
+  const resetForm = () => { setTempName(""); };
+
+  function handleChange(event) {
+    setTempName(event.target.value)
+  }
+
+  const createItem = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newObj = items.reduce((newItem: object, currentItem: Project) => {
+      newItem[currentItem.id] = currentItem;
+      return newItem;
+    }, {});
+    const id = uuid();
+    newObj[id] = {id:id, name:tempName, tasks: {}} as Project;
+    setItems(newObj);
+    resetForm();
+  };
+
     return (
-<form className="self-center w-full p-3">
+<form className="self-center w-full p-3" onSubmit={createItem}>
     <div className="flex">
         <div className="relative w-full">
             <input 
-                type="search"
+                type="text"
+                value={tempName}
+                onChange={handleChange}
                 id="search-dropdown" 
                 className="
                     block p-2.5 w-full 
