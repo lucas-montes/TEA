@@ -7,7 +7,7 @@ import { sectionsSelector } from "@/recoil/sections.recoil";
 import { Folder, Section } from "@/utils/enums";
 import { useWindowDimensions } from "@/utils/hooks/useWindowDimensions";
 
-import { Logo, Notes, Pin, Trash } from "@/components/Icons";
+import { Notes, Pin, Trash } from "@/components/Icons";
 
 import { FlexColumn } from "@/styles/layout";
 
@@ -31,7 +31,6 @@ export const Sidebar = () => {
         <StyledSidebar>
           <FlexColumn height="100%">
             <Header>
-              <Logo />
               Note<mark>up</mark>
             </Header>
             <SidebarButton

@@ -3,20 +3,13 @@ import { FlexColumn } from "@/styles/layout";
 import { ProjectList } from "./ProjectList";
 import { Header, StyledSidebar } from "../Sidebar/style";
 
+import { BaseSidebar } from "../BaseSidebar";
+
 export const SidebarTasks = () => {
 
   return (
-    <>
-
-        <StyledSidebar>
-          <FlexColumn height="100%">
-            <Header>
-              Tasks
-            </Header>
+        <BaseSidebar title={"Tasks"}>
             <ProjectList />
-          </FlexColumn>
-        </StyledSidebar>
-
-    </>
+        </BaseSidebar>
   );
 };
