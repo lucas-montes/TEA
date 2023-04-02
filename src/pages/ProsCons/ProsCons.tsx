@@ -1,9 +1,6 @@
 import ProsCons from "../../../models/ProsCons";
 import { useState, useEffect } from "react";
 
-import ItemsManager from "../../../managers/ItemsManager";
-import { useParams, useLocation } from 'react-router-dom';
-
 
 function TableRow(item: String, key: String) {
     return (
@@ -59,7 +56,6 @@ function Table(props: any) {
 
 
 export default function ProsConsContent() {
-    const val = ItemsManager.getItem(useParams(), useLocation());
     const [newPros, setnewPros] = useState("")
     const [newCons, setnewCons] = useState("")
     const [Pros, setPros] = useState(val.pros)
@@ -95,7 +91,6 @@ export default function ProsConsContent() {
         setPros(updatedPros);
         setnewPros("");
         val.pros = updatedPros;
-        ItemsManager.saveItem(val);
     };
     function addNewCons(event: any) {
         event.preventDefault();
@@ -104,7 +99,6 @@ export default function ProsConsContent() {
         setCons(updatedCons);
         setnewCons("");
         val.cons = updatedCons;
-        ItemsManager.saveItem(val);
     };
     function handleChangePros(event: any) {
         setnewPros(event.target.value);

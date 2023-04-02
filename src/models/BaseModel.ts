@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
 export default abstract class BaseModel extends Object {
-    id?: Number;
+    id: number = 0;
     createdAt?: string;
 
     public static getModelName(): string {
@@ -19,6 +19,8 @@ export default abstract class BaseModel extends Object {
     }
 
     public getCreateData(): any {
+        // @ts-ignore
+        this.id = undefined;
         this.createdAt = new Date().toLocaleString();
         return this;
     }

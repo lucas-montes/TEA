@@ -47,7 +47,7 @@ const task5 = {
   taskStatus: "done",
 };
 const project1 = {
-  name: "heydfdf", 
+  name: "heydfdf",
   id: "51",
   tasks: {
     "1": task1,
@@ -55,17 +55,19 @@ const project1 = {
     "3": task3,
   },
 };
-const project2 = {name: "sdf68ds4f", id: "52", tasks: {
-  "4": task4,
-  "5": task5,
-},};
+const project2 = {
+  name: "sdf68ds4f", id: "52", tasks: {
+    "4": task4,
+    "5": task5,
+  },
+};
 
 
 export const projectState: RecoilState<ProjectState> = atom({
   key: "projectState",
   default: {
     projects: {
-      "51": project1, 
+      "51": project1,
       "52": project2,
     },
     selectedProjectId: "",
@@ -74,18 +76,18 @@ export const projectState: RecoilState<ProjectState> = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-function addNewProject(projects:any, set: SetRecoilState, get: GetRecoilValue):void {
-  !(projects instanceof DefaultValue) && set(projectState, {...get(projectState), projects,})
+function addNewProject(projects: any, set: SetRecoilState, get: GetRecoilValue): void {
+  !(projects instanceof DefaultValue) && set(projectState, { ...get(projectState), projects, })
 }
 
 export const projectsSelector = selector({
   key: "projectsSelector",
   get: ({ get }) => Object.values(get(projectState).projects),
-  set: ({ get, set }, projects) => addNewProject(projects, set, get),    
+  set: ({ get, set }, projects) => addNewProject(projects, set, get),
 });
 
-function setProjectId(projectId:any, set: SetRecoilState, get: GetRecoilValue): void {
-  set(projectState, {...get(projectState), selectedProjectId: projectId,})
+function setProjectId(projectId: any, set: SetRecoilState, get: GetRecoilValue): void {
+  set(projectState, { ...get(projectState), selectedProjectId: projectId, })
 }
 
 export const selectedProjectIdSelector = selector({
@@ -94,24 +96,24 @@ export const selectedProjectIdSelector = selector({
   set: ({ set, get }, projectId) => setProjectId(projectId, set, get),
 });
 
-function getProjectTasks(get: GetRecoilValue):Array<Task>{
+function getProjectTasks(get: GetRecoilValue): Array<Task> {
   const currentProjectStat = get(projectState);
   const currenselectedProjectId = currentProjectStat.selectedProjectId;
-  if (currenselectedProjectId){
+  if (currenselectedProjectId) {
     const tasks = currentProjectStat.projects[currenselectedProjectId]["tasks"];
     return Object.values(tasks);
   }
   return [];
 }
 
-function addNewTask(tasks:any, set: SetRecoilState, get: GetRecoilValue):void {
-  !(tasks instanceof DefaultValue) && set(projectState, {...get(projectState), tasks,})
+function addNewTask(tasks: any, set: SetRecoilState, get: GetRecoilValue): void {
+  !(tasks instanceof DefaultValue) && set(projectState, { ...get(projectState), tasks, })
 }
 
 export const tasksSelector = selector({
   key: "tasksSelector",
   get: ({ get }) => getProjectTasks(get),
-  set: ({ get, set }, tasks) => addNewTask(tasks, set, get),    
+  set: ({ get, set }, tasks) => addNewTask(tasks, set, get),
 });
 
 export const selectedProjectSelector = selector({
