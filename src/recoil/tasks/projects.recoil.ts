@@ -1,13 +1,9 @@
 import { DefaultValue, RecoilState, atom, selector, SetRecoilState, GetRecoilValue } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-import { Folder } from "@/utils/enums";
-
-import { activeFolderSelector } from "../folder.recoil";
 import { ProjectState, Task } from "./types";
 
 const { persistAtom } = recoilPersist();
-
 
 
 const task1 = {
@@ -108,10 +104,14 @@ function getProjectTasks(get: GetRecoilValue):Array<Task>{
   return [];
 }
 
+function addNewTask(tasks:any, set: SetRecoilState, get: GetRecoilValue):void {
+  !(tasks instanceof DefaultValue) && set(projectState, {...get(projectState), tasks,})
+}
+
 export const tasksSelector = selector({
   key: "tasksSelector",
   get: ({ get }) => getProjectTasks(get),
-  set: ({ get, set }, projects) => addNewProject(projects, set, get),    
+  set: ({ get, set }, tasks) => addNewTask(tasks, set, get),    
 });
 
 export const selectedProjectSelector = selector({
