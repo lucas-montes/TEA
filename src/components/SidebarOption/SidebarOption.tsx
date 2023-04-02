@@ -17,7 +17,7 @@ type Props = {
 };
 
 export const SidebarOption = (
-    { item, renamingId, cancelRenaming, selectedItemIdSelector, itemSelector }: Props) => {
+  { item, renamingId, cancelRenaming, selectedItemIdSelector, itemSelector }: Props) => {
 
   const [tempName, setTempName] = useState(item.name);
   const [selectedItemId, setSelectedItem] = useRecoilState(selectedItemIdSelector);
@@ -26,13 +26,13 @@ export const SidebarOption = (
   const handleItemSelect = () => setSelectedItem(item.id);
   const handleRename = () => {
     if (itemState && renamingId) {
-        updateItems(
-        itemState.map((c:any) =>
+      updateItems(
+        itemState.map((c: any) =>
           c.id === renamingId
             ? {
-                ...c,
-                name: tempName,
-              }
+              ...c,
+              name: tempName,
+            }
             : c,
         ),
       );
@@ -46,8 +46,6 @@ export const SidebarOption = (
 
   const renaming = useMemo(() => renamingId == item.id, [renamingId, item]);
 
-  console.log(selectedItemId)
-  
   useEffect(() => {
     if (renaming) {
       setTimeout(() => document.getElementById("category-input")?.focus(), 100);
@@ -62,7 +60,7 @@ export const SidebarOption = (
       <Flex alignItems="center" gap={10}>
         <FolderIcon className="icon" size={15} />
         {renaming ? (
-          <Form onSubmit={handleRename} onClick={(e:any) => e.stopPropagation()}>
+          <Form onSubmit={handleRename} onClick={(e: any) => e.stopPropagation()}>
             <Input
               aria-label="Name"
               autoFocus

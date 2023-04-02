@@ -1,8 +1,5 @@
-type Props = {
-    content: string,
-    status: string,
-}
-export const Task = ({ content, status }: Props) => {
+
+export const ProjectInformation = () => {
 
     return (
         <div className="shadow-lg m-3 ring-1 w-11/12 ring-black/10 flex flex-col items-start p-4 bg-white rounded-lg bg-opacity-90 group hover:bg-opacity-100">
@@ -11,8 +8,11 @@ export const Task = ({ content, status }: Props) => {
                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                 </svg>
             </button>
-            <span className="flex items-center h-6 px-3 text-xs font-semibold text-pink-500 bg-pink-100 rounded-full">{status}</span>
-            <h4 className="mt-3 text-sm font-medium">{content}</h4>
+            <span className="flex items-center h-6 px-3 text-xs font-semibold text-pink-500 bg-pink-100 rounded-full">
+                jijijijij</span>
+            <h4 className="mt-3 text-sm font-medium">
+                hehehehehehe
+            </h4>
             <div className="flex items-center w-full mt-3 text-xs font-medium text-gray-400">
                 <div className="flex items-center">
                     <svg className="w-4 h-4 text-gray-300 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
