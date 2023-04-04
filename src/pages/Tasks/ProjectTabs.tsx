@@ -114,7 +114,7 @@ const ProjectsTabs = ({ activeTab, onClick }: PTProps) => {
     return (
 
         <div className="border-b-4 z-100 border-white-700 dark:border-white-200">
-            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <ul className="flex flex-wrap grow -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 {
                     tabs.map((tab) => (
                         <ProjectsTab

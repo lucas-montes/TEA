@@ -1,36 +1,23 @@
-export enum TasksSortKey {
-  LAST_UPDATED = "lastUpdated",
-  TITLE = "title",
-  CREATED_DATE = "created_date",
-  DOING = "doing",
-  DONE = "done",
-  TO_DO = "todo",
-}
 
-export type Task = {
-  id: string;
-  content: string;
+export type BaseType = {
+  id: number;
   createdAt: string;
   updatedAt: string;
-  projectId?: string;
+  title: string;
+  content: string;
+}
+
+export type Task = BaseType & {
+  projectId: Project["id"];
   taskStatus: string;
-};
+}
 
-export type Project = {
-  id: string;
-  name: string;
-  tasks: object;
-};
-
-export type NotesState = {
-  tasks: Task[];
-  keyword: string;
-  sortBy: keyof TasksSortKey;
-  selectedTaskId: string | null;
-};
+export type Project = BaseType & {
+  tasks: { [key: Task["id"]]: Task; }
+}
 
 export type ProjectState = {
-  projects: Project[];
-  selectedProjectId: string | null;
-  projectListOpen: boolean;
+  items: { [key: Project["id"]]: Project; };
+  selectedItemId: Project["id"] | null;
+  selectedItem: Project | null;
 };

@@ -1,8 +1,9 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
-export default abstract class BaseModel extends Object {
-    id: number = 0;
-    createdAt?: string;
+export default class BaseModel extends Object {
+    id!: number;
+    createdAt!: string;
+    updatedAt!: string;
 
     public static getModelName(): string {
         return this.constructor.name.toLowerCase();
@@ -65,17 +66,17 @@ export default abstract class BaseModel extends Object {
             .then((entries: Array<any>) => { return this.serializeModels(entries) })
             .catch((error: any) => {
                 // console.error(error);
-                return this.defaultData;
+                return [];
             })
     }
 
 };
 
-export abstract class BaseText extends BaseModel {
-    title?: string;
-    content?: string;
+export class BaseText extends BaseModel {
+    title: string;
+    content: string;
 
-    constructor(title?: string, content: string = "") {
+    constructor(title: string, content: string = "") {
         super();
         this.title = title;
         this.content = content;

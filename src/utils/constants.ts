@@ -63,3 +63,68 @@ export const defaultNote = {
   created: "2022-10-10",
   lastUpdated: "2022-10-11",
 };
+
+
+import Project, { Task } from "@/models/Project";
+
+export const task1 = new Task(51, "task1", "todo", "supertask");
+task1.id = 1;
+task1.createdAt = "12-05-1997";
+task1.updatedAt = "12-05-1997";
+
+export const task2 = new Task(
+  51,
+  "task2",
+  "done"
+);
+task2.id = 2;
+task2.createdAt = "12-05-1997";
+task2.updatedAt = "12-05-1997";
+
+export const task3 = new Task(
+  51,
+  "task3",
+  "doing"
+);
+task3.id = 3;
+task3.createdAt = "12-05-1997";
+task3.updatedAt = "12-05-1997";
+
+export const task4 = new Task(
+  52,
+  "task4",
+  "doing"
+);
+task4.id = 4;
+task4.createdAt = "12-05-1997";
+task4.updatedAt = "12-05-1997";
+
+export const task5 = new Task(
+  52,
+  "task5",
+  "done"
+);
+task5.id = 5;
+task5.createdAt = "12-05-1997";
+task5.updatedAt = "12-05-1997";
+
+export const project1 = new Project(
+  "project1",
+  "",
+  {
+    1: task1,
+    2: task2,
+    3: task3,
+  },
+);
+project1.id = 51;
+
+export const project2 = new Project(
+  "project2",
+  "",
+  {
+    4: task4,
+    5: task5,
+  },
+);
+project2.id = 52;

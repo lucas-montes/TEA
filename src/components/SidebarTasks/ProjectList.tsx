@@ -6,20 +6,19 @@ import { SidebarOption } from "@/components/SidebarOption/SidebarOption";
 import { ItemContext } from "@/components/SidebarItemContext/ItemContext";
 import { List } from "./style";
 
-import { projectsSelector, openProjectListSelector, selectedProjectIdSelector } from "@/recoil/tasks/projects.recoil";
+import { projectsSelector, selectProjectSelector } from "@/recoil/tasks/projects.recoil";
 import { NewProjectForm } from "./NewProjectForm"
 
 export const ProjectList = () => {
   const [renamingProjectId, setRenamingProjectId] = useState("");
   const projects = useRecoilValue(projectsSelector);
-  const [projectListOpen, setProjectListOpen] = useRecoilState(openProjectListSelector);
 
   const cancelRenaming = useCallback(() => setRenamingProjectId(""), []);
 
-  
+
   return (
     <>
-    <NewProjectForm recoilStateMethod={projectsSelector}/>
+      <NewProjectForm recoilStateMethod={projectsSelector} />
       <List>
         {
           projects.map((project) => (
@@ -32,7 +31,7 @@ export const ProjectList = () => {
               <SidebarOption
                 item={project}
                 itemSelector={projectsSelector}
-                selectedItemIdSelector={selectedProjectIdSelector}
+                selectedItemIdSelector={selectProjectSelector}
                 renamingId={renamingProjectId}
                 cancelRenaming={cancelRenaming}
               />

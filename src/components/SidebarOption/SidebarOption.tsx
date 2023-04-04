@@ -19,7 +19,7 @@ type Props = {
 export const SidebarOption = (
   { item, renamingId, cancelRenaming, selectedItemIdSelector, itemSelector }: Props) => {
 
-  const [tempName, setTempName] = useState(item.name);
+  const [tempName, setTempName] = useState(item.title);
   const [selectedItemId, setSelectedItem] = useRecoilState(selectedItemIdSelector);
   const [itemState, updateItems] = useRecoilState(itemSelector);
 
@@ -70,7 +70,7 @@ export const SidebarOption = (
             />
           </Form>
         ) : (
-          <Ellipsis>{item.name}</Ellipsis>
+          <Ellipsis>{item.title}</Ellipsis>
         )}
       </Flex>
     </Item>
