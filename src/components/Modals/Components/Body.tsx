@@ -1,4 +1,10 @@
-export default function ModalBody(props: any) {
+type Props = {
+    title: string,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+    content: any
+}
+
+export default function ModalBody({ title, setShowModal, content }: Props) {
     return (
         <>
             <div
@@ -20,10 +26,10 @@ export default function ModalBody(props: any) {
                         border-slate-200 rounded-t"
                         >
                             <h3 className="text-3xl dark:text-white text-black">
-                                {props.title}
+                                {title}
                             </h3>
                             <button
-                                onClick={() => props.setShowModal(false)}
+                                onClick={() => setShowModal(false)}
                                 className="
                             text-gray-400 bg-transparent 
                             hover:bg-gray-200 hover:text-gray-900 
@@ -36,7 +42,7 @@ export default function ModalBody(props: any) {
                             </button>
                         </div>
                         {/*body*/}
-                        {props.form}
+                        {content}
                     </div>
                 </div>
             </div>

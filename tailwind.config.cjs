@@ -9,6 +9,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   darkMode: 'class', // class, 'media' or boolean
+  variants: {
+    extend: {
+      border: ['focus'],
+    }
+  },
   theme: {
     container: {
       center: true,

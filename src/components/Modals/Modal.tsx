@@ -1,29 +1,36 @@
-import React from "react";
+
 import ModalButton from "./Components/ModalButton"
-import ModalBody from "./Components/ModalBody"
+import ModalBody from "./Components/Body"
 import KanbanForm from "./Forms/Kanban";
 import NewSimpleItemForm from "./Forms/NewSimpleItem"
-import { kanban, notes, alias, settings, schedule } from "../../constants/Apps"
+
+type Props = {
+    title: string,
+    showModal: boolean,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+    content?: any
+}
 
 
+export default function Modal({ title, showModal, setShowModal, content }: Props) {
 
-export default function Modal(props: any) {
-    const [showModal, setShowModal] = React.useState(false);
-
-    function displayForm(app: string) {
-        let FormComponent = NewSimpleItemForm;
-        if (app === kanban || app === alias) { FormComponent = KanbanForm; }
-        return <FormComponent model={props.model} setShowModal={setShowModal} />;
+    function getContent(content: any) {
+        if (content) {
+            return content
+        } else {
+            return <></>
+        }
     }
+
 
     return (
         <>
-            <ModalButton setShowModal={setShowModal} />
+            {/* <ModalButton setShowModal={setShowModal} /> */}
             {showModal ? (
                 <ModalBody
-                    title={`Add a new ${props.app}`}
+                    title={title}
                     setShowModal={setShowModal}
-                    form={displayForm(props.app)} />
+                    content={getContent(content)} />
             ) : null}
         </>
     );

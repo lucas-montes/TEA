@@ -48,7 +48,6 @@ export function addNewItem<T>(
 export function setItem<T>(itemId: T | DefaultValue | null, set: SetRecoilState, get: GetRecoilValue,
     state: RecoilState<T>): void {
     const currentItemState = get(state);
-    console.log(currentItemState)
     const item = currentItemState.items[itemId]
     set(state, { ...currentItemState, selectedItemId: item.id, selectedItem: item })
 }

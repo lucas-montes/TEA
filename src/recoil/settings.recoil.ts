@@ -21,11 +21,21 @@ export const notesSortKeySelector = selector({
   get: ({ get }) => get(settingsState).notesSortKey,
 });
 
+
+function toggleTheme(theme: string): void {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
+
 export const themeSelector = selector({
   key: "theme-selector",
   get: ({ get }) => get(settingsState).theme,
   set: ({ get, set }, theme) => {
     if (theme instanceof DefaultValue) return;
+    toggleTheme(theme);
     const currentState: SettingsState = get(settingsState);
     set(settingsState, {
       ...currentState,

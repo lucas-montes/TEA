@@ -1,10 +1,9 @@
-import { DefaultValue, RecoilState, selector, SetRecoilState, GetRecoilValue } from "recoil";
+import {  RecoilState, selector, SetRecoilState, GetRecoilValue } from "recoil";
 
-import { ProjectState } from "./types";
+import { ProjectState, Task } from "./types";
 
 import { customSelector, customAtom, setItem, getItem } from "@/recoil/base.recoil";
 import { project1, project2 } from "@/utils/constants"
-import Project, { Task } from "@/models/Project";
 
 export const projectsState: RecoilState<ProjectState> = customAtom(
   "projectState",
@@ -12,7 +11,10 @@ export const projectsState: RecoilState<ProjectState> = customAtom(
   { 51: project1, 52: project2 }
 );
 
-export const projectsSelector: RecoilState<ProjectState> = customSelector("projectsSelector", projectsState);
+export const projectsSelector: RecoilState<ProjectState> = customSelector(
+  "projectsSelector",
+  projectsState
+);
 
 export const selectProjectSelector = customSelector(
   "selectProjectSelector",
@@ -24,16 +26,18 @@ export const selectProjectSelector = customSelector(
 export const tasksSelector = selector({
   key: "tasksSelector",
   get: ({ get }) => getProjectTasks(get),
-  set: ({ get, set }, tasks) => addNewTask(tasks, set, get),
+  set: ({ get, set }, task) => addNewTask(task, set, get),
 });
 
-function getProjectTasks(get: GetRecoilValue): Array<Task> {
+function getProjectTasks(get: GetRecoilValue): {[key:number]: Task} {
   const currentProject = get(projectsState).selectedItem;
-  const project = new Project(...Object.values(currentProject))
-  console.log(project)
-  return currentProject ? project.getTasks() : [];
+  return currentProject ? currentProject.tasks : {};
 }
 
-function addNewTask(tasks: any, set: SetRecoilState, get: GetRecoilValue): void {
-  !(tasks instanceof DefaultValue) && set(projectsState, { ...get(projectsState), tasks, })
+function addNewTask(task: any, set: SetRecoilState, get: GetRecoilValue): void {
+  const currentState = get(projectsState);
+  const currentProject = currentState.selectedItem
+  const currentTasks = currentProject?.tasks
+  console.log(currentTasks)
+  set(projectsState, { ...get(projectsState), selectedItemId: item.id, selectedItem: item })
 }
