@@ -23,14 +23,18 @@ export default function Modal({ title, showModal, setShowModal, content }: Props
     }
 
 
+
     return (
         <>
             {/* <ModalButton setShowModal={setShowModal} /> */}
             {showModal ? (
-                <ModalBody
-                    title={title}
-                    setShowModal={setShowModal}
-                    content={getContent(content)} />
+                <>
+                    <h1>sdkjfkdsjfhkdshfkds</h1>
+                    <ModalBody
+                        title={title}
+                        setShowModal={setShowModal}
+                        content={getContent(content)} />
+                </>
             ) : null}
         </>
     );

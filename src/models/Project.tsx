@@ -27,11 +27,12 @@ export class Task extends BaseText {
     constructor(
         projectId: number,
         title: string,
-        taskStatus: string = "todo",
+        taskStatus: string = "to-do",
         content: string = "",
+        createdAt?: string
     ) {
         super(
-            title, content,
+            title, content, createdAt
         );
         this.projectId = projectId;
         this.taskStatus = taskStatus;

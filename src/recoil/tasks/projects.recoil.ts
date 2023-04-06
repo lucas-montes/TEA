@@ -1,9 +1,11 @@
-import {  RecoilState, selector, SetRecoilState, GetRecoilValue } from "recoil";
+import { RecoilState, selector, SetRecoilState, GetRecoilValue, DefaultValue } from "recoil";
 
 import { ProjectState, Task } from "./types";
 
 import { customSelector, customAtom, setItem, getItem } from "@/recoil/base.recoil";
 import { project1, project2 } from "@/utils/constants"
+import { TaskType } from "@/types/tasks";
+import { isTypeOfExpression } from "typescript";
 
 export const projectsState: RecoilState<ProjectState> = customAtom(
   "projectState",
@@ -29,15 +31,18 @@ export const tasksSelector = selector({
   set: ({ get, set }, task) => addNewTask(task, set, get),
 });
 
-function getProjectTasks(get: GetRecoilValue): {[key:number]: Task} {
+function getProjectTasks(get: GetRecoilValue): { [key: number]: Task } | Task {
   const currentProject = get(projectsState).selectedItem;
   return currentProject ? currentProject.tasks : {};
 }
 
-function addNewTask(task: any, set: SetRecoilState, get: GetRecoilValue): void {
-  const currentState = get(projectsState);
-  const currentProject = currentState.selectedItem
-  const currentTasks = currentProject?.tasks
-  console.log(currentTasks)
-  set(projectsState, { ...get(projectsState), selectedItemId: item.id, selectedItem: item })
+function addNewTask(task: { [key: number]: Task; } | DefaultValue | Task, set: SetRecoilState, get: GetRecoilValue): void {
+  if (!(task instanceof DefaultValue)) {
+    const currentState = structuredClone(get(projectsState));
+    const currentProject = currentState.selectedItem
+    // @ts-ignore
+    currentProject.tasks[task.id] = task
+    currentState.items[currentState.selectedItemId] = currentProject
+    set(projectsState, { ...currentState })
+  }
 }

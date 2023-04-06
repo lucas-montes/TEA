@@ -12,26 +12,26 @@ import Tasks from "./Tasks";
 import { ProjectInformation } from "./ProjectInfo";
 
 const Project = () => {
-    const tasks = useRecoilValue(tasksSelector);
+    const [tasks, setTasks] = useRecoilState(tasksSelector);
     const [activeTab, setActiveTab] = useState("Tasks");
 
-    function currectChild(activeTab: string): JSX.Element {
-        var currectChild: JSX.Element;
+    function currentChild(activeTab: string): JSX.Element {
+        var currentChild: JSX.Element;
         switch (activeTab) {
             case "Tasks":
-                currectChild = <Tasks tasks={tasks} />
+                currentChild = <Tasks tasks={tasks} setTasks={setTasks}/>
                 break;
             case "Settings":
-                currectChild = <ProjectInformation />
+                currentChild = <ProjectInformation />
                 break;
             case "Profile":
-                currectChild = <ProjectInformation />
+                currentChild = <ProjectInformation />
                 break;
             default:
-                currectChild = <ProjectInformation />
+                currentChild = <ProjectInformation />
                 break;
         }
-        return currectChild;
+        return currentChild;
     }
 
     return (
@@ -40,7 +40,7 @@ const Project = () => {
                 <SidebarTasks />
                 <FlexColumn className="w-min" width="100%" height="100%">
                     <ProjectsTabs activeTab={activeTab} onClick={setActiveTab} />
-                    {currectChild(activeTab)}
+                    {currentChild(activeTab)}
                 </FlexColumn>
             </SplitPane>
         </Container>

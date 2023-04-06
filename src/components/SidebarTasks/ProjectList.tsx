@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
 
 import { SidebarOption } from "@/components/SidebarOption/SidebarOption";

@@ -18,6 +18,6 @@ export type Project = BaseType & {
 
 export type ProjectState = {
   items: { [key: Project["id"]]: Project; };
-  selectedItemId: Project["id"] | null;
-  selectedItem: Project | null;
+  selectedItemId: Project["id"];
+  selectedItem: Project;
 };

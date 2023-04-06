@@ -1,8 +1,8 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
-export default class BaseModel extends Object {
+export default class BaseModel {
     id!: number;
-    createdAt!: string;
+    createdAt?: string;
     updatedAt!: string;
 
     public static getModelName(): string {
@@ -27,15 +27,18 @@ export default class BaseModel extends Object {
     }
 
     public async create(): Promise<number> {
+        return 0
         const createData = this.getCreateData();
         return await invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
     }
 
-    public async delete(id: Number): Promise<number> {
+    public async delete(id: number): Promise<number> {
         return await invoke("handle_delete", { table: this.getTableName(), id: id });
     }
 
-    public async update(id: Number, props: any): Promise<number> {
+    public async update(id: number, props: any = {}): Promise<number> {
+        return id
+        props["updatedAt"] = new Date().toLocaleString();
         return await invoke("handle_update", { table: this.getTableName(), id: id, modelData: JSON.stringify(props) });
     }
 
@@ -76,9 +79,10 @@ export class BaseText extends BaseModel {
     title: string;
     content: string;
 
-    constructor(title: string, content: string = "") {
+    constructor(title: string, content: string = "", createdAt?: string) {
         super();
         this.title = title;
         this.content = content;
+        this.createdAt = createdAt;
     }
 }; 
