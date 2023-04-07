@@ -3,12 +3,14 @@ import { TaskType } from "@/types/tasks";
 type Props = {
     task: TaskType,
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    setWorkingTask: React.Dispatch<React.SetStateAction<TaskType>>
+    setWorkingTask: React.Dispatch<React.SetStateAction<TaskType>>,
+    setModalTitle: React.Dispatch<React.SetStateAction<string>>
 }
-export const Task = ({ task, setShowModal, setWorkingTask }: Props) => {
+export const Task = ({ task, setShowModal, setWorkingTask, setModalTitle }: Props) => {
 
     function handleOnClick(): void {
         setWorkingTask(task);
+        setModalTitle("Update task")
         setShowModal(true);
     }
 
