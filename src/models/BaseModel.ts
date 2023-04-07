@@ -27,7 +27,7 @@ export default class BaseModel {
     }
 
     public async create(): Promise<number> {
-        return 0
+        return Math.floor(Math.random() * 918165161)
         const createData = this.getCreateData();
         return await invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
     }
