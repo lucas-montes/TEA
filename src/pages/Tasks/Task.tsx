@@ -1,12 +1,12 @@
-import { TaskType } from "@/types/tasks";
+import { Task } from "@/models/Project";
 
 type Props = {
     task: TaskType,
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    setWorkingTask: React.Dispatch<React.SetStateAction<TaskType>>,
+    setWorkingTask: React.Dispatch<React.SetStateAction<Tasks>>,
     setModalTitle: React.Dispatch<React.SetStateAction<string>>
 }
-export const Task = ({ task, setShowModal, setWorkingTask, setModalTitle }: Props) => {
+export const TaskComponent = ({ task, setShowModal, setWorkingTask, setModalTitle }: Props) => {
 
     function handleOnClick(): void {
         setWorkingTask(task);
@@ -17,16 +17,19 @@ export const Task = ({ task, setShowModal, setWorkingTask, setModalTitle }: Prop
     function getColorAndStatus(): [string, string] {
         switch (task.taskStatus) {
             case "to-do":
-                return ["blue", "To Do"];
+                return [createClassName("blue"), "To Do"];
             case "doing":
-                return ["yellow", "Doing"];
+                return [createClassName("yellow"), "Doing"];
             default:
-                return ["green", "Done"];
-        };
+                return [createClassName("green"), "Done"];
+        }
+    }
+
+    function createClassName(color: string): string {
+        return `rounded-full w-4 h-4 ring-2 ring-${color}-500`;
     }
 
     const [color, taskStatus] = getColorAndStatus();
-
     return (
         <div
 
@@ -39,7 +42,7 @@ export const Task = ({ task, setShowModal, setWorkingTask, setModalTitle }: Prop
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                     <div
-                        className={`rounded-full w-4 h-4 ring-2 ring-${color}-500`}></div>
+                        className={color}></div>
                     <div
                         onClick={handleOnClick}
                         className="cursor-pointer text-md font-bold">
@@ -52,12 +55,12 @@ export const Task = ({ task, setShowModal, setWorkingTask, setModalTitle }: Prop
                     </div>
                     <div className="text-gray-500 hover:text-gray-300 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                         </svg>
                     </div>
                     <div className="text-gray-500 hover:text-gray-300 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
                         </svg>
                     </div>
                 </div>

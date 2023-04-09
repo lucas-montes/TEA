@@ -22,12 +22,13 @@ export default class BaseModel {
     public getCreateData(): any {
         // @ts-ignore
         this.id = undefined;
-        this.createdAt = new Date().toLocaleString();
+        const now = new Date().toLocaleString();
+        this.createdAt = now;
+        this.updatedAt = now;
         return this;
     }
 
     public async create(): Promise<number> {
-        return Math.floor(Math.random() * 918165161)
         const createData = this.getCreateData();
         return await invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
     }
@@ -37,7 +38,6 @@ export default class BaseModel {
     }
 
     public async update(id: number, props: any = {}): Promise<number> {
-        return id
         props["updatedAt"] = new Date().toLocaleString();
         return await invoke("handle_update", { table: this.getTableName(), id: id, modelData: JSON.stringify(props) });
     }
@@ -85,4 +85,4 @@ export class BaseText extends BaseModel {
         this.content = content;
         this.createdAt = createdAt;
     }
-}; 
+} 

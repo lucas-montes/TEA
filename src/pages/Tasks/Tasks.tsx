@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Task } from "@/pages/Tasks/Task";
-import { Task as TaskType } from "@/recoil/tasks/types";
+import { TaskComponent } from "@/pages/Tasks/Task";
+import { Task } from "@/models/Project";
 
 type Props = {
-    tasks: { [key: number]: TaskType }
+    tasks: { [key: number]: Task }
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    setWorkingTask: React.Dispatch<React.SetStateAction<TaskType>>,
+    setWorkingTask: React.Dispatch<React.SetStateAction<Task>>,
     setModalTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -15,7 +15,7 @@ const Tasks = ({ tasks, setShowModal, setWorkingTask, setModalTitle }: Props) =>
         <div className="container overflow-auto">
             {
                 Object.values(tasks).map((task) => (
-                    <Task
+                    <TaskComponent
                         key={task.id}
                         task={task}
                         setWorkingTask={setWorkingTask}

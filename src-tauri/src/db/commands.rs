@@ -1,4 +1,4 @@
-use crate::db::{create, delete, update, KanbanTicket, Note, ProsCons};
+use crate::db::{create, delete, update, Task, Note, ProsCons};
 use serde_json::{from_str, Value};
 
 #[tauri::command]
@@ -29,6 +29,6 @@ pub fn handle_read_proscons() -> Vec<ProsCons> {
 }
 
 #[tauri::command]
-pub fn handle_read_kanbantickets() -> Vec<KanbanTicket> {
-    return KanbanTicket::read().into();
+pub fn handle_read_kanbantickets() -> Vec<Task> {
+    return Task::read().into();
 }

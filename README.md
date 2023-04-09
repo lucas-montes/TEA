@@ -35,6 +35,8 @@ yarn tauri build
 - [ ] Note sharing
 - [ ] Account sync
 - [ ] Cross-platform sync
+- [ ] Remove TS models and create only one to perform CRUD operations
+- [ ] Switch the TS models into Types or Interfaces
 
 ## Scripts
 
