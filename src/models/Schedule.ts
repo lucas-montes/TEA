@@ -1,22 +1,14 @@
 import { BaseText } from "./BaseModel";
 
 
-export class ScheduleTask extends BaseText {
-    start?: Date;
-    end?: Date;
+export class Schedule extends BaseText {
+    startTime: string;
+    endTime: string;
 
-    constructor(title?: string, content: string = "", start?: Date, end?: Date) {
+    constructor(title?: string, content: string = "", startTime: string, endTime: string) {
         super(title, content);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 };
 
-export default class Schedule extends BaseText {
-    tasks?: Array<ScheduleTask>;
-
-    constructor(title?: string, content?: string, tasks?: Array<ScheduleTask>) {
-        super(title, content);
-        this.tasks = tasks;
-    }
-};

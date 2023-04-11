@@ -1,4 +1,4 @@
-import ProsCons from "../../../models/ProsCons";
+import ProsCons from "@/models/ProsCons";
 import { useState, useEffect } from "react";
 
 
@@ -58,30 +58,23 @@ function Table(props: any) {
 export default function ProsConsContent() {
     const [newPros, setnewPros] = useState("")
     const [newCons, setnewCons] = useState("")
-    const [Pros, setPros] = useState(val.pros)
-    const [Cons, setCons] = useState(val.cons)
+    const [Pros, setPros] = useState([])
+    const [Cons, setCons] = useState([])
     const [inputs, setInputs] = useState(
         {
-            title: val.title,
-            content: val.content,
+            title: "",
+            content: "",
         }
     );
 
-    useEffect(() => {
-        if (inputs.title !== val.title) {
-            setInputs({ title: val.title, content: val.content });
-            setPros(val.pros);
-            setCons(val.cons);
-        }
-    });
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        val.title = inputs.title
-        val.content = inputs.content
-        ItemsManager.saveItem(val);
-        ItemsManager.updateItems(val);
-        new ProsCons().update(val.id, { title: inputs.title, content: inputs.content, cons: Cons, pros: Pros });
+        //val.title = inputs.title
+        //val.content = inputs.content
+        //ItemsManager.saveItem(val);
+        //ItemsManager.updateItems(val);
+        //new ProsCons().update(val.id, { title: inputs.title, content: inputs.content, cons: Cons, pros: Pros });
     };
 
     function addNewPro(event: any) {
@@ -90,7 +83,6 @@ export default function ProsConsContent() {
         updatedPros.push(newPros);
         setPros(updatedPros);
         setnewPros("");
-        val.pros = updatedPros;
     };
     function addNewCons(event: any) {
         event.preventDefault();
@@ -98,7 +90,6 @@ export default function ProsConsContent() {
         updatedCons.push(newCons);
         setCons(updatedCons);
         setnewCons("");
-        val.cons = updatedCons;
     };
     function handleChangePros(event: any) {
         setnewPros(event.target.value);

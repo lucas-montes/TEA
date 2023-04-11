@@ -26,7 +26,7 @@ export const TaskComponent = ({ task, setShowModal, setWorkingTask, setModalTitl
     }
 
     function createClassName(color: string): string {
-        return `rounded-full w-4 h-4 ring-2 ring-${color}-500`;
+        return `rounded-full w-4 h-4 outline outline-${color}-500 ring ring-inset ring-${color}-500`;
     }
 
     const [color, taskStatus] = getColorAndStatus();

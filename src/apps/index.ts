@@ -1,14 +1,17 @@
 import {
-	MdOutlineSpaceDashboard,
-	MdOutlineExplore,
-	MdOutlineEventNote,
+    MdOutlineSpaceDashboard,
+    MdOutlineExplore,
+    MdOutlineEventNote,
     MdAccountBalance,
+    MdPunchClock
 } from 'react-icons/md'
 
-import {MenuApp} from "@/models/Apps";
+import { MenuApp } from "@/models/Apps";
 import Home from "@/pages/Home";
 import Tasks from "@/pages/Tasks";
 import { Notebook } from "@/pages/Notebook/Notebook";
+import Schedules from "@/pages/Schedule/Schedules";
+import ProsConsContent from '@/pages/ProsCons/ProsCons';
 
 export const Apps = [
     new MenuApp(
@@ -31,5 +34,11 @@ export const Apps = [
     new MenuApp(
         MdAccountBalance,
         "ProsCons",
+        ProsConsContent,
+    ),
+    new MenuApp(
+        MdPunchClock,
+        "Schedules",
+        Schedules,
     ),
 ]
