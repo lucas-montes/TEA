@@ -17,17 +17,14 @@ export const TaskComponent = ({ task, setShowModal, setWorkingTask, setModalTitl
     function getColorAndStatus(): [string, string] {
         switch (task.taskStatus) {
             case "to-do":
-                return [createClassName("blue"), "To Do"];
+                return ["outline-blue-500 ring-blue-500", "To Do"];
             case "doing":
-                return [createClassName("yellow"), "Doing"];
+                return ["outline-yellow-500 ring-yellow-500", "Doing"];
             default:
-                return [createClassName("green"), "Done"];
+                return ["outline-green-500 ring-green-500", "Done"];
         }
     }
 
-    function createClassName(color: string): string {
-        return `rounded-full w-4 h-4 outline outline-${color}-500 ring ring-inset ring-${color}-500`;
-    }
 
     const [color, taskStatus] = getColorAndStatus();
     return (
@@ -42,7 +39,7 @@ export const TaskComponent = ({ task, setShowModal, setWorkingTask, setModalTitl
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                     <div
-                        className={color}></div>
+                        className={`rounded-full w-4 h-4 outline ${color} ring ring-inset`}></div>
                     <div
                         onClick={handleOnClick}
                         className="cursor-pointer text-md font-bold">

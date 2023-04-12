@@ -3,6 +3,11 @@ import React from 'react';
 import { Schedule } from "@/models/Schedule";
 import { MainContainer } from '@/components/MainContainer'
 
+import { Folder as FolderIcon } from "@/components/Icons";
+
+import { Ellipsis, Flex } from "@/styles/layout";
+
+import { Item } from "@/components/SidebarOption/style";
 
 const testSchedules = [
 
@@ -12,7 +17,7 @@ const testSchedules = [
         title: "sleep",
         content: "you have to do this",
         id: 1,
-        color: "blue"
+        color: "bg-blue-500 border-blue-400"
     },
     {
         startTime: 6,
@@ -20,28 +25,28 @@ const testSchedules = [
         title: "work",
         content: "you have to do this",
         id: 2,
-        color: "red"
+        color: "bg-red-500 border-red-400"
     }, {
         startTime: 13,
         endTime: 15,
         title: "sport",
         content: "you have to do this",
         id: 3,
-        color: "green"
+        color: "bg-green-500 border-green-400"
     }, {
         startTime: 15,
         endTime: 18,
         title: "coding",
         content: "you have to do this",
         id: 4,
-        color: "yellow"
+        color: "bg-yellow-500 border-yellow-400"
     }, {
         startTime: 18,
         endTime: 20,
         title: "study",
         content: "you have to do this",
         id: 5,
-        color: "red"
+        color: "bg-red-500 border-red-400"
     },
     {
         startTime: 20,
@@ -49,7 +54,7 @@ const testSchedules = [
         title: "read",
         content: "you have to do this",
         id: 6,
-        color: "purple"
+        color: "bg-purple-800 border-purple-800"
     }
 ]
 
@@ -62,21 +67,12 @@ type ScheduleItemProps = {
 }
 function ScheduleItem({ item }: ScheduleItemProps) {
     return (
-        <tr className="bg-blue-500 border-b border-blue-400">
+        <tr className={`${item.color} border-b`}>
             <th scope="row" className="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                Apple MacBook Pro 17"
+                {item.startTime} - {item.endTime}
             </th>
             <td className="px-6 py-4">
-                Silver
-            </td>
-            <td className="px-6 py-4">
-                Laptop
-            </td>
-            <td className="px-6 py-4">
-                $2999
-            </td>
-            <td className="px-6 py-4">
-                <a href="#" className="font-medium text-white hover:underline">Edit</a>
+                {item.title}
             </td>
         </tr>
     )
@@ -89,29 +85,12 @@ function ScheduleContent({ schedules }: ScheduleProps) {
             return a.startTime - b.startTime;
         })
     }
-    console.log(orderSchedules(schedules))
     return (
         <div className='content w-full'>
             <div className="w-11/12 m-4 mr-20 overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100">
                     <tbody>
-                        <tr className="bg-blue-500 border-b border-blue-400">
-                            <th scope="row" className="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                Magic Mouse 2
-                            </th>
-                            <td className="px-6 py-4">
-                                Black
-                            </td>
-                            <td className="px-6 py-4">
-                                Accessories
-                            </td>
-                            <td className="px-6 py-4">
-                                $99
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-white hover:underline">Edit</a>
-                            </td>
-                        </tr>
+                        {orderSchedules(schedules).map((item, index) => <ScheduleItem item={item} key={index} />)}
                     </tbody>
                 </table>
             </div>
@@ -119,7 +98,30 @@ function ScheduleContent({ schedules }: ScheduleProps) {
     )
 }
 
+type SSIProps = {
+    day: string
+}
 
+function SchedulesSidebarItem({ day }: SSIProps) {
+
+    return (
+        <Item
+        >
+            <Flex alignItems="center" gap={10}>
+                <FolderIcon className="icon" size={15} />
+                <Ellipsis>{day}</Ellipsis>
+            </Flex>
+        </Item>
+    );
+}
+
+
+function SchedulesSidebar() {
+    const listDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    return (
+        { listDays.map((day, index) => <SchedulesSidebarItem day={day} key={index} />) }
+    );
+}
 const Schedules: React.FC = () => {
 
     return (
