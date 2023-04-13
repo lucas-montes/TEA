@@ -5,7 +5,7 @@ export default class Project extends BaseText {
 
     constructor(
         title: string,
-        content: string = "",
+        content = "",
         tasks?: { [key: Task["id"]]: Task; }
     ) {
         super(
@@ -27,8 +27,8 @@ export class Task extends BaseText {
     constructor(
         projectId: number,
         title: string,
-        taskStatus: string = "to-do",
-        content: string = "",
+        taskStatus= "to-do",
+        content = "",
         createdAt?: string
     ) {
         super(

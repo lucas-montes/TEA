@@ -1,66 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+import { SetterOrUpdater, useRecoilState } from "recoil";
 
 import { Schedule } from "@/models/Schedule";
 import { MainContainer } from '@/components/MainContainer'
-
 import { Folder as FolderIcon } from "@/components/Icons";
-
 import { Ellipsis, Flex } from "@/styles/layout";
-
 import { Item } from "@/components/SidebarOption/style";
+import {schedulesSelector} from "@/recoil/schedules/schedules.recoil";
+import ScheduleForm from "@/pages/Schedule/ScheduleForm";
+import Modal from "@/components/Modals/Modal";
 
-const testSchedules = [
 
-    {
-        startTime: 22,
-        endTime: 6,
-        title: "sleep",
-        content: "you have to do this",
-        id: 1,
-        color: "bg-blue-500 border-blue-400"
-    },
-    {
-        startTime: 6,
-        endTime: 13,
-        title: "work",
-        content: "you have to do this",
-        id: 2,
-        color: "bg-red-500 border-red-400"
-    }, {
-        startTime: 13,
-        endTime: 15,
-        title: "sport",
-        content: "you have to do this",
-        id: 3,
-        color: "bg-green-500 border-green-400"
-    }, {
-        startTime: 15,
-        endTime: 18,
-        title: "coding",
-        content: "you have to do this",
-        id: 4,
-        color: "bg-yellow-500 border-yellow-400"
-    }, {
-        startTime: 18,
-        endTime: 20,
-        title: "study",
-        content: "you have to do this",
-        id: 5,
-        color: "bg-red-500 border-red-400"
-    },
-    {
-        startTime: 20,
-        endTime: 22,
-        title: "read",
-        content: "you have to do this",
-        id: 6,
-        color: "bg-purple-800 border-purple-800"
-    }
-]
-
-type ScheduleProps = {
-    schedules: Schedule[]
-}
 
 type ScheduleItemProps = {
     item: Schedule
@@ -78,10 +29,14 @@ function ScheduleItem({ item }: ScheduleItemProps) {
     )
 }
 
+type ScheduleProps = {
+    schedules: Schedule[],
+    setWorkingSchedule
+}
 
-function ScheduleContent({ schedules }: ScheduleProps) {
+function ScheduleContent({ schedules, setWorkingSchedule }: ScheduleProps) {
     function orderSchedules(schedules: Schedule[]): Schedule[] {
-        return schedules.sort(function(a, b) {
+        return [...schedules].sort(function(a, b) {
             return a.startTime - b.startTime;
         })
     }
@@ -99,13 +54,17 @@ function ScheduleContent({ schedules }: ScheduleProps) {
 }
 
 type SSIProps = {
-    day: string
+    day: string,
+     selectedDay: string,
+    setSelectedDay: React.Dispatch<React.SetStateAction<string>>
 }
 
-function SchedulesSidebarItem({ day }: SSIProps) {
+function SchedulesSidebarItem({ day, selectedDay, setSelectedDay }: SSIProps) {
 
     return (
         <Item
+            selected={selectedDay === day}
+            onClick={() => setSelectedDay(day)}
         >
             <Flex alignItems="center" gap={10}>
                 <FolderIcon className="icon" size={15} />
@@ -115,22 +74,49 @@ function SchedulesSidebarItem({ day }: SSIProps) {
     );
 }
 
+type SSProps = {
+     selectedDay: string;
+    setSelectedDay: React.Dispatch<React.SetStateAction<string>>
+}
 
-function SchedulesSidebar() {
+function SchedulesSidebar({setSelectedDay, selectedDay}: SSProps) {
     const listDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return (
-        { listDays.map((day, index) => <SchedulesSidebarItem day={day} key={index} />) }
+        <>
+        { listDays.map((day, index) => <SchedulesSidebarItem selectedDay={selectedDay} setSelectedDay={setSelectedDay} day={day} key={index} />) }
+        </>
     );
 }
 const Schedules: React.FC = () => {
+    const [selectedDay, setSelectedDay] = React.useState("Monday");
+    const [schedule, setSchedule] = useRecoilState(schedulesSelector);
+    const [showModal, setShowModal] = useState(false);
+    const [workingSchedule, setWorkingSchedule] = useState({} as Schedule);
+    const [modalTitle, setModalTitle] = useState("Update schedule");
+    const schedulesPerDay = schedule[selectedDay];
 
     return (
+        <>
         <MainContainer
             title={"Schedules"}
-            sidebar={<>hey</>}
+            sidebar={<SchedulesSidebar selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>}
             content={
-                <ScheduleContent schedules={testSchedules} />}
+                <ScheduleContent schedules={schedulesPerDay} setSchedule={setSchedule} setWorkingSchedule={setWorkingSchedule} />}
         />
+        <Modal
+                        title={modalTitle}
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        content={
+                            <ScheduleForm
+                                currentDay={selectedDay}
+                                schedule={workingSchedule}
+                                setSchedule={setSchedule}
+                                setShowModal={setShowModal}
+                            />
+                        } />
+        </>
+
     )
 }
 

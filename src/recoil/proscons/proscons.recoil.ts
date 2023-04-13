@@ -1,8 +1,13 @@
 import { RecoilState } from "recoil";
 
 import { customSelector, customAtom } from "@/recoil/base.recoil";
+import ProsCons from "@/models/ProsCons";
 
-import { ProsConsState } from "@/recoil/proscons/types";
+export type ProsConsState = {
+    items: { [key: ProsCons["id"]]: ProsCons; };
+    selectedItem: ProsCons;
+    selectedItemId: number;
+};
 
 
 export const prosConsState: RecoilState<ProsConsState> = customAtom("prosConsState");

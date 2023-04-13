@@ -1,11 +1,14 @@
 import { RecoilState, selector, SetRecoilState, GetRecoilValue, DefaultValue } from "recoil";
 
-import { ProjectState, Task } from "./types";
-
+import Project, {Task} from "@/models/Project";
 import { customSelector, customAtom, setItem, getItem } from "@/recoil/base.recoil";
 import { project1, project2 } from "@/utils/constants"
-import { TaskType } from "@/types/tasks";
-import { isTypeOfExpression } from "typescript";
+
+export type ProjectState = {
+  items: { [key: Project["id"]]: Project; };
+  selectedItemId: Project["id"];
+  selectedItem: Project;
+};
 
 export const projectsState: RecoilState<ProjectState> = customAtom(
   "projectState",

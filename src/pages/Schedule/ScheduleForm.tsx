@@ -1,57 +1,60 @@
 import React from "react";
 import { SetterOrUpdater, useRecoilValue } from "recoil";
 
-import { projectsState } from "@/recoil/tasks/projects.recoil";
-import { TaskType } from "@/types/tasks";
-import { Task } from "@/models/Project";
+import { schedulesState } from "@/recoil/schedules/schedules.recoil";
+import { Schedule } from "@/models/Schedule";
 
 type Props = {
-    task?: TaskType,
+    schedule?: Schedule,
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    setTasks: SetterOrUpdater<{
-        [key: number]: TaskType;
+    setSchedule: SetterOrUpdater<{
+        [key: number]: Schedule;
     }>,
+    currentDay: string,
 }
 
-export default function TaskForm({ task, setShowModal, setTasks }: Props) {
-    const projects = useRecoilValue(projectsState);
+export default function ScheduleForm({ schedule, setShowModal, setSchedule, currentDay }: Props) {
 
     const [inputs, setInputs] = React.useState(
         {
-            title: task ? task.title : "",
-            content: task ? task.content : "",
-            taskStatus: task ? task.taskStatus : "",
+            title: schedule ? schedule.title : "",
+            content: schedule ? schedule.content : "",
+            startTime: schedule ? schedule.startTime : "",
+            endTime: schedule ? schedule.endTime : "",
+            color: schedule ? schedule.color : "",
         }
     );
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        saveTask(task?.id)
+        saveTask(schedule?.id)
         setShowModal(false);
     };
 
     function saveTask(id: number = 0): void {
-        const newTask = new Task(
-            projects.selectedItemId,
+        const newSchedule = new Schedule(
             inputs.title,
-            inputs.taskStatus,
+            inputs.startTime,
+            inputs.endTime,
+            inputs.color,
+            currentDay,
             inputs.content,
-            task?.createdAt
+            schedule?.createdAt
         )
         if (id > 0) {
-            newTask.update(id)
-                .then(value => { setNewTask(value, newTask) })
+            newSchedule.update(id)
+                .then(value => { setNewTask(value, newSchedule) })
                 .catch(er => { console.error(er) })
         } else {
-            newTask.create()
-                .then(value => { setNewTask(value, newTask) })
+            newSchedule.create()
+                .then(value => { setNewTask(value, newSchedule) })
                 .catch(er => { console.error(er) })
         }
     };
 
-    function setNewTask(id: number, newTask: Task): void {
-        newTask.id = id;
-        setTasks(newTask as TaskType);
+    function setNewTask(id: number, newSchedule: Schedule): void {
+        newSchedule.id = id;
+        setSchedule(newSchedule);
     }
 
     function handleChange(event: any) {
@@ -69,12 +72,12 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
                     value={inputs.taskStatus}
                     onChange={handleChange}
                     className="
-                        focus:outline-none focus:ring bg-gray-50 
-                        border border-gray-300 text-gray-900 
-                        text-sm rounded-lg focus:ring-primary-500 
-                        focus:border-primary-500 block w-full p-2.5 
-                        dark:bg-gray-700 dark:border-gray-600 
-                        dark:placeholder-gray-400 dark:text-white 
+                        focus:outline-none focus:ring bg-gray-50
+                        border border-gray-300 text-gray-900
+                        text-sm rounded-lg focus:ring-primary-500
+                        focus:border-primary-500 block w-full p-2.5
+                        dark:bg-gray-700 dark:border-gray-600
+                        dark:placeholder-gray-400 dark:text-white
                         dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="to-do">TODO</option>
                     <option value="doing">Doing</option>
@@ -91,17 +94,17 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
                     value={inputs.title}
                     onChange={handleChange}
                     className="
-                            bg-gray-50 border border-gray-300 
-                            text-gray-900 text-sm rounded-lg 
-                            focus:ring-primary-600 
+                            bg-gray-50 border border-gray-300
+                            text-gray-900 text-sm rounded-lg
+                            focus:ring-primary-600
                             focus:border-primary-600
                             focus:outline-none focus:ring
-                            block w-full p-2.5 
-                            dark:bg-gray-700 
-                            dark:border-gray-600 
-                            dark:placeholder-gray-400 
-                            dark:text-white 
-                            dark:focus:ring-primary-500 
+                            block w-full p-2.5
+                            dark:bg-gray-700
+                            dark:border-gray-600
+                            dark:placeholder-gray-400
+                            dark:text-white
+                            dark:focus:ring-primary-500
                             dark:focus:border-primary-500"
                 />
             </div>
@@ -115,15 +118,15 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
                     onChange={handleChange}
                     rows={5}
                     className="
-                        block focus:outline-none 
-                        focus:ring p-2.5 w-full 
-                        text-sm text-gray-900 bg-gray-50 
-                        rounded-lg border border-gray-300 
-                        focus:ring-primary-500 
-                        focus:border-primary-500 
-                        dark:bg-gray-700 dark:border-gray-600 
-                        dark:placeholder-gray-400 dark:text-white 
-                        dark:focus:ring-primary-500 
+                        block focus:outline-none
+                        focus:ring p-2.5 w-full
+                        text-sm text-gray-900 bg-gray-50
+                        rounded-lg border border-gray-300
+                        focus:ring-primary-500
+                        focus:border-primary-500
+                        dark:bg-gray-700 dark:border-gray-600
+                        dark:placeholder-gray-400 dark:text-white
+                        dark:focus:ring-primary-500
                         dark:focus:border-primary-500"
                     placeholder="Write a description...">
                 </textarea>

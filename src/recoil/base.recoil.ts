@@ -19,8 +19,8 @@ export function customAtom<T>(key: string, defaultExtras: object = {}, initialIt
 export function customSelector<T>(
     key: string,
     state: RecoilState<T>,
-    getMethod: Function = getItems,
-    setMethod: Function = addNewItem
+    getMethod: CallableFunction = getItems,
+    setMethod: CallableFunction = addNewItem
 ): RecoilState<T> {
     return selector({
         key: key,
