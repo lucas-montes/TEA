@@ -49,6 +49,7 @@ fn create_initial_tables() -> Result<()> {
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
+        task_status TEXT NOT NULL,
         project_id INTEGER NOT NULL,
         FOREIGN KEY(project_id) REFERENCES projects(id)
     );

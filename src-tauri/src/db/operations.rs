@@ -9,14 +9,11 @@ pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<S
     let mut fields: String = String::from("");
     let mut fields_numbers: String = String::from("");
     let mut fields_values: Vec<String> = Vec::new();
-
     // When iterating it seems that the object from serde it's sorted
     for (key, value) in model_data.as_object().unwrap() {
         fields = generate_fields(fields.to_string(), camel_to_snake_case(key));
-
         fields_numbers = generate_fields(fields_numbers.to_string(), "?".to_string());
-
-        fields_values.push(value.as_str().unwrap().to_string());
+        fields_values.push(value.to_string());
     }
     return (fields, fields_numbers, fields_values);
 }
@@ -60,6 +57,7 @@ pub fn camel_to_snake_case(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::json;
 
     #[test]
     fn test_get_model_fields_information() {

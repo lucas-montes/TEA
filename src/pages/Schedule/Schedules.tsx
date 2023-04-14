@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import { SetterOrUpdater, useRecoilState } from "recoil";
 
@@ -7,7 +7,7 @@ import { MainContainer } from '@/components/MainContainer'
 import { Folder as FolderIcon } from "@/components/Icons";
 import { Ellipsis, Flex } from "@/styles/layout";
 import { Item } from "@/components/SidebarOption/style";
-import {schedulesSelector} from "@/recoil/schedules/schedules.recoil";
+import { schedulesSelector } from "@/recoil/schedules/schedules.recoil";
 import ScheduleForm from "@/pages/Schedule/ScheduleForm";
 import Modal from "@/components/Modals/Modal";
 
@@ -31,10 +31,11 @@ function ScheduleItem({ item }: ScheduleItemProps) {
 
 type ScheduleProps = {
     schedules: Schedule[],
-    setWorkingSchedule
+    setWorkingSchedule,
+    setShowModal
 }
 
-function ScheduleContent({ schedules, setWorkingSchedule }: ScheduleProps) {
+function ScheduleContent({ schedules, setWorkingSchedule, setShowModal }: ScheduleProps) {
     function orderSchedules(schedules: Schedule[]): Schedule[] {
         return [...schedules].sort(function(a, b) {
             return a.startTime - b.startTime;
@@ -43,6 +44,19 @@ function ScheduleContent({ schedules, setWorkingSchedule }: ScheduleProps) {
     return (
         <div className='content w-full'>
             <div className="w-11/12 m-4 mr-20 overflow-x-auto shadow-md sm:rounded-lg">
+                <button
+                    className='
+                py-2.5 px-5 mr-2 mb-2 text-sm 
+                font-medium text-gray-900 
+                focus:outline-none bg-white 
+                rounded-lg border border-gray-200 
+                hover:bg-gray-100 hover:text-blue-700 
+                focus:z-10 focus:ring-4 focus:ring-gray-200 
+                dark:focus:ring-gray-700 dark:bg-gray-800 
+                dark:text-gray-400 dark:border-gray-600 
+                dark:hover:text-white 
+                dark:hover:bg-gray-700'
+                    onClick={() => setShowModal(true)} >New </button>
                 <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100">
                     <tbody>
                         {orderSchedules(schedules).map((item, index) => <ScheduleItem item={item} key={index} />)}
@@ -55,7 +69,7 @@ function ScheduleContent({ schedules, setWorkingSchedule }: ScheduleProps) {
 
 type SSIProps = {
     day: string,
-     selectedDay: string,
+    selectedDay: string,
     setSelectedDay: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -75,15 +89,15 @@ function SchedulesSidebarItem({ day, selectedDay, setSelectedDay }: SSIProps) {
 }
 
 type SSProps = {
-     selectedDay: string;
+    selectedDay: string;
     setSelectedDay: React.Dispatch<React.SetStateAction<string>>
 }
 
-function SchedulesSidebar({setSelectedDay, selectedDay}: SSProps) {
+function SchedulesSidebar({ setSelectedDay, selectedDay }: SSProps) {
     const listDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return (
         <>
-        { listDays.map((day, index) => <SchedulesSidebarItem selectedDay={selectedDay} setSelectedDay={setSelectedDay} day={day} key={index} />) }
+            {listDays.map((day, index) => <SchedulesSidebarItem selectedDay={selectedDay} setSelectedDay={setSelectedDay} day={day} key={index} />)}
         </>
     );
 }
@@ -97,24 +111,24 @@ const Schedules: React.FC = () => {
 
     return (
         <>
-        <MainContainer
-            title={"Schedules"}
-            sidebar={<SchedulesSidebar selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>}
-            content={
-                <ScheduleContent schedules={schedulesPerDay} setSchedule={setSchedule} setWorkingSchedule={setWorkingSchedule} />}
-        />
-        <Modal
-                        title={modalTitle}
-                        showModal={showModal}
+            <MainContainer
+                title={"Schedules"}
+                sidebar={<SchedulesSidebar selectedDay={selectedDay} setSelectedDay={setSelectedDay} />}
+                content={
+                    <ScheduleContent schedules={schedulesPerDay} setShowModal={setShowModal} setWorkingSchedule={setWorkingSchedule} />}
+            />
+            <Modal
+                title={modalTitle}
+                showModal={showModal}
+                setShowModal={setShowModal}
+                content={
+                    <ScheduleForm
+                        currentDay={selectedDay}
+                        schedule={workingSchedule}
+                        setSchedule={setSchedule}
                         setShowModal={setShowModal}
-                        content={
-                            <ScheduleForm
-                                currentDay={selectedDay}
-                                schedule={workingSchedule}
-                                setSchedule={setSchedule}
-                                setShowModal={setShowModal}
-                            />
-                        } />
+                    />
+                } />
         </>
 
     )

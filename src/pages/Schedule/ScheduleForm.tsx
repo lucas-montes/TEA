@@ -1,7 +1,6 @@
 import React from "react";
 import { SetterOrUpdater, useRecoilValue } from "recoil";
 
-import { schedulesState } from "@/recoil/schedules/schedules.recoil";
 import { Schedule } from "@/models/Schedule";
 
 type Props = {
@@ -31,7 +30,7 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule, curr
         setShowModal(false);
     };
 
-    function saveTask(id: number = 0): void {
+    function saveTask(id = 0): void {
         const newSchedule = new Schedule(
             inputs.title,
             inputs.startTime,
@@ -65,26 +64,61 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule, curr
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-5">
-                <label htmlFor="taskStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                <select
-                    id="taskStatus"
-                    name="taskStatus"
-                    value={inputs.taskStatus}
+                <label
+                    htmlFor="startTime"
+                    className="
+                block mb-2 text-sm 
+                font-medium text-gray-900 dark:text-white">Start time</label>
+                <input
+                    type="number"
+                    id="startTime"
+                    value={inputs.startTime}
+                    onChange={handleChange}
+                    name="startTime"
+                    className="
+                bg-gray-50 border border-gray-300 
+                text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500
+                block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label
+                    htmlFor="endTime"
+                    className="
+                block mb-2 text-sm 
+                font-medium text-gray-900 dark:text-white">End time</label>
+                <input
+                    type="number"
+                    id="endTime"
+                    name="endTime"
+                    value={inputs.endTime}
                     onChange={handleChange}
                     className="
-                        focus:outline-none focus:ring bg-gray-50
-                        border border-gray-300 text-gray-900
-                        text-sm rounded-lg focus:ring-primary-500
-                        focus:border-primary-500 block w-full p-2.5
-                        dark:bg-gray-700 dark:border-gray-600
-                        dark:placeholder-gray-400 dark:text-white
-                        dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="to-do">TODO</option>
-                    <option value="doing">Doing</option>
-                    <option value="done">Done</option>
-                </select>
+                bg-gray-50 border border-gray-300 
+                text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500
+                block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label
+                    htmlFor="endTime"
+                    className="
+                block mb-2 text-sm 
+                font-medium text-gray-900 dark:text-white">End time</label>
+                <input
+                    type="text"
+                    id="color"
+                    name="color"
+                    value={inputs.color}
+                    onChange={handleChange}
+                    className="
+                bg-gray-50 border border-gray-300 
+                text-gray-900 text-sm rounded-lg 
+                focus:ring-blue-500 focus:border-blue-500
+                block w-full p-2.5 dark:bg-gray-700 
+                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
-
             <div className="mb-5">
                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                 <input
