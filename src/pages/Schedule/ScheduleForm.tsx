@@ -1,5 +1,5 @@
 import React from "react";
-import { SetterOrUpdater, useRecoilValue } from "recoil";
+import { SetterOrUpdater } from "recoil";
 
 import { Schedule } from "@/models/Schedule";
 

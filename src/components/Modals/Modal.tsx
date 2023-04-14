@@ -29,7 +29,6 @@ export default function Modal({ title, showModal, setShowModal, content }: Props
             {/* <ModalButton setShowModal={setShowModal} /> */}
             {showModal ? (
                 <>
-                    <h1>sdkjfkdsjfhkdshfkds</h1>
                     <ModalBody
                         title={title}
                         setShowModal={setShowModal}
