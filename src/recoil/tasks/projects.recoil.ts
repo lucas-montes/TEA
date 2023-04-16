@@ -28,6 +28,8 @@ function addProject(
     state: RecoilState<Project>): void {
     const currentState = structuredClone(get(state));
     currentState.items[project.id] = project;
+    currentState.selectedItem = project;
+    currentState.selectedItemId = project.id;
     set(state, { ...currentState });
 }
 

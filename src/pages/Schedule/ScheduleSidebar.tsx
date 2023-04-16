@@ -1,18 +1,18 @@
 import React from 'react';
 
+import { useRecoilState } from "recoil";
+
 import { Folder as FolderIcon } from "@/components/Icons";
 import { Ellipsis, Flex } from "@/styles/layout";
 import { Item } from "@/components/SidebarOption/style";
-
+import { selectScheduleSelector } from "@/recoil/schedules/schedules.recoil";
 
 type SSIProps = {
     day: string,
-    selectedDay: string,
-    setSelectedDay: React.Dispatch<React.SetStateAction<string>>,
 }
 
-function SchedulesSidebarItem({ day, selectedDay, setSelectedDay }: SSIProps) {
-
+function SchedulesSidebarItem({ day }: SSIProps) {
+    const [selectedDay, setSelectedDay] = useRecoilState(selectScheduleSelector);
     return (
         <Item
             selected={selectedDay === day}
@@ -26,18 +26,11 @@ function SchedulesSidebarItem({ day, selectedDay, setSelectedDay }: SSIProps) {
     );
 }
 
-type SSProps = {
-    selectedDay: string;
-    setSelectedDay: React.Dispatch<React.SetStateAction<string>>
-}
-
-export function SchedulesSidebar({ setSelectedDay, selectedDay }: SSProps) {
+export function SchedulesSidebar() {
     const listDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return (
         <>
             {listDays.map((day, index) => <SchedulesSidebarItem
-                selectedDay={selectedDay}
-                setSelectedDay={setSelectedDay}
                 day={day}
                 key={index}
             />)}

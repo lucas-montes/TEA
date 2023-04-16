@@ -2,7 +2,7 @@ use rusqlite::Connection;
 use serde_json::Value;
 
 pub fn connect() -> Connection {
-    return Connection::open("testeo.db").unwrap();
+    return Connection::open("tea.db").unwrap();
 }
 
 pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<String>) {

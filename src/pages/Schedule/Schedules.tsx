@@ -12,18 +12,16 @@ import { ScheduleContent } from "@/pages/Schedule/ScheduleContent";
 
 
 const Schedules: React.FC = () => {
-    const [selectedDay, setSelectedDay] = React.useState("Monday");
-    const [schedule, setSchedule] = useRecoilState(schedulesSelector);
+    const [schedulesPerDay, setSchedule] = useRecoilState(schedulesSelector);
     const [showModal, setShowModal] = useState(false);
     const [workingSchedule, setWorkingSchedule] = useState({} as Schedule);
     const [modalTitle, setModalTitle] = useState("Update schedule");
-    const schedulesPerDay = schedule[selectedDay];
 
     return (
         <>
             <MainContainer
                 title={"Schedules"}
-                sidebar={<SchedulesSidebar selectedDay={selectedDay} setSelectedDay={setSelectedDay} />}
+                sidebar={<SchedulesSidebar />}
                 content={
                     <ScheduleContent
                         schedules={schedulesPerDay}
@@ -37,7 +35,6 @@ const Schedules: React.FC = () => {
                 setShowModal={setShowModal}
                 content={
                     <ScheduleForm
-                        currentDay={selectedDay}
                         schedule={workingSchedule}
                         setSchedule={setSchedule}
                         setShowModal={setShowModal}

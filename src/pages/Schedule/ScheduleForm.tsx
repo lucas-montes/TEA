@@ -1,7 +1,10 @@
 import React from "react";
-import { SetterOrUpdater } from "recoil";
+import { SetterOrUpdater, useRecoilValue } from "recoil";
 
+import { colors } from "@/utils/constants";
 import { Schedule } from "@/models/Schedule";
+import { selectScheduleSelector } from "@/recoil/schedules/schedules.recoil";
+
 
 type Props = {
     schedule?: Schedule,
@@ -9,10 +12,10 @@ type Props = {
     setSchedule: SetterOrUpdater<{
         [key: number]: Schedule;
     }>,
-    currentDay: string,
 }
 
-export default function ScheduleForm({ schedule, setShowModal, setSchedule, currentDay }: Props) {
+export default function ScheduleForm({ schedule, setShowModal, setSchedule }: Props) {
+    const currentDay = useRecoilValue(selectScheduleSelector);
 
     const [inputs, setInputs] = React.useState(
         {
@@ -105,19 +108,21 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule, curr
                     className="
                 block mb-2 text-sm 
                 font-medium text-gray-900 dark:text-white">Color</label>
-                <input
-                    type="text"
+                <select
                     id="color"
                     name="color"
                     value={inputs.color}
                     onChange={handleChange}
                     className="
-                bg-gray-50 border border-gray-300 
-                text-gray-900 text-sm rounded-lg 
-                focus:ring-blue-500 focus:border-blue-500
-                block w-full p-2.5 dark:bg-gray-700 
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                        focus:outline-none focus:ring bg-gray-50 
+                        border border-gray-300 text-gray-900 
+                        text-sm rounded-lg focus:ring-primary-500 
+                        focus:border-primary-500 block w-full p-2.5 
+                        dark:bg-gray-700 dark:border-gray-600 
+                        dark:placeholder-gray-400 dark:text-white 
+                        dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    {colors.map(color => <option key={color} value={color.toLowerCase()}>{color}</option>)}
+                </select>
             </div>
             <div className="mb-5">
                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>

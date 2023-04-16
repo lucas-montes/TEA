@@ -1,96 +1,78 @@
 import {
   RecoilState,
-  selector,
   SetRecoilState,
   GetRecoilValue,
-  DefaultValue,
   RecoilValue
 } from "recoil";
 
 import { Schedule } from "@/models/Schedule";
 
-import { customSelector, customAtom, setItem, getItem } from "@/recoil/base.recoil";
+import { customSelector, customAtom } from "@/recoil/base.recoil";
 
-const testSchedules = [
-
-  {
-    startTime: 22,
-    endTime: 6,
-    title: "sleep",
-    content: "you have to do this",
-    id: 1,
-    color: "blue"
-  },
-  {
-    startTime: 6,
-    endTime: 13,
-    title: "work",
-    content: "you have to do this",
-    id: 2,
-    color: "red"
-  }, {
-    startTime: 13,
-    endTime: 15,
-    title: "sport",
-    content: "you have to do this",
-    id: 3,
-    color: "green"
-  }, {
-    startTime: 15,
-    endTime: 18,
-    title: "coding",
-    content: "you have to do this",
-    id: 4,
-    color: "yellow"
-  }, {
-    startTime: 18,
-    endTime: 20,
-    title: "study",
-    content: "you have to do this",
-    id: 5,
-    color: "red"
-  },
-  {
-    startTime: 20,
-    endTime: 22,
-    title: "read",
-    content: "you have to do this",
-    id: 6,
-    color: "purple"
-  }
-]
 
 export type ScheduleState = {
-  items: { [key: string]: Schedule[]; };
+  items: { [key: string]: { [key: Schedule["id"]]: Schedule; }; };
   selectedItemId: Schedule["id"];
   selectedItem: Schedule;
+  selectedDay: string;
 };
 
 export const schedulesState: RecoilState<ScheduleState> = customAtom(
   "schedulesState",
-  {},
+  { selectedDay: "Monday" },
   {
-    "Monday": testSchedules,
-    'Tuesday': [], 'Wednesday': [], 'Thursday': [], 'Friday': [], 'Saturday': [], 'Sunday': []
+    "Monday": {},
+    'Tuesday': {},
+    'Wednesday': {},
+    'Thursday': {},
+    'Friday': {},
+    'Saturday': {},
+    'Sunday': {}
   }
 );
 
 export const schedulesSelector: RecoilState<ScheduleState> = customSelector(
   "schedulesSelector",
   schedulesState,
-  getItems
+  getSchedulesPerDay,
+  addScheduleForDay,
 );
 
-export function getItems<ScheduleState>(
+function getSchedulesPerDay<ScheduleState>(
   get: GetRecoilValue,
   state: RecoilState<ScheduleState>
 ): { [key: number]: RecoilValue<ScheduleState> } {
-  return get(state).items
+  const currentSate = get(state);
+  const daySchedules = currentSate.items[currentSate.selectedDay];
+  return Object.values(daySchedules);
+}
+
+function addScheduleForDay(
+  schedule: Schedule,
+  set: SetRecoilState,
+  get: GetRecoilValue,
+  state: RecoilState<ScheduleState>): void {
+  const currentState = structuredClone(get(state));
+  const dayState = currentState.items[currentState.selectedDay];
+  dayState[schedule.id] = schedule;
+  set(state, { ...currentState });
 }
 
 export const selectScheduleSelector = customSelector(
   "selectScheduleSelector",
   schedulesState,
-  getItem,
-  setItem
+  getDay,
+  setDay
 )
+
+function getDay(
+  get: GetRecoilValue,
+  state: ScheduleState
+): string {
+  return get(state).selectedDay
+}
+
+function setDay(day: string, set: SetRecoilState, get: GetRecoilValue,
+  state: ScheduleState): void {
+  set(state, { ...get(state), selectedDay: day })
+}

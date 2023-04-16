@@ -64,4 +64,11 @@ export const defaultNote = {
     lastUpdated: "2022-10-11",
 };
 
-
+export const colors = [
+    "Blue",
+    "Grey",
+    "Green",
+    "Yellow",
+    "Purple",
+    "Red",
+]

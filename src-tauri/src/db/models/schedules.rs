@@ -17,6 +17,10 @@ pub struct Schedule {
     pub start_time: String,
     #[serde(rename = "endTime")]
     pub end_time: String,
+    #[serde(rename = "color")]
+    pub color: String,
+    #[serde(rename = "day")]
+    pub day: String,
 }
 
 impl Schedule {
@@ -34,6 +38,8 @@ impl Schedule {
                     content: row.get(4)?,
                     start_time: row.get(5)?,
                     end_time: row.get(6)?,
+                    color: row.get(7)?,
+                    day: row.get(8)?,
                 })
             })
             .unwrap();
