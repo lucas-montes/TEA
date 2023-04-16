@@ -2,4 +2,8 @@
     "editor.formatOnSave": true,
     "explorer.autoReveal": false,
     "workbench.editor.enablePreview": false,
+    "rust-analyzer.linkedProjects": [
+        "./src-tauri/Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false,
 }

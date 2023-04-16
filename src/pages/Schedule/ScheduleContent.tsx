@@ -15,8 +15,24 @@ function ScheduleItem({ item, setShowModal, setWorkingSchedule, setModalTitle }:
         setWorkingSchedule(item);
         setShowModal(true);
     }
+    function getClassNameColor(color: string): string {
+        switch (color) {
+            case "blue":
+                return "bg-blue-500 border-blue-400";
+            case "green":
+                return "bg-green-500 border-green-400";
+            case "red":
+                return "bg-red-500 border-red-400";
+            case "yellow":
+                return "bg-yellow-500 border-yellow-400";
+            case "purple":
+                return "bg-purple-500 border-purple-400";
+            default:
+                return "bg-grey-500 border-grey-400";
+        }
+    }
     return (
-        <tr className={`${item.color} border-b cursor-pointer`} onClick={handleOncClick}>
+        <tr className={`${getClassNameColor(item.color)} border-b cursor-pointer`} onClick={handleOncClick}>
             <th scope="row" className="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
                 {item.startTime} - {item.endTime}
             </th>

@@ -13,20 +13,27 @@ pub struct Schedule {
     pub title: String,
     #[serde(rename = "content")]
     pub content: String,
+    #[serde(rename = "startTime")]
+    pub start_time: String,
+    #[serde(rename = "endTime")]
+    pub end_time: String,
 }
 
 impl Schedule {
-    pub fn read() -> Vec<Note> {
+    pub fn read() -> Vec<Schedule> {
         let conn = connect();
         let mut stmt = conn.prepare("SELECT * FROM schedules").unwrap();
 
         let rows = stmt
             .query_map([], |row| {
-                Ok(Note {
+                Ok(Schedule {
                     id: row.get(0)?,
                     created_at: row.get(1)?,
-                    title: row.get(2)?,
-                    content: row.get(3)?,
+                    updated_at: row.get(2)?,
+                    title: row.get(3)?,
+                    content: row.get(4)?,
+                    start_time: row.get(5)?,
+                    end_time: row.get(6)?,
                 })
             })
             .unwrap();

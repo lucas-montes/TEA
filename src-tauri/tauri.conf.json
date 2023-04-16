@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "BeProd",
+    "productName": "TEA",
     "version": "0.0.0"
   },
   "tauri": {
@@ -125,7 +125,7 @@
         "fullscreen": false,
         "height": 800,
         "resizable": true,
-        "title": "BeProd",
+        "title": "TEA",
         "width": 1080,
         "visible": false
       },

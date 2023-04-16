@@ -13,7 +13,7 @@ pub fn handle_settings() {
 }
 
 pub fn settings_on_init() {
-    let (file, created) = get_or_create_settings();
+    let (file, created): (File, bool) = get_or_create_settings();
     if created {
         create_initial_settings(file);
     };
@@ -21,8 +21,8 @@ pub fn settings_on_init() {
 
 fn create_initial_settings(mut file: File) {
     let settings = json!(
-        { 
-            "theme": "dark", 
+        {
+            "theme": "dark",
             "apps": ["kanban", "alias", "notes", "schedule", "proscons"],
         }
     );
@@ -31,8 +31,7 @@ fn create_initial_settings(mut file: File) {
 
 fn get_or_create_settings() -> (File, bool) {
     let file_open_result = File::open("./settings.json");
-
-    let (settings_file, created) = match file_open_result {
+    let (settings_file, created): (File, bool) = match file_open_result {
         Ok(file) => (file, false),
         Err(error) => match error.kind() {
             ErrorKind::NotFound => match File::create("./settings.json") {

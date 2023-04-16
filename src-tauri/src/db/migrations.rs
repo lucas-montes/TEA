@@ -1,6 +1,10 @@
 use crate::db::connect;
 use rusqlite::{Batch, Result};
 
+use std::fs::File;
+use std::io::BufReader;
+use std::io::Read;
+
 const CREATE_TABLE: &str = "CREATE TABLE IF NOT EXISTS";
 const ADD_ID: &str = "id INTEGER PRIMARY KEY AUTOINCREMENT,";
 
@@ -27,45 +31,18 @@ pub fn run_migrations() -> i8 {
 //    return format!("{row_name} {row_type} {is_last_row}")
 //}
 
+fn read_initial_migration() -> String {
+    let file = File::open("./src/db/historial/initial.txt").unwrap();
+    let mut buf_reader = BufReader::new(file);
+    let mut contents = String::new();
+    buf_reader.read_to_string(&mut contents);
+    return contents;
+}
+
 fn create_initial_tables() -> Result<()> {
-    let sql = "
-    CREATE TABLE IF NOT EXISTS notes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        title TEXT NOT NULL,
-        content TEXT NOT NULL
-    );
-    CREATE TABLE IF NOT EXISTS projects (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        title TEXT NOT NULL,
-        content TEXT NOT NULL
-    );
-    CREATE TABLE IF NOT EXISTS tasks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        title TEXT NOT NULL,
-        content TEXT NOT NULL,
-        task_status TEXT NOT NULL,
-        project_id INTEGER NOT NULL,
-        FOREIGN KEY(project_id) REFERENCES projects(id)
-    );
-    CREATE TABLE IF NOT EXISTS proscons (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        title TEXT NOT NULL,
-        content TEXT NOT NULL,
-        pros TEXT,
-        cons TEXT
-    );
-    ";
+    let sql = &read_initial_migration();
     let conn = connect();
     let mut batch = Batch::new(&conn, sql);
-
     while let Some(mut stmt) = batch.next()? {
         stmt.execute([])?;
     }
