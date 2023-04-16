@@ -104,7 +104,7 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule, curr
                     htmlFor="endTime"
                     className="
                 block mb-2 text-sm 
-                font-medium text-gray-900 dark:text-white">End time</label>
+                font-medium text-gray-900 dark:text-white">Color</label>
                 <input
                     type="text"
                     id="color"

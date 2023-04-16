@@ -14,12 +14,14 @@ export class Schedule extends BaseText {
         color: string,
         day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday',
         content = "",
+        createdAt?: string
     ) {
         super(title, content);
         this.startTime = startTime;
         this.endTime = endTime;
         this.color = color;
         this.day = day;
+        this.createdAt = createdAt;
     }
 };
 
