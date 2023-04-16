@@ -6,16 +6,22 @@ export default class Project extends BaseText {
     constructor(
         title: string,
         content = "",
-        tasks?: { [key: Task["id"]]: Task; }
+        tasks?: { [key: Task["id"]]: Task; },
+        createdAt?: string,
     ) {
         super(
-            title, content
+            title, content, createdAt
         );
-        this.tasks = tasks;
+        this.tasks = tasks || {};
     }
 
     getTasks(): Array<Task> {
         return Object.values(this.tasks ? this.tasks : {})
+    }
+
+    public getCreateData() {
+        this.tasks = undefined;
+        return super.getCreateData();
     }
 };
 
@@ -27,7 +33,7 @@ export class Task extends BaseText {
     constructor(
         projectId: number,
         title: string,
-        taskStatus= "to-do",
+        taskStatus = "to-do",
         content = "",
         createdAt?: string
     ) {

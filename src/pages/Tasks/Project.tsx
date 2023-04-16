@@ -20,7 +20,6 @@ const Project = () => {
     const [showModal, setShowModal] = useState(false);
     const [workingTask, setWorkingTask] = useState({} as TaskType);
     const [modalTitle, setModalTitle] = useState("Update task");
-
     function currentChild(activeTab: string): JSX.Element {
         switch (activeTab) {
             case "Tasks":

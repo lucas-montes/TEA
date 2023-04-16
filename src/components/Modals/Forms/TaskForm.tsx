@@ -30,7 +30,7 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
         setShowModal(false);
     };
 
-    function saveTask(id: number = 0): void {
+    function saveTask(id = 0): void {
         const newTask = new Task(
             projects.selectedItemId,
             inputs.title,
