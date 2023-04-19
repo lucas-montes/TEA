@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import { Schedule } from "@/models/Schedule";
 import { MainContainer } from '@/components/MainContainer'
-import { schedulesSelector } from "@/recoil/schedules/schedules.recoil";
+import { schedulesSelector, schedulesDatabase } from "@/recoil/schedules/schedules.recoil";
 import ScheduleForm from "@/pages/Schedule/ScheduleForm";
 import Modal from "@/components/Modals/Modal";
 import { SchedulesSidebar } from "@/pages/Schedule/ScheduleSidebar";
@@ -12,10 +12,20 @@ import { ScheduleContent } from "@/pages/Schedule/ScheduleContent";
 
 
 const Schedules: React.FC = () => {
+    const [needsUpdate, setDataFromDB] = useRecoilState(schedulesDatabase);
     const [schedulesPerDay, setSchedule] = useRecoilState(schedulesSelector);
     const [showModal, setShowModal] = useState(false);
     const [workingSchedule, setWorkingSchedule] = useState({} as Schedule);
     const [modalTitle, setModalTitle] = useState("Update schedule");
+
+    if (!needsUpdate) {
+        Schedule.getAll().then(
+            value => {
+                setDataFromDB(value);
+            }
+        )
+    }
+
 
     return (
         <>

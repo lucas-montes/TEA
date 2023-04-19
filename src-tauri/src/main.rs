@@ -5,7 +5,7 @@
 
 use db::{
     handle_create, handle_delete, handle_read_kanbantickets, handle_read_notes,
-    handle_read_proscons, handle_update, run_migrations,
+    handle_read_proscons, handle_read_schedules, handle_update, run_migrations,
 };
 use files::{settings_on_init, show_files};
 use menus::get_menu;
@@ -130,6 +130,7 @@ fn main() {
             handle_read_notes,
             handle_read_proscons,
             handle_read_kanbantickets,
+            handle_read_schedules,
             show_files
         ])
         .run(tauri::generate_context!())

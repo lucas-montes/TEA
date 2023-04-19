@@ -15,5 +15,5 @@ root.render(
         <App />
       </ThemeWrapper>
     </RecoilRoot>
-  </StrictMode>,
+  </StrictMode>
 );

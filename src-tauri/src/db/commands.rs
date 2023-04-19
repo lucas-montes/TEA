@@ -1,4 +1,4 @@
-use crate::db::{create, delete, update, Task, Note, ProsCons};
+use crate::db::{create, delete, update, Note, ProsCons, Schedule, Task};
 use serde_json::{from_str, Value};
 
 #[tauri::command]
@@ -31,4 +31,9 @@ pub fn handle_read_proscons() -> Vec<ProsCons> {
 #[tauri::command]
 pub fn handle_read_kanbantickets() -> Vec<Task> {
     return Task::read().into();
+}
+
+#[tauri::command]
+pub fn handle_read_schedules() -> Vec<Schedule> {
+    return Schedule::read().into();
 }

@@ -3,16 +3,23 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export function customAtom<T>(key: string, defaultExtras: object = {}, initialItems: object = {}): RecoilState<T> {
+export function customAtom<T>(
+    key: string,
+    defaultExtras: object = {},
+    initialItems: object = {},
+    effects: Array<any> = [],
+): RecoilState<T> {
     const defaultObject = {
         items: initialItems,
         selectedItem: null,
-        selectedItemId: null
+        selectedItemId: null,
+        hasDatabaseInfo: false,
     }
     return atom({
         key: key,
         default: { ...defaultObject, ...defaultExtras },
         effects_UNSTABLE: [persistAtom],
+        effects: effects,
     });
 }
 

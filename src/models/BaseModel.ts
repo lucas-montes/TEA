@@ -29,8 +29,13 @@ export default class BaseModel {
     }
 
     public async create(): Promise<number> {
-        const createData = this.getCreateData();
-        return await invoke("handle_create", { table: this.getTableName(), modelData: JSON.stringify(createData) });
+        return await invoke(
+            "handle_create",
+            {
+                table: this.getTableName(),
+                modelData: JSON.stringify(this.getCreateData()),
+            }
+        );
     }
 
     public async delete(id: number): Promise<number> {
@@ -47,28 +52,34 @@ export default class BaseModel {
         return await invoke(`handle_read_${table}`);
     }
 
-    public serializeModel(entry: any): this {
-        let newEntry: this = this;
+    public static serializeModel(entry: any) {
+        let newEntry = new this();
         Object.entries(entry).forEach(([key, value]) => {
+            if (typeof value == "string") {
+                if (value.startsWith('"')) { value = value.slice(1) }
+                if (value.endsWith('"')) { value = value.slice(0, -1) }
+            }
             if (key === "pros" || key === "cons") {
                 if (value === "") { value = []; } else { value = value.split(","); }
             };
-            this[key] = value;
+            newEntry[key] = value;
         });
         return newEntry;
     }
 
-    public serializeModels(entries: any): Array<this> {
-        let newEntries: Array<this> = [];
-        entries.map((value: this) => newEntries.push(this.serializeModel(value)));
+    public static serializeModels(entries: any): Array<any> {
+        const newEntries: Array<any> = [];
+        for (let i = 0; i < entries.length; i++) {
+            newEntries.push(this.serializeModel(entries[i]));
+        }
         return newEntries;
     }
 
-    public async getAll() {
-        return this.read()
+    public static async getAll() {
+        return new this().read()
             .then((entries: Array<any>) => { return this.serializeModels(entries) })
             .catch((error: any) => {
-                // console.error(error);
+                console.error(error);
                 return [];
             })
     }
@@ -76,10 +87,10 @@ export default class BaseModel {
 };
 
 export class BaseText extends BaseModel {
-    title: string;
+    title?: string;
     content: string;
 
-    constructor(title: string, content: string = "", createdAt?: string) {
+    constructor(title?: string, content: string = "", createdAt?: string) {
         super();
         this.title = title;
         this.content = content;

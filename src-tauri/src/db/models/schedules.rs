@@ -1,7 +1,7 @@
 use crate::db::operations::connect;
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug, Clone, Serialize)]
+#[derive(Deserialize, Debug, Serialize)]
 pub struct Schedule {
     #[serde(rename = "id")]
     pub id: Option<i32>,
@@ -27,7 +27,6 @@ impl Schedule {
     pub fn read() -> Vec<Schedule> {
         let conn = connect();
         let mut stmt = conn.prepare("SELECT * FROM schedules").unwrap();
-
         let rows = stmt
             .query_map([], |row| {
                 Ok(Schedule {
@@ -51,6 +50,7 @@ impl Schedule {
                 results.push(row);
             }
         }
+        println!("{:?}", results);
         return results;
     }
 }

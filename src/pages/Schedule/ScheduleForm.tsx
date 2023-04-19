@@ -23,7 +23,7 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule }: Pr
             content: schedule ? schedule.content : "",
             startTime: schedule ? schedule.startTime : "",
             endTime: schedule ? schedule.endTime : "",
-            color: schedule ? schedule.color : "",
+            color: schedule ? schedule.color : "Blue",
         }
     );
 
