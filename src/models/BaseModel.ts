@@ -52,16 +52,23 @@ export default class BaseModel {
         return await invoke(`handle_read_${table}`);
     }
 
+    public static updateValueSerializer({ key, value }: { key: string, value: any }): any {
+        return value
+    }
+
+    public static removeSlashs({ key, value }: { key: string, value: any }): any {
+        if (typeof value == "string") {
+            if (value.startsWith('"')) { value = value.slice(1) }
+            if (value.endsWith('"')) { value = value.slice(0, -1) }
+        }
+        return value;
+    }
+
     public static serializeModel(entry: any) {
         let newEntry = new this();
         Object.entries(entry).forEach(([key, value]) => {
-            if (typeof value == "string") {
-                if (value.startsWith('"')) { value = value.slice(1) }
-                if (value.endsWith('"')) { value = value.slice(0, -1) }
-            }
-            if (key === "pros" || key === "cons") {
-                if (value === "") { value = []; } else { value = value.split(","); }
-            };
+            value = this.removeSlashs({ key, value });
+            value = this.updateValueSerializer({ key, value });
             newEntry[key] = value;
         });
         return newEntry;

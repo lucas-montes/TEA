@@ -29,7 +29,7 @@ pub fn handle_read_proscons() -> Vec<ProsCons> {
 }
 
 #[tauri::command]
-pub fn handle_read_kanbantickets() -> Vec<Task> {
+pub fn handle_read_projects() -> Vec<Task> {
     return Task::read().into();
 }
 

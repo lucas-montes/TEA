@@ -2,8 +2,6 @@
 
 ## Get started
 
-To get started just visit [noteup.dev](https://noteup.dev) or [download a build](https://github.com/elementsinteractive/Noteup/releases) or clone the repo and run the install and start scripts
-
 ```properties
 yarn install
 ```
@@ -35,8 +33,13 @@ yarn tauri build
 - [ ] Note sharing
 - [ ] Account sync
 - [ ] Cross-platform sync
-- [ ] Remove TS models and create only one to perform CRUD operations
-- [ ] Switch the TS models into Types or Interfaces
+- [ ] Move as much logic to rust as possible
+- [ ] Ensure that all models work
+- [ ] Create a default Project to host "solo" tasks
+- [ ] Save the data in files
+- [ ] Allow to chose between saving in files, db or locally "ephemere mode"
+- [ ] Add tests
+- [ ] Save files into git
 
 ## Scripts
 
@@ -74,7 +77,7 @@ This project was visually inspired by another markdown note app called [Takenote
 
 ## Author
 
-- [Lucas](https://github.com/lluc2397)
+- [Lucas](https://github.com/lucas-montes)
 
 ## License
 

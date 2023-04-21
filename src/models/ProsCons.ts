@@ -23,4 +23,11 @@ export default class ProsCons extends BaseText {
         Object.entries(this).forEach(([key, value]) => this.createNewMap(createdData, key, value));
         return createdData
     }
+
+    public static override updateValueSerializer({ key, value }: { key: string, value: any }): any {
+        if (key === "pros" || key === "cons") {
+            if (value === "") { value = []; } else { value = value.split(","); }
+        };
+        return value;
+    }
 };

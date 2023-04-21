@@ -17,15 +17,15 @@ function ScheduleItem({ item, setShowModal, setWorkingSchedule, setModalTitle }:
     }
     function getClassNameColor(color: string): string {
         switch (color) {
-            case "blue":
+            case "Blue":
                 return "bg-blue-500 border-blue-400";
-            case "green":
+            case "Green":
                 return "bg-green-500 border-green-400";
-            case "red":
+            case "Red":
                 return "bg-red-500 border-red-400";
-            case "yellow":
+            case "Yellow":
                 return "bg-yellow-500 border-yellow-400";
-            case "purple":
+            case "Purple":
                 return "bg-purple-500 border-purple-400";
             default:
                 return "bg-grey-500 border-grey-400";

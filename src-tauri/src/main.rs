@@ -4,7 +4,7 @@
 )]
 
 use db::{
-    handle_create, handle_delete, handle_read_kanbantickets, handle_read_notes,
+    get_projects_with_tasks, handle_create, handle_delete, handle_read_notes, handle_read_projects,
     handle_read_proscons, handle_read_schedules, handle_update, run_migrations,
 };
 use files::{settings_on_init, show_files};
@@ -113,6 +113,7 @@ fn main() {
                 println!("Initializing...");
                 run_migrations();
                 settings_on_init();
+                get_projects_with_tasks();
                 std::thread::sleep(std::time::Duration::from_secs(2));
                 println!("Done initializing.");
 
@@ -129,7 +130,7 @@ fn main() {
             handle_delete,
             handle_read_notes,
             handle_read_proscons,
-            handle_read_kanbantickets,
+            handle_read_projects,
             handle_read_schedules,
             show_files
         ])

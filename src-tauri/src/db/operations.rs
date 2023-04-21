@@ -1,3 +1,4 @@
+use chrono::NaiveDateTime;
 use rusqlite::Connection;
 use serde_json::Value;
 
@@ -13,8 +14,10 @@ pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<S
     for (key, value) in model_data.as_object().unwrap() {
         fields = generate_fields(fields.to_string(), camel_to_snake_case(key));
         fields_numbers = generate_fields(fields_numbers.to_string(), "?".to_string());
-        fields_values.push(value.to_string());
+        fields_values.push(generate_correct_field_value(value));
     }
+
+    println!("{:?}", fields_values);
     return (fields, fields_numbers, fields_values);
 }
 
@@ -23,9 +26,9 @@ pub fn get_model_fields_information_for_update(model_data: Value) -> String {
 
     // When iterating it seems that the object from serde it's sorted
     for (key, value) in model_data.as_object().unwrap() {
-        let value = value.as_str().unwrap();
         let column = camel_to_snake_case(key);
-        let column_value = format!("{column} = '{value}'");
+        let fixed_value = generate_correct_field_value(value);
+        let column_value = format!("{column} = '{fixed_value}'");
         fields = generate_fields(fields.to_string(), column_value);
     }
     return fields;
@@ -43,7 +46,24 @@ fn generate_fields(fields: String, new_field: String) -> String {
     return fields_str;
 }
 
-pub fn camel_to_snake_case(s: &str) -> String {
+fn generate_correct_field_value(value: &Value) -> String {
+    if value.is_string() {
+        return match value.as_str() {
+            Some(value) => to_sql_datetime(value),
+            None => value.to_string(),
+        };
+    }
+    return String::new();
+}
+
+fn to_sql_datetime(value: &str) -> String {
+    match NaiveDateTime::parse_from_str(value, "%m/%d/%Y, %I:%M:%S %p") {
+        Ok(datetime) => datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
+        Err(_) => value.to_string(),
+    }
+}
+
+fn camel_to_snake_case(s: &str) -> String {
     let mut snake_case = String::new();
     for c in s.chars() {
         if c.is_ascii_uppercase() {
@@ -58,6 +78,18 @@ pub fn camel_to_snake_case(s: &str) -> String {
 mod tests {
     use super::*;
     use serde_json::json;
+
+    #[test]
+    fn test_to_sql_datetime() {
+        let date = to_sql_datetime("4/21/2023, 10:04:05 PM");
+        assert_eq!("2023-04-21 22:04:05", date);
+    }
+
+    #[test]
+    fn test_to_sql_datetime_wrong_value() {
+        let date = to_sql_datetime("4/ 2 1 / 2023");
+        assert_eq!("4/ 2 1 / 2023", date);
+    }
 
     #[test]
     fn test_get_model_fields_information() {

@@ -7,12 +7,41 @@ export type ProjectState = {
     items: { [key: Project["id"]]: Project; };
     selectedItemId: Project["id"];
     selectedItem: Project;
+    hasDatabaseInfo: boolean
 };
 
 export const projectsState: RecoilState<ProjectState> = customAtom(
     "projectState",
     {},
 );
+
+export const projectsDatabase: RecoilState<ProjectState> = customSelector(
+    "projectsDatabase",
+    projectsState,
+    isUpdatedFromDatabase,
+    updateFromDatabase,
+);
+
+function isUpdatedFromDatabase<ProjectState>(
+    get: GetRecoilValue,
+    state: RecoilState<ProjectState>
+): boolean {
+    return get(state).hasDatabaseInfo;
+}
+
+function updateFromDatabase(
+    projects: Project[],
+    set: SetRecoilState,
+    get: GetRecoilValue,
+    state: RecoilState<ProjectState>): void {
+    const currentState = structuredClone(get(state));
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
+        currentState.items[project.id] = project;
+    };
+    currentState.hasDatabaseInfo = true;
+    set(state, { ...currentState });
+}
 
 export const projectsSelector: RecoilState<ProjectState> = customSelector(
     "projectsSelector",
