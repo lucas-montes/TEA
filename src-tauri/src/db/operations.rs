@@ -53,7 +53,7 @@ fn generate_correct_field_value(value: &Value) -> String {
             None => value.to_string(),
         };
     }
-    return String::new();
+    return value.to_string();
 }
 
 fn to_sql_datetime(value: &str) -> String {

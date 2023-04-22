@@ -1,5 +1,10 @@
 import { BaseText } from "./BaseModel";
 
+type TauriResponse = {
+    project: Project,
+    tasks: Array<Task>,
+}
+
 export default class Project extends BaseText {
     tasks?: { [key: Task["id"]]: Task; };
 
@@ -8,26 +13,43 @@ export default class Project extends BaseText {
         content = "",
         tasks?: { [key: Task["id"]]: Task; },
         createdAt?: string,
+        updatedAt?: string,
     ) {
         super(
-            title, content, createdAt
+            title, content, createdAt, updatedAt
         );
         this.tasks = tasks || {};
     }
 
-    getTasks(): Array<Task> {
-        return Object.values(this.tasks ? this.tasks : {})
-    }
-
-    public getCreateData() {
+    public override getCreateData() {
         this.tasks = undefined;
         return super.getCreateData();
+    }
+
+    public static async getAll(): Promise<Array<Project>> {
+        return new this("").read()
+            .then((entries: Array<TauriResponse>) => { return this.getProjectWithTasks(entries) })
+            .catch((error: any) => {
+                console.error(error);
+                return [];
+            })
+    }
+
+    private static getProjectWithTasks(projects: Array<TauriResponse>): Array<Project> {
+        let projectsWithTasks: Array<Project> = [];
+        for (let i = 0; i < projects.length; i++) {
+            const tauriResponse = projects[i];
+            const project: Project = this.serializeModel(tauriResponse.project);
+            project.tasks = Task.serializeModels(tauriResponse.tasks);
+            projectsWithTasks.push(project);
+        };
+        return projectsWithTasks;
     }
 };
 
 
 export class Task extends BaseText {
-    projectId: Project["id"];
+    projectId: number;
     taskStatus: string;
 
     constructor(
@@ -42,5 +64,14 @@ export class Task extends BaseText {
         );
         this.projectId = projectId;
         this.taskStatus = taskStatus;
+    }
+
+    public static override serializeModels(entries: Array<object>): { [key: Task["id"]]: Task; } {
+        const newEntries: { [key: Task["id"]]: Task; } = {};
+        for (let i = 0; i < entries.length; i++) {
+            const newTask = this.serializeModel<Task>(entries[i]);
+            newEntries[newTask.id] = newTask;
+        };
+        return newEntries;
     }
 };

@@ -1,25 +1,37 @@
 import { useRecoilState } from "recoil";
 import { useState } from "react";
-import { tasksSelector } from "@/recoil/tasks/projects.recoil";
 
-import { SidebarTasks } from "@/components/SidebarTasks";
-import { SplitPane } from "@/components/SplitPanel";
+import { tasksSelector, projectsDatabase } from "@/recoil/tasks/projects.recoil";
 import { FlexColumn } from "@/styles/layout";
 import { Container } from "@/styles/layout";
 import ProjectsTabs from "@/pages/Tasks/ProjectTabs";
+import { SidebarTasks } from "@/components/SidebarTasks";
+import { SplitPane } from "@/components/SplitPanel";
 import Modal from "@/components/Modals/Modal";
 import TaskForm from "@/components/Modals/Forms/TaskForm";
-import { TaskType } from "@/types/tasks";
+import Project, { Task } from "@/models/Project";
 
 import Tasks from "./Tasks";
 import { ProjectInformation } from "./ProjectInfo";
 
-const Project = () => {
+
+const ProjectComponent = () => {
+    const [needsUpdate, setDataFromDB] = useRecoilState(projectsDatabase);
     const [tasks, setTasks] = useRecoilState(tasksSelector);
     const [activeTab, setActiveTab] = useState("Tasks");
     const [showModal, setShowModal] = useState(false);
-    const [workingTask, setWorkingTask] = useState({} as TaskType);
+    const [workingTask, setWorkingTask] = useState({} as Task);
     const [modalTitle, setModalTitle] = useState("Update task");
+
+    if (!needsUpdate) {
+        console.log("heyehyeheye")
+        Project.getAll().then(
+            value => {
+                setDataFromDB(value);
+            }
+        )
+    }
+
     function currentChild(activeTab: string): JSX.Element {
         switch (activeTab) {
             case "Tasks":
@@ -63,4 +75,4 @@ const Project = () => {
     );
 };
 
-export default Project;
+export default ProjectComponent;

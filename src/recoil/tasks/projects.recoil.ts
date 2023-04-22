@@ -35,6 +35,7 @@ function updateFromDatabase(
     get: GetRecoilValue,
     state: RecoilState<ProjectState>): void {
     const currentState = structuredClone(get(state));
+    console.log(projects)
     for (let i = 0; i < projects.length; i++) {
         const project = projects[i];
         currentState.items[project.id] = project;

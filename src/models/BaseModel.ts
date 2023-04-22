@@ -1,9 +1,9 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
-export default class BaseModel {
+export default abstract class BaseModel {
     id!: number;
     createdAt?: string;
-    updatedAt!: string;
+    updatedAt?: string;
 
     public static getModelName(): string {
         return this.constructor.name.toLowerCase();
@@ -29,6 +29,7 @@ export default class BaseModel {
     }
 
     public async create(): Promise<number> {
+        console.log(this.getCreateData());
         return await invoke(
             "handle_create",
             {
@@ -56,25 +57,15 @@ export default class BaseModel {
         return value
     }
 
-    public static removeSlashs({ key, value }: { key: string, value: any }): any {
-        if (typeof value == "string") {
-            if (value.startsWith('"')) { value = value.slice(1) }
-            if (value.endsWith('"')) { value = value.slice(0, -1) }
-        }
-        return value;
-    }
-
-    public static serializeModel(entry: any) {
-        let newEntry = new this();
+    public static serializeModel<T>(entry: object): T {
+        let newEntry: T = new this();
         Object.entries(entry).forEach(([key, value]) => {
-            value = this.removeSlashs({ key, value });
-            value = this.updateValueSerializer({ key, value });
-            newEntry[key] = value;
+            newEntry[key] = this.updateValueSerializer({ key, value });
         });
         return newEntry;
     }
 
-    public static serializeModels(entries: any): Array<any> {
+    public static serializeModels(entries: Array<object>): Array<any> | object {
         const newEntries: Array<any> = [];
         for (let i = 0; i < entries.length; i++) {
             newEntries.push(this.serializeModel(entries[i]));
@@ -93,14 +84,15 @@ export default class BaseModel {
 
 };
 
-export class BaseText extends BaseModel {
+export abstract class BaseText extends BaseModel {
     title?: string;
     content: string;
 
-    constructor(title?: string, content: string = "", createdAt?: string) {
+    constructor(title?: string, content = "", createdAt?: string, updatedAt?: string) {
         super();
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 } 

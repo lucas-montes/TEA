@@ -31,6 +31,7 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
     };
 
     function saveTask(id = 0): void {
+        console.log(projects.selectedItemId);
         const newTask = new Task(
             projects.selectedItemId,
             inputs.title,
