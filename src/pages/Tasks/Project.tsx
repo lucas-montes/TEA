@@ -24,7 +24,6 @@ const ProjectComponent = () => {
     const [modalTitle, setModalTitle] = useState("Update task");
 
     if (!needsUpdate) {
-        console.log("heyehyeheye")
         Project.getAll().then(
             value => {
                 setDataFromDB(value);

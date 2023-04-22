@@ -17,7 +17,6 @@ pub fn get_model_fields_information(model_data: Value) -> (String, String, Vec<S
         fields_values.push(generate_correct_field_value(value));
     }
 
-    println!("{:?}", fields_values);
     return (fields, fields_numbers, fields_values);
 }
 

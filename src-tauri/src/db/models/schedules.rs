@@ -50,7 +50,6 @@ impl Schedule {
                 results.push(row);
             }
         }
-        println!("{:?}", results);
         return results;
     }
 }

@@ -31,7 +31,6 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
     };
 
     function saveTask(id = 0): void {
-        console.log(projects.selectedItemId);
         const newTask = new Task(
             projects.selectedItemId,
             inputs.title,
@@ -40,7 +39,7 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
             task?.createdAt
         )
         if (id > 0) {
-            newTask.update(id)
+            newTask.update(id, newTask)
                 .then(value => { setNewTask(value, newTask) })
                 .catch(er => { console.error(er) })
         } else {

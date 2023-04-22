@@ -21,7 +21,7 @@ export default class Project extends BaseText {
         this.tasks = tasks || {};
     }
 
-    public override getCreateData() {
+    public override getCreateData(): Project {
         this.tasks = undefined;
         return super.getCreateData();
     }

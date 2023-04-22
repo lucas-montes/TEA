@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
+
 export default abstract class BaseModel {
     id!: number;
     createdAt?: string;
@@ -20,7 +21,6 @@ export default abstract class BaseModel {
     }
 
     public getCreateData(): any {
-        // @ts-ignore
         this.id = undefined;
         const now = new Date().toLocaleString();
         this.createdAt = now;
@@ -29,7 +29,6 @@ export default abstract class BaseModel {
     }
 
     public async create(): Promise<number> {
-        console.log(this.getCreateData());
         return await invoke(
             "handle_create",
             {
@@ -53,11 +52,11 @@ export default abstract class BaseModel {
         return await invoke(`handle_read_${table}`);
     }
 
-    public static updateValueSerializer({ key, value }: { key: string, value: any }): any {
+    public static updateValueSerializer({ key, value }: { key: number | string, value: number | string }): number | string {
         return value
     }
 
-    public static serializeModel<T>(entry: object): T {
+    public static serializeModel<T>(entry: any): T {
         let newEntry: T = new this();
         Object.entries(entry).forEach(([key, value]) => {
             newEntry[key] = this.updateValueSerializer({ key, value });
@@ -65,7 +64,7 @@ export default abstract class BaseModel {
         return newEntry;
     }
 
-    public static serializeModels(entries: Array<object>): Array<any> | object {
+    public static serializeModels(entries: Array<any>): Array<any> | any {
         const newEntries: Array<any> = [];
         for (let i = 0; i < entries.length; i++) {
             newEntries.push(this.serializeModel(entries[i]));

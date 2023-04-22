@@ -9,7 +9,6 @@ const CREATE_TABLE: &str = "CREATE TABLE IF NOT EXISTS";
 const ADD_ID: &str = "id INTEGER PRIMARY KEY AUTOINCREMENT,";
 
 pub fn run_migrations() -> i8 {
-    println!("Running migrations");
     let initial_tables_result = create_initial_tables();
     let _resut = match initial_tables_result {
         Ok(_result) => return 1,
