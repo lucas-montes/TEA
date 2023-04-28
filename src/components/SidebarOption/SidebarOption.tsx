@@ -25,7 +25,7 @@ export const SidebarOption = (
 
     function handleItemSelect(): void {
         setSelectedItem(item.id);
-    };
+    }
     const handleRename = () => {
         if (itemState && renamingId) {
             updateItems(

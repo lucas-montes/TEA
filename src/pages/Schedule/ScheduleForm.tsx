@@ -52,7 +52,7 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule }: Pr
                 .then(value => { setNewTask(value, newSchedule) })
                 .catch(er => { console.error(er) })
         }
-    };
+    }
 
     function setNewTask(id: number, newSchedule: Schedule): void {
         newSchedule.id = id;
@@ -63,7 +63,7 @@ export default function ScheduleForm({ schedule, setShowModal, setSchedule }: Pr
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
-    };
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-5">

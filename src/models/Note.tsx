@@ -1,3 +1,3 @@
 import { BaseText } from "./BaseModel";
 
-export default class Note extends BaseText { };
+export default class Note extends BaseText { }

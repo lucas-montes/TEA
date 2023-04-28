@@ -52,4 +52,4 @@ export function* range(start: number, stop: number, step = 1) {
   for (let i = start; step > 0 ? i < stop : i > stop; i += step) {
       yield i;
   }
-};
+}

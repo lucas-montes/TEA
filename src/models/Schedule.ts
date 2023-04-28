@@ -23,5 +23,5 @@ export class Schedule extends BaseText {
         this.day = day;
         this.createdAt = createdAt;
     }
-};
+}
 

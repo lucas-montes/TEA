@@ -1,22 +1,19 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../../store/manager";
 
 
 export default function NewSimpleItemForm(props: any) {
     const [inputs, setInputs] = React.useState({ title: "", });
 
-    function createNewObj(props:any):void{
+    function createNewObj(props: any): void {
         const obj = props.obj
         obj.id = props.id
-        useDispatch()(addItem(obj))
     }
     const handleSubmit = (event: any) => {
         event.preventDefault();
         props.setShowModal(false)
         const newObj = new props.model(inputs.title);
         newObj.create()
-            .then((newId: number) => { createNewObj({id: newId, obj:newObj}) })
+            .then((newId: number) => { createNewObj({ id: newId, obj: newObj }) })
             .catch((error: any) => {
                 console.error(error);
             });
@@ -27,7 +24,7 @@ export default function NewSimpleItemForm(props: any) {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
-    };
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className="relative p-6 flex-auto">

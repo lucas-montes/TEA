@@ -14,7 +14,7 @@ export default function KanbanForm(props: any) {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         props.setShowModal(false)
-        let ticket = new KanbanTicket(inputs.title, inputs.content, inputs.taskStatus, new Date());
+        const ticket = new KanbanTicket(inputs.title, inputs.content, inputs.taskStatus, new Date());
         // ticket.save();
         const localSto = new SessionStorageManager();
         localSto.setValue("model", JSON.stringify(ticket))
@@ -23,7 +23,7 @@ export default function KanbanForm(props: any) {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
-    };
+    }
 
     return (
         <form onSubmit={handleSubmit}>

@@ -2,7 +2,7 @@ import ProsCons from "@/models/ProsCons";
 import { useState, useEffect } from "react";
 
 
-function TableRow(item: String, key: String) {
+function TableRow(item: string, key: string) {
     return (
         <tr key={key} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -83,20 +83,20 @@ export default function ProsConsContent() {
         updatedPros.push(newPros);
         setPros(updatedPros);
         setnewPros("");
-    };
+    }
     function addNewCons(event: any) {
         event.preventDefault();
         const updatedCons = [...Cons];
         updatedCons.push(newCons);
         setCons(updatedCons);
         setnewCons("");
-    };
+    }
     function handleChangePros(event: any) {
         setnewPros(event.target.value);
-    };
+    }
     function handleChangeCons(event: any) {
         setnewCons(event.target.value);
-    };
+    }
 
     function handleChange(event: any) {
         const name = event.target.name;
@@ -104,7 +104,7 @@ export default function ProsConsContent() {
         // val.title = value;
         // ItemsManager.saveItem(val);
         setInputs(values => ({ ...values, [name]: value }));
-    };
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -142,4 +142,4 @@ export default function ProsConsContent() {
             </div >
         </form>
     )
-};
+}

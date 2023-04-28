@@ -14,7 +14,7 @@ export default class Alias extends BaseText {
     getAll(): Promise<Array<FileResult>> {
         return invoke('show_files', { directory: "/home/lucas/BashFast" })
     }
-};
+}
 
 export class AliasCategory extends BaseModel {
     title: string;
@@ -23,4 +23,4 @@ export class AliasCategory extends BaseModel {
         super();
         this.title = title;
     }
-};
+}

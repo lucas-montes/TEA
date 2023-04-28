@@ -48,7 +48,7 @@ export default abstract class BaseModel {
     }
 
     public async read(): Promise<Array<any>> {
-        let table = this.getTableName();
+        const table = this.getTableName();
         return await invoke(`handle_read_${table}`);
     }
 
@@ -57,7 +57,7 @@ export default abstract class BaseModel {
     }
 
     public static serializeModel<T>(entry: any): T {
-        let newEntry: T = new this();
+        const newEntry: T = new this();
         Object.entries(entry).forEach(([key, value]) => {
             newEntry[key] = this.updateValueSerializer({ key, value });
         });
@@ -81,7 +81,7 @@ export default abstract class BaseModel {
             })
     }
 
-};
+}
 
 export abstract class BaseText extends BaseModel {
     title?: string;

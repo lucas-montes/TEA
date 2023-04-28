@@ -36,16 +36,16 @@ export default class Project extends BaseText {
     }
 
     private static getProjectWithTasks(projects: Array<TauriResponse>): Array<Project> {
-        let projectsWithTasks: Array<Project> = [];
+        const projectsWithTasks: Array<Project> = [];
         for (let i = 0; i < projects.length; i++) {
             const tauriResponse = projects[i];
             const project: Project = this.serializeModel(tauriResponse.project);
             project.tasks = Task.serializeModels(tauriResponse.tasks);
             projectsWithTasks.push(project);
-        };
+        }
         return projectsWithTasks;
     }
-};
+}
 
 
 export class Task extends BaseText {
@@ -71,7 +71,7 @@ export class Task extends BaseText {
         for (let i = 0; i < entries.length; i++) {
             const newTask = this.serializeModel<Task>(entries[i]);
             newEntries[newTask.id] = newTask;
-        };
+        }
         return newEntries;
     }
-};
+}

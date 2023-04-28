@@ -47,7 +47,7 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
                 .then(value => { setNewTask(value, newTask) })
                 .catch(er => { console.error(er) })
         }
-    };
+    }
 
     function setNewTask(id: number, newTask: Task): void {
         newTask.id = id;
@@ -58,7 +58,7 @@ export default function TaskForm({ task, setShowModal, setTasks }: Props) {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
-    };
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-5">

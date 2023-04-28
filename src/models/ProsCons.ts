@@ -5,7 +5,7 @@ export default class ProsCons extends BaseText {
     pros?: Array<string>;
     cons?: Array<string>;
 
-    constructor(title: string, content: string = "", pros: Array<string> = [""], cons: Array<string> = [""]) {
+    constructor(title: string, content = "", pros: Array<string> = [""], cons: Array<string> = [""]) {
         super(title, content);
         this.pros = pros;
         this.cons = cons;
@@ -19,7 +19,7 @@ export default class ProsCons extends BaseText {
     }
 
     public override getCreateData(): any {
-        let createdData = {};
+        const createdData = {};
         Object.entries(this).forEach(([key, value]) => this.createNewMap(createdData, key, value));
         return createdData
     }
@@ -27,7 +27,7 @@ export default class ProsCons extends BaseText {
     public static override updateValueSerializer({ key, value }: { key: string, value: any }): any {
         if (key === "pros" || key === "cons") {
             if (value === "") { value = []; } else { value = value.split(","); }
-        };
+        }
         return value;
     }
-};
+}

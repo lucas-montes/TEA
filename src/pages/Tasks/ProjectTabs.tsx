@@ -69,7 +69,7 @@ type Props = {
 const ProjectsTab = (
     { title, activeTab, setActiveTab, setShowModal, setModalTitle, setWorkingTask, Icon }: Props
 ) => {
-    var color = "hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300";
+    let color = "hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300";
     if (title == activeTab) {
         color = "text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500";
     }

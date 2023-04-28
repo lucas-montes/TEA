@@ -81,7 +81,7 @@ function updateFromDatabase(
   for (let i = 0; i < schedules.length; i++) {
     const schedule = schedules[i];
     currentState.items[schedule.day][schedule.id] = schedule;
-  };
+  }
   currentState.hasDatabaseInfo = true;
   set(state, { ...currentState });
 }

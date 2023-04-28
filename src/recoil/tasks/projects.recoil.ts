@@ -38,7 +38,7 @@ function updateFromDatabase(
     for (let i = 0; i < projects.length; i++) {
         const project = projects[i];
         currentState.items[project.id] = project;
-    };
+    }
     currentState.hasDatabaseInfo = true;
     set(state, { ...currentState });
 }
@@ -84,7 +84,6 @@ function addNewTask(task: { [key: number]: Task; } | DefaultValue | Task, set: S
     if (!(task instanceof DefaultValue)) {
         const currentState = structuredClone(get(projectsState));
         const currentProject = currentState.selectedItem
-        // @ts-ignore
         currentProject.tasks[task.id] = task
         currentState.items[currentState.selectedItemId] = currentProject
         set(projectsState, { ...currentState })
